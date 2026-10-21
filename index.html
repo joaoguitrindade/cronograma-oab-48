@@ -12,6 +12,7 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
   <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -80,10 +81,10 @@
             <span>48º Exame de Ordem Unificado • CFOAB / FGV</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-            Cronograma Interativo
+            Cronograma Interativo até a Prova Objetiva (10/01/2027)
           </h1>
           <p class="text-sm text-slate-300 leading-relaxed">
-            Planejamento diário completo de <strong>20/10/2026 a 09/01/2027
+            Planejamento diário completo de <strong>20/10/2026 a 09/01/2027 (82 dias de estudo até a véspera da prova • 12 semanas • mínimo de 25 questões/dia)</strong> cobrindo 100% das 20 disciplinas da 1ª Fase e os tópicos do Anexo II do Edital, com registro diário de <strong>questões feitas, acertos e erros</strong>.
           </p>
         </div>
 
@@ -134,26 +135,11 @@
           </button>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2">
-          <button type="button" id="btn-open-cloud-modal" class="px-3 py-1.5 rounded-lg bg-emerald-600/90 hover:bg-emerald-500 text-white border border-emerald-400/40 text-xs font-semibold flex items-center gap-1.5 transition shadow-xs" title="Configurar Sincronização na Nuvem (PC e Celular)">
-            <i data-lucide="cloud" class="w-3.5 h-3.5"></i>
-            <span id="cloud-status-label">Nuvem (PC/Celular)</span>
-          </button>
-          <button type="button" id="btn-sync-now" class="hidden px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-slate-700 text-xs font-medium items-center gap-1 transition" title="Sincronizar com a nuvem agora">
-            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-          </button>
-          <button type="button" id="btn-export-data" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium flex items-center gap-1.5 transition" title="Exportar backup do seu progresso em JSON">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i>
-            <span>Backup</span>
-          </button>
-          <label for="input-import-data" class="cursor-pointer px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium flex items-center gap-1.5 transition" title="Importar backup salvo">
-            <i data-lucide="upload" class="w-3.5 h-3.5"></i>
-            <span>Restaurar</span>
-            <input type="file" id="input-import-data" accept=".json" class="hidden" />
-          </label>
-          <button type="button" id="btn-open-reset-modal" class="px-3 py-1.5 rounded-lg bg-red-950/60 hover:bg-red-900/70 text-red-200 border border-red-800/60 text-xs font-medium flex items-center gap-1.5 transition" title="Zerar registros">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-            <span class="hidden sm:inline">Zerar</span>
+        <div class="flex items-center gap-2">
+          <button type="button" id="btn-open-sidebar" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-2 transition shadow-xs" title="Abrir menu lateral (Nuvem, Backup, Restaurar, Zerar)">
+            <i data-lucide="menu" class="w-4 h-4 text-amber-400"></i>
+            <span>Menu & Dados</span>
+            <span id="nav-cloud-pill" class="hidden w-2 h-2 rounded-full bg-emerald-400" title="Nuvem conectada"></span>
           </button>
         </div>
       </nav>
@@ -312,7 +298,7 @@
                   <div>
                     <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">
                       <i data-lucide="target" class="w-4 h-4 text-amber-600"></i>
-                      <span>Registro de Questões do Dia</span>
+                      <span>Registro de Questões do Dia (Feitas na Plataforma de Questões)</span>
                     </h4>
                     <p class="text-xs text-slate-500 mt-0.5">
                       Meta recomendada para hoje: <strong id="active-day-suggested-q" class="text-slate-700">25 questões</strong>. Preencha Acertos e Erros (ou Total Feitas + Acertos):
@@ -686,6 +672,106 @@
 
   </main>
 
+  <!-- Lateral Menu (Menu Lateral / Slide-out Drawer) -->
+  <div id="sidebar-backdrop" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs hidden transition-opacity"></div>
+  <aside id="app-sidebar" class="fixed top-0 right-0 bottom-0 z-50 w-84 sm:w-96 max-w-full bg-slate-900 text-white shadow-2xl border-l border-slate-800 flex flex-col transform transition-transform duration-300 translate-x-full">
+    <!-- Cabeçalho do Menu Lateral -->
+    <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-300 flex items-center justify-center shrink-0">
+          <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Menu & Dados</h3>
+          <p class="text-xs text-slate-400">Sincronização, Backup e Segurança</p>
+        </div>
+      </div>
+      <button type="button" id="btn-close-sidebar" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition" title="Fechar menu">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Conteúdo do Menu Lateral -->
+    <div class="flex-1 overflow-y-auto p-5 space-y-6 custom-scrollbar text-xs">
+      <!-- Bloco 1: Conectar Nuvem (Supabase / Firebase) -->
+      <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold uppercase tracking-wider text-slate-300 text-[11px] flex items-center gap-1.5">
+            <i data-lucide="cloud" class="w-4 h-4 text-emerald-400"></i>
+            <span>Conexão em Nuvem</span>
+          </span>
+          <span id="cloud-sidebar-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-700 text-slate-300">Desconectado</span>
+        </div>
+        <p class="text-slate-400 text-xs leading-relaxed">
+          Sincronize seu progresso no <strong>Supabase (GitHub Pages)</strong> ou Firebase entre computador e celular.
+        </p>
+        <div class="flex flex-col gap-2 pt-1">
+          <button type="button" id="btn-open-cloud-modal" class="w-full py-2.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold flex items-center justify-center gap-2 transition shadow-xs">
+            <i data-lucide="database" class="w-4 h-4"></i>
+            <span id="cloud-status-label">Nuvem (PC/Celular)</span>
+          </button>
+          <button type="button" id="btn-sync-now" class="hidden w-full py-2 px-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-emerald-300 font-semibold items-center justify-center gap-2 transition">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            <span>Sincronizar Agora com a Nuvem</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bloco 2: Backup e Restauração -->
+      <div class="space-y-3">
+        <h4 class="font-bold uppercase tracking-wider text-slate-400 text-[11px] flex items-center gap-1.5">
+          <i data-lucide="folder-archive" class="w-4 h-4 text-blue-400"></i>
+          <span>Backup & Restauração Local</span>
+        </h4>
+        <div class="space-y-2">
+          <button type="button" id="btn-export-data" class="w-full p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium flex items-center justify-between transition group" title="Exportar backup do seu progresso em JSON">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                <i data-lucide="download" class="w-4 h-4"></i>
+              </div>
+              <span>Backup</span>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-slate-300"></i>
+          </button>
+
+          <label for="input-import-data" class="cursor-pointer w-full p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium flex items-center justify-between transition group">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                <i data-lucide="upload" class="w-4 h-4"></i>
+              </div>
+              <div class="text-left">
+                <p class="font-semibold text-white">Restaurar</p>
+                <p class="text-[11px] text-slate-400">Importar arquivo salvo anteriormente</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500 group-hover:text-slate-300"></i>
+            <input type="file" id="input-import-data" accept=".json" class="hidden" />
+          </label>
+        </div>
+      </div>
+
+      <!-- Bloco 3: Zona de Segurança (Zerar com Senha) -->
+      <div class="p-4 rounded-xl bg-rose-950/40 border border-rose-900/60 space-y-3">
+        <h4 class="font-bold uppercase tracking-wider text-rose-300 text-[11px] flex items-center gap-1.5">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-rose-400"></i>
+          <span>Zona de Segurança</span>
+        </h4>
+        <p class="text-slate-400 text-xs leading-relaxed">
+          Deseja reiniciar seus estudos do zero? A opção de zerar é bloqueada e exige que você digite <strong class="text-rose-200">"DESEJO ZERAR"</strong>.
+        </p>
+        <button type="button" id="btn-open-reset-modal" class="w-full py-2.5 px-3 rounded-lg bg-rose-900/60 hover:bg-rose-800/80 text-rose-100 border border-rose-700/60 font-semibold flex items-center justify-center gap-2 transition shadow-xs" title="Zerar todos os registros">
+          <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          <span>Zerar</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Rodapé do Menu Lateral -->
+    <div class="p-4 border-t border-slate-800 text-[11px] text-slate-500 text-center bg-slate-950/40">
+      <span>82 Dias de Estudo • Mín. 25 questões/dia • 10/01/2027</span>
+    </div>
+  </aside>
+
   <!-- Cloud Sync & Publishing Modal -->
   <div id="modal-cloud" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs hidden items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl border border-slate-200 space-y-5 my-8 max-h-[90vh] overflow-y-auto custom-scrollbar">
@@ -695,8 +781,8 @@
             <i data-lucide="cloud-lightning" class="w-5 h-5"></i>
           </div>
           <div>
-            <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Sincronização na Nuvem & Acesso no Celular</h3>
-            <p class="text-xs text-slate-500">Salve seu progresso automaticamente entre o computador e o smartphone em tempo real</p>
+            <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Sincronização na Nuvem (Supabase & Firebase)</h3>
+            <p class="text-xs text-slate-500">Conecte com seu banco de dados para sincronizar no GitHub Pages entre PC e Celular</p>
           </div>
         </div>
         <button type="button" id="btn-close-cloud-modal" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100">
@@ -704,14 +790,88 @@
         </button>
       </div>
 
-      <!-- Configuração do Banco na Nuvem (Firebase Realtime Database REST) -->
-      <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-3">
+      <!-- Selector de Provedor de Banco (Supabase vs Firebase) -->
+      <div class="flex items-center gap-2 p-1 bg-slate-100 rounded-xl">
+        <button type="button" id="tab-provider-supabase" class="flex-1 py-2 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 bg-white text-slate-900 shadow-xs">
+          <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-600"></i>
+          <span>Supabase (GitHub Pages)</span>
+        </button>
+        <button type="button" id="tab-provider-firebase" class="flex-1 py-2 px-3 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-2">
+          <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-500"></i>
+          <span>Firebase Realtime DB</span>
+        </button>
+      </div>
+
+      <!-- ABA 1: CONFIGURAÇÃO DO SUPABASE -->
+      <div id="section-cloud-supabase" class="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-4">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
             <i data-lucide="database" class="w-4 h-4 text-emerald-600"></i>
-            <span>Conexão com Nuvem Gratuita (Firebase Realtime Database)</span>
+            <span>Conexão Supabase (Recomendado para GitHub Pages)</span>
           </span>
           <span id="modal-cloud-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-700">Desconectado (Apenas Local)</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div class="sm:col-span-2">
+            <label for="input-supabase-url" class="block font-semibold text-slate-700 mb-1">URL do Projeto Supabase (Project URL)</label>
+            <input type="url" id="input-supabase-url" placeholder="https://seu-projeto.supabase.co" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-xs" />
+          </div>
+          <div class="sm:col-span-2">
+            <label for="input-supabase-key" class="block font-semibold text-slate-700 mb-1">Chave Pública Anon (anon / public key)</label>
+            <input type="password" id="input-supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-xs" />
+          </div>
+          <div class="sm:col-span-2">
+            <label for="input-supabase-user" class="block font-semibold text-slate-700 mb-1">Seu ID / Identificador Pessoal</label>
+            <input type="text" id="input-supabase-user" placeholder="joao_oab48" value="joao_oab48" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+            <span class="text-[10px] text-slate-400 mt-1 block">Tabela utilizada no banco: <code>oab_progress</code></span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200">
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" id="btn-save-supabase-config" class="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              <span>Conectar e Salvar na Nuvem</span>
+            </button>
+            <button type="button" id="btn-pull-supabase-now" class="px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition flex items-center gap-1.5">
+              <i data-lucide="cloud-download" class="w-3.5 h-3.5"></i>
+              <span>Baixar da Nuvem</span>
+            </button>
+          </div>
+          <button type="button" id="btn-disconnect-cloud" class="text-xs text-rose-600 hover:underline font-medium">
+            Desconectar
+          </button>
+        </div>
+
+        <!-- Instruções Rápidas de Criação da Tabela no Supabase -->
+        <div class="p-3 bg-slate-900 text-slate-200 rounded-xl space-y-2 text-xs">
+          <p class="font-bold text-amber-300 flex items-center gap-1.5">
+            <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+            <span>SQL para criar a tabela no Supabase (Cole no SQL Editor do Supabase e clique em Run):</span>
+          </p>
+          <pre class="p-2.5 bg-slate-950 text-emerald-400 rounded-lg text-[11px] font-mono overflow-x-auto leading-relaxed">create table if not exists oab_progress (
+  id text primary key,
+  data jsonb not null,
+  updated_at timestamptz default now()
+);
+
+alter table oab_progress enable row level security;
+drop policy if exists "Acesso Publico OAB" on oab_progress;
+create policy "Acesso Publico OAB" on oab_progress for all using (true) with check (true);</pre>
+          <p class="text-[11px] text-slate-400">
+            Depois de rodar o SQL, vá em <strong>Project Settings &rarr; API</strong> no Supabase, copie a <strong>Project URL</strong> e a <strong>anon key</strong> e cole nos campos acima.
+          </p>
+        </div>
+      </div>
+
+      <!-- ABA 2: CONFIGURAÇÃO DO FIREBASE (ALTERNATIVA) -->
+      <div id="section-cloud-firebase" class="hidden bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+            <i data-lucide="flame" class="w-4 h-4 text-amber-500"></i>
+            <span>Conexão com Firebase Realtime Database (Alternativa)</span>
+          </span>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
@@ -729,59 +889,47 @@
           <div class="flex flex-wrap items-center gap-2">
             <button type="button" id="btn-save-cloud-config" class="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5">
               <i data-lucide="check" class="w-3.5 h-3.5"></i>
-              <span>Conectar e Salvar na Nuvem</span>
+              <span>Conectar e Salvar no Firebase</span>
             </button>
             <button type="button" id="btn-pull-cloud-now" class="px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition flex items-center gap-1.5">
               <i data-lucide="cloud-download" class="w-3.5 h-3.5"></i>
-              <span>Baixar da Nuvem</span>
+              <span>Baixar do Firebase</span>
             </button>
           </div>
-          <button type="button" id="btn-disconnect-cloud" class="text-xs text-rose-600 hover:underline font-medium">
+          <button type="button" id="btn-disconnect-cloud-firebase" class="text-xs text-rose-600 hover:underline font-medium">
             Desconectar
           </button>
-        </div>
-      </div>
-
-      <!-- Passo a Passo Rápido -->
-      <div class="space-y-3 text-xs text-slate-600 leading-relaxed">
-        <h4 class="font-bold text-slate-900 text-sm">Passo a passo rápido (leva 2 minutos e é 100% gratuito):</h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-1.5">
-            <p class="font-bold text-slate-900 flex items-center gap-1.5">
-              <span class="w-5 h-5 rounded-full bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center text-[11px]">1</span>
-              <span>Ativar Nuvem no Firebase (Google)</span>
-            </p>
-            <p>Acesse <strong>console.firebase.google.com</strong> com sua conta Google, crie um projeto, clique em <strong>Criação &rarr; Realtime Database &rarr; Criar banco de dados</strong> e escolha <strong>Iniciar no modo de teste</strong>. Copie o link gerado (terminado em <code>.firebaseio.com</code>) e cole no campo acima.</p>
-          </div>
-          <div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-1.5">
-            <p class="font-bold text-slate-900 flex items-center gap-1.5">
-              <span class="w-5 h-5 rounded-full bg-amber-500 text-slate-950 font-extrabold flex items-center justify-center text-[11px]">2</span>
-              <span>Publicar e Instalar no Celular</span>
-            </p>
-            <p>Baixe este arquivo HTML, renomeie para <code>index.html</code> e arraste em <strong>app.netlify.com/drop</strong>. Abra o link gerado no celular, conecte o mesmo link do Firebase acima e toque em <strong>Adicionar à tela inicial</strong> no navegador para usar como aplicativo!</p>
-          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Reset Confirmation Modal -->
+  <!-- Reset Confirmation Modal (Bloqueado por Senha / Texto "DESEJO ZERAR") -->
   <div id="modal-reset" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs hidden items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 space-y-4">
       <div class="flex items-center gap-3 text-rose-600">
         <div class="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center shrink-0">
-          <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+          <i data-lucide="lock" class="w-5 h-5"></i>
         </div>
-        <h3 class="text-base font-bold text-slate-900">Zerar registros do cronograma?</h3>
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Bloqueio de Segurança: Zerar Cronograma</h3>
+          <p class="text-xs text-slate-500">Confirmação obrigatória por texto</p>
+        </div>
       </div>
       <p class="text-xs text-slate-600 leading-relaxed">
-        Esta ação limpará as marcações de dias concluídos, tópicos estudados e a contagem de questões feitas (acertos e erros). Recomendamos exportar um backup antes, se desejar guardar seus dados.
+        Esta ação apagará <strong>todos os registros</strong> de dias concluídos, tópicos marcados, acertos, erros e simulados.
       </p>
-      <div class="flex justify-end gap-2 pt-2">
+      <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 space-y-2">
+        <label for="input-reset-confirm" class="block text-xs font-semibold text-rose-900">
+          Para autorizar o zeramento, digite exatamente <strong class="underline decoration-rose-500">DESEJO ZERAR</strong> abaixo:
+        </label>
+        <input type="text" id="input-reset-confirm" placeholder="DESEJO ZERAR" autocomplete="off" class="w-full text-center text-xs sm:text-sm font-extrabold uppercase tracking-wider rounded-lg border border-rose-300 bg-white px-3 py-2 text-rose-950 focus:outline-none focus:ring-2 focus:ring-rose-500" />
+      </div>
+      <div class="flex justify-end gap-2 pt-1">
         <button type="button" id="btn-cancel-reset" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition">
           Cancelar
         </button>
-        <button type="button" id="btn-confirm-reset" class="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition">
+        <button type="button" id="btn-confirm-reset" disabled class="px-4 py-2 rounded-lg bg-rose-600 text-white text-xs font-bold transition opacity-50 cursor-not-allowed">
           Confirmar e Zerar Tudo
         </button>
       </div>
@@ -1760,54 +1908,93 @@
     // =========================================================================
     const STORAGE_KEY = 'oab48_schedule_state_v1';
     const CLOUD_CONFIG_KEY = 'oab48_cloud_config_v1';
-    let cloudConfig = { url: '', key: 'joao_oab48' };
+    let cloudConfig = {
+      provider: 'supabase',
+      supabaseUrl: '',
+      supabaseKey: '',
+      supabaseUser: 'joao_oab48',
+      url: '',
+      key: 'joao_oab48'
+    };
     let cloudSyncTimer = null;
+    let supabaseClientInstance = null;
+
+    function getSupabaseClient() {
+      if (!cloudConfig.supabaseUrl || !cloudConfig.supabaseKey) return null;
+      if (supabaseClientInstance) return supabaseClientInstance;
+      if (window.supabase && typeof window.supabase.createClient === 'function') {
+        try {
+          supabaseClientInstance = window.supabase.createClient(cloudConfig.supabaseUrl, cloudConfig.supabaseKey);
+          return supabaseClientInstance;
+        } catch (e) {
+          console.warn('Erro ao instanciar Supabase client:', e);
+        }
+      }
+      return null;
+    }
 
     function loadCloudConfig() {
       try {
         const raw = localStorage.getItem(CLOUD_CONFIG_KEY);
         if (raw) {
           const parsed = JSON.parse(raw);
-          if (parsed && parsed.url) {
-            cloudConfig.url = parsed.url.trim().replace(/\/+$/, '');
+          if (parsed) {
+            cloudConfig.provider = parsed.provider || (parsed.supabaseUrl ? 'supabase' : 'firebase');
+            cloudConfig.supabaseUrl = (parsed.supabaseUrl || '').trim().replace(/\/+$/, '');
+            cloudConfig.supabaseKey = (parsed.supabaseKey || '').trim();
+            cloudConfig.supabaseUser = (parsed.supabaseUser || parsed.key || 'joao_oab48').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
+            cloudConfig.url = (parsed.url || '').trim().replace(/\/+$/, '');
             cloudConfig.key = (parsed.key || 'joao_oab48').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
           }
         }
       } catch (e) {
         console.warn('Erro ao ler config de nuvem:', e);
       }
+      getSupabaseClient();
       updateCloudUI();
-    }
-
-    function getCloudEndpoint() {
-      if (!cloudConfig.url) return null;
-      let base = cloudConfig.url.replace(/\.json$/i, '').replace(/\/+$/, '');
-      const cleanKey = (cloudConfig.key || 'joao_oab48').replace(/[^a-zA-Z0-9_-]/g, '_');
-      return `${base}/oab48_sync_${cleanKey}.json`;
     }
 
     function updateCloudUI(statusText) {
       const label = document.getElementById('cloud-status-label');
       const syncBtn = document.getElementById('btn-sync-now');
       const badge = document.getElementById('modal-cloud-badge');
-      const inpUrl = document.getElementById('input-cloud-url');
-      const inpKey = document.getElementById('input-cloud-key');
+      const sidebarBadge = document.getElementById('cloud-sidebar-badge');
+      const navPill = document.getElementById('nav-cloud-pill');
 
-      if (inpUrl && document.activeElement !== inpUrl) inpUrl.value = cloudConfig.url || '';
-      if (inpKey && document.activeElement !== inpKey) inpKey.value = cloudConfig.key || 'joao_oab48';
+      const inpSupUrl = document.getElementById('input-supabase-url');
+      const inpSupKey = document.getElementById('input-supabase-key');
+      const inpSupUser = document.getElementById('input-supabase-user');
+      const inpFbUrl = document.getElementById('input-cloud-url');
+      const inpFbKey = document.getElementById('input-cloud-key');
 
-      if (cloudConfig.url) {
-        if (label) label.textContent = statusText || 'Nuvem Ativa';
+      if (inpSupUrl && document.activeElement !== inpSupUrl) inpSupUrl.value = cloudConfig.supabaseUrl || '';
+      if (inpSupKey && document.activeElement !== inpSupKey) inpSupKey.value = cloudConfig.supabaseKey || '';
+      if (inpSupUser && document.activeElement !== inpSupUser) inpSupUser.value = cloudConfig.supabaseUser || 'joao_oab48';
+      if (inpFbUrl && document.activeElement !== inpFbUrl) inpFbUrl.value = cloudConfig.url || '';
+      if (inpFbKey && document.activeElement !== inpFbKey) inpFbKey.value = cloudConfig.key || 'joao_oab48';
+
+      const isConnected = cloudConfig.provider === 'supabase'
+        ? Boolean(cloudConfig.supabaseUrl && cloudConfig.supabaseKey)
+        : Boolean(cloudConfig.url);
+
+      if (isConnected) {
+        const provName = cloudConfig.provider === 'supabase' ? 'Supabase' : 'Firebase';
+        if (label) label.textContent = statusText || `Nuvem Ativa (${provName})`;
         if (syncBtn) {
           syncBtn.classList.remove('hidden');
           syncBtn.classList.add('flex');
         }
         if (badge) {
           badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300';
-          badge.textContent = 'Conectado à Nuvem';
+          badge.textContent = `Conectado via ${provName}`;
         }
+        if (sidebarBadge) {
+          sidebarBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-slate-950';
+          sidebarBadge.textContent = 'Conectado ✓';
+        }
+        if (navPill) navPill.classList.remove('hidden');
       } else {
-        if (label) label.textContent = 'Nuvem (PC/Celular)';
+        if (label) label.textContent = 'Conectar Nuvem (Supabase)';
         if (syncBtn) {
           syncBtn.classList.add('hidden');
           syncBtn.classList.remove('flex');
@@ -1816,51 +2003,143 @@
           badge.className = 'px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-700';
           badge.textContent = 'Desconectado (Apenas Local)';
         }
+        if (sidebarBadge) {
+          sidebarBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-700 text-slate-300';
+          sidebarBadge.textContent = 'Desconectado';
+        }
+        if (navPill) navPill.classList.add('hidden');
       }
     }
 
     async function pushStateToCloud(showNotification = false) {
-      const endpoint = getCloudEndpoint();
-      if (!endpoint) return;
-      try {
-        updateCloudUI('Salvando...');
-        const payload = Object.assign({}, appState, { updatedAt: Date.now() });
-        const res = await fetch(endpoint, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        updateCloudUI('Sincronizado ✓');
-        if (showNotification) showToast('Progresso salvo na nuvem com sucesso!');
-      } catch (err) {
-        console.warn('Falha ao sincronizar na nuvem:', err);
-        updateCloudUI('Erro Nuvem');
-        if (showNotification) showToast('Não foi possível salvar na nuvem. Verifique a URL do Firebase.', 'error');
+      if (cloudConfig.provider === 'supabase') {
+        if (!cloudConfig.supabaseUrl || !cloudConfig.supabaseKey) return;
+        try {
+          updateCloudUI('Salvando no Supabase...');
+          const cleanUser = (cloudConfig.supabaseUser || 'joao_oab48').replace(/[^a-zA-Z0-9_-]/g, '_');
+          const payload = {
+            id: cleanUser,
+            data: Object.assign({}, appState, { updatedAt: Date.now() }),
+            updated_at: new Date().toISOString()
+          };
+
+          const client = getSupabaseClient();
+          if (client) {
+            const { error } = await client.from('oab_progress').upsert(payload, { onConflict: 'id' });
+            if (error) throw error;
+          } else {
+            // Fallback REST fetch direto
+            const supabaseEndpoint = cloudConfig.supabaseUrl + '/rest/v1/oab_progress';
+            const res = await fetch(supabaseEndpoint, {
+              method: 'POST',
+              headers: {
+                'apikey': cloudConfig.supabaseKey,
+                'Authorization': `Bearer ${cloudConfig.supabaseKey}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'resolution=merge-duplicates'
+              },
+              body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+          }
+          updateCloudUI('Sincronizado ✓');
+          if (showNotification) showToast('Progresso salvo no Supabase com sucesso!');
+        } catch (err) {
+          console.warn('Falha ao salvar no Supabase:', err);
+          updateCloudUI('Erro Supabase');
+          if (showNotification) showToast('Erro ao salvar no Supabase. Verifique a URL, a chave anon e se a tabela oab_progress foi criada.', 'error');
+        }
+      } else {
+        // Firebase RTDB REST
+        if (!cloudConfig.url) return;
+        try {
+          updateCloudUI('Salvando no Firebase...');
+          const base = cloudConfig.url.replace(/\.json$/i, '').replace(/\/+$/, '');
+          const cleanKey = (cloudConfig.key || 'joao_oab48').replace(/[^a-zA-Z0-9_-]/g, '_');
+          const endpoint = `${base}/oab48_sync_${cleanKey}.json`;
+          const payload = Object.assign({}, appState, { updatedAt: Date.now() });
+          const res = await fetch(endpoint, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          updateCloudUI('Sincronizado ✓');
+          if (showNotification) showToast('Progresso salvo no Firebase!');
+        } catch (err) {
+          console.warn('Falha ao sincronizar Firebase:', err);
+          updateCloudUI('Erro Firebase');
+          if (showNotification) showToast('Erro ao salvar no Firebase.', 'error');
+        }
       }
     }
 
     async function pullStateFromCloud(showNotification = false) {
-      const endpoint = getCloudEndpoint();
-      if (!endpoint) return;
-      try {
-        updateCloudUI('Sincronizando...');
-        const res = await fetch(endpoint);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const cloudData = await res.json();
-        if (cloudData && cloudData.days) {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudData));
-          loadState();
-          refreshAll();
-          updateCloudUI('Sincronizado ✓');
-          if (showNotification) showToast('Progresso atualizado da nuvem!');
-        } else {
-          await pushStateToCloud(showNotification);
+      if (cloudConfig.provider === 'supabase') {
+        if (!cloudConfig.supabaseUrl || !cloudConfig.supabaseKey) return;
+        try {
+          updateCloudUI('Buscando no Supabase...');
+          const cleanUser = (cloudConfig.supabaseUser || 'joao_oab48').replace(/[^a-zA-Z0-9_-]/g, '_');
+          let remoteRecord = null;
+
+          const client = getSupabaseClient();
+          if (client) {
+            const { data, error } = await client.from('oab_progress').select('data, updated_at').eq('id', cleanUser).maybeSingle();
+            if (error) throw error;
+            remoteRecord = data;
+          } else {
+            const supabaseQueryUrl = cloudConfig.supabaseUrl + '/rest/v1/oab_progress?id=eq.' + encodeURIComponent(cleanUser) + '&select=data,updated_at';
+            const res = await fetch(supabaseQueryUrl, {
+              method: 'GET',
+              headers: {
+                'apikey': cloudConfig.supabaseKey,
+                'Authorization': `Bearer ${cloudConfig.supabaseKey}`
+              }
+            });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const list = await res.json();
+            if (Array.isArray(list) && list.length > 0) remoteRecord = list[0];
+          }
+
+          if (remoteRecord && remoteRecord.data && remoteRecord.data.days) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(remoteRecord.data));
+            loadState();
+            refreshAll();
+            updateCloudUI('Sincronizado ✓');
+            if (showNotification) showToast('Dados baixados do Supabase com sucesso!');
+          } else {
+            await pushStateToCloud(showNotification);
+          }
+        } catch (err) {
+          console.warn('Erro ao buscar dados do Supabase:', err);
+          updateCloudUI('Offline / Local');
+          if (showNotification) showToast('Erro ao baixar do Supabase. Verifique a URL e a chave anon.', 'error');
         }
-      } catch (err) {
-        console.warn('Erro ao buscar dados da nuvem:', err);
-        updateCloudUI('Offline / Local');
-        if (showNotification) showToast('Erro ao baixar da nuvem. Verifique sua conexão e a URL.', 'error');
+      } else {
+        // Firebase RTDB
+        if (!cloudConfig.url) return;
+        try {
+          updateCloudUI('Buscando no Firebase...');
+          const base = cloudConfig.url.replace(/\.json$/i, '').replace(/\/+$/, '');
+          const cleanKey = (cloudConfig.key || 'joao_oab48').replace(/[^a-zA-Z0-9_-]/g, '_');
+          const endpoint = `${base}/oab48_sync_${cleanKey}.json`;
+          const res = await fetch(endpoint);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const cloudData = await res.json();
+          if (cloudData && cloudData.days) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudData));
+            loadState();
+            refreshAll();
+            updateCloudUI('Sincronizado ✓');
+            if (showNotification) showToast('Progresso atualizado do Firebase!');
+          } else {
+            await pushStateToCloud(showNotification);
+          }
+        } catch (err) {
+          console.warn('Erro ao buscar dados do Firebase:', err);
+          updateCloudUI('Offline / Local');
+          if (showNotification) showToast('Erro ao baixar do Firebase.', 'error');
+        }
       }
     }
     const WEEKDAYS_PT = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
@@ -2977,17 +3256,103 @@
         reader.readAsText(file);
       });
 
+      // Menu Lateral (Drawer) Controls
+      const sidebar = document.getElementById('app-sidebar');
+      const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+      function openSidebar() {
+        if (sidebar) sidebar.classList.remove('translate-x-full');
+        if (sidebarBackdrop) sidebarBackdrop.classList.remove('hidden');
+      }
+
+      function closeSidebar() {
+        if (sidebar) sidebar.classList.add('translate-x-full');
+        if (sidebarBackdrop) sidebarBackdrop.classList.add('hidden');
+      }
+
+      document.getElementById('btn-open-sidebar').addEventListener('click', openSidebar);
+      document.getElementById('btn-close-sidebar').addEventListener('click', closeSidebar);
+      sidebarBackdrop.addEventListener('click', closeSidebar);
+
+      // Cloud Provider Tabs Switcher (Supabase vs Firebase)
+      const tabSupabase = document.getElementById('tab-provider-supabase');
+      const tabFirebase = document.getElementById('tab-provider-firebase');
+      const secSupabase = document.getElementById('section-cloud-supabase');
+      const secFirebase = document.getElementById('section-cloud-firebase');
+
+      tabSupabase.addEventListener('click', () => {
+        cloudConfig.provider = 'supabase';
+        tabSupabase.className = 'flex-1 py-2 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 bg-white text-slate-900 shadow-xs';
+        tabFirebase.className = 'flex-1 py-2 px-3 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-2';
+        secSupabase.classList.remove('hidden');
+        secFirebase.classList.add('hidden');
+      });
+
+      tabFirebase.addEventListener('click', () => {
+        cloudConfig.provider = 'firebase';
+        tabFirebase.className = 'flex-1 py-2 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 bg-white text-slate-900 shadow-xs';
+        tabSupabase.className = 'flex-1 py-2 px-3 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-2';
+        secFirebase.classList.remove('hidden');
+        secSupabase.classList.add('hidden');
+      });
+
       // Cloud Sync Modal & Actions
       const modalCloud = document.getElementById('modal-cloud');
       document.getElementById('btn-open-cloud-modal').addEventListener('click', () => {
+        closeSidebar();
         updateCloudUI();
+        if (cloudConfig.provider === 'firebase') {
+          tabFirebase.click();
+        } else {
+          tabSupabase.click();
+        }
         modalCloud.classList.remove('hidden');
         modalCloud.classList.add('flex');
       });
+
       document.getElementById('btn-close-cloud-modal').addEventListener('click', () => {
         modalCloud.classList.add('hidden');
         modalCloud.classList.remove('flex');
       });
+
+      // Save Supabase Configuration
+      document.getElementById('btn-save-supabase-config').addEventListener('click', async () => {
+        const rawUrl = document.getElementById('input-supabase-url').value.trim();
+        const rawKey = document.getElementById('input-supabase-key').value.trim();
+        const rawUser = document.getElementById('input-supabase-user').value.trim() || 'joao_oab48';
+
+        if (!rawUrl || !rawUrl.startsWith('https://')) {
+          showToast('Insira uma URL válida do Supabase (ex: https://xxx.supabase.co)', 'error');
+          return;
+        }
+        if (!rawKey) {
+          showToast('Insira a chave pública anon do seu projeto Supabase.', 'error');
+          return;
+        }
+
+        cloudConfig.provider = 'supabase';
+        cloudConfig.supabaseUrl = rawUrl.replace(/\/+$/, '');
+        cloudConfig.supabaseKey = rawKey;
+        cloudConfig.supabaseUser = rawUser.replace(/[^a-zA-Z0-9_-]/g, '_');
+        supabaseClientInstance = null; // Reinstanciar
+
+        try {
+          localStorage.setItem(CLOUD_CONFIG_KEY, JSON.stringify(cloudConfig));
+        } catch (e) {}
+
+        updateCloudUI('Conectando ao Supabase...');
+        await pullStateFromCloud(true);
+      });
+
+      document.getElementById('btn-pull-supabase-now').addEventListener('click', () => {
+        if (!cloudConfig.supabaseUrl || !cloudConfig.supabaseKey) {
+          showToast('Configure e salve a URL e a chave anon do Supabase primeiro.', 'error');
+          return;
+        }
+        pullStateFromCloud(true);
+      });
+
+      // Save Firebase Configuration
       document.getElementById('btn-save-cloud-config').addEventListener('click', async () => {
         const rawUrl = document.getElementById('input-cloud-url').value.trim();
         const rawKey = document.getElementById('input-cloud-key').value.trim() || 'joao_oab48';
@@ -2995,14 +3360,16 @@
           showToast('Insira uma URL válida começando com https://', 'error');
           return;
         }
+        cloudConfig.provider = 'firebase';
         cloudConfig.url = rawUrl.replace(/\/+$/, '');
         cloudConfig.key = rawKey.replace(/[^a-zA-Z0-9_-]/g, '_');
         try {
           localStorage.setItem(CLOUD_CONFIG_KEY, JSON.stringify(cloudConfig));
         } catch (e) {}
-        updateCloudUI('Conectando...');
+        updateCloudUI('Conectando ao Firebase...');
         await pullStateFromCloud(true);
       });
+
       document.getElementById('btn-pull-cloud-now').addEventListener('click', () => {
         if (!cloudConfig.url) {
           showToast('Configure e salve a URL do Firebase primeiro.', 'error');
@@ -3010,37 +3377,71 @@
         }
         pullStateFromCloud(true);
       });
+
       document.getElementById('btn-sync-now').addEventListener('click', () => {
         pullStateFromCloud(true);
       });
-      document.getElementById('btn-disconnect-cloud').addEventListener('click', () => {
-        cloudConfig = { url: '', key: 'joao_oab48' };
+
+      function disconnectCloud() {
+        cloudConfig = {
+          provider: 'supabase',
+          supabaseUrl: '',
+          supabaseKey: '',
+          supabaseUser: 'joao_oab48',
+          url: '',
+          key: 'joao_oab48'
+        };
+        supabaseClientInstance = null;
         try {
           localStorage.removeItem(CLOUD_CONFIG_KEY);
         } catch (e) {}
         updateCloudUI();
-        showToast('Sincronização na nuvem desconectada.');
-      });
+        showToast('Conexão com a nuvem desconectada.');
+      }
 
-      // Reset Modal
+      document.getElementById('btn-disconnect-cloud').addEventListener('click', disconnectCloud);
+      document.getElementById('btn-disconnect-cloud-firebase').addEventListener('click', disconnectCloud);
+
+      // Reset Modal com Bloqueio de Senha / Texto "DESEJO ZERAR"
       const modalReset = document.getElementById('modal-reset');
+      const inputResetConfirm = document.getElementById('input-reset-confirm');
+      const btnConfirmReset = document.getElementById('btn-confirm-reset');
+
       document.getElementById('btn-open-reset-modal').addEventListener('click', () => {
+        closeSidebar();
+        inputResetConfirm.value = '';
+        btnConfirmReset.disabled = true;
+        btnConfirmReset.className = 'px-4 py-2 rounded-lg bg-rose-600 text-white text-xs font-bold transition opacity-50 cursor-not-allowed';
         modalReset.classList.remove('hidden');
         modalReset.classList.add('flex');
+        setTimeout(() => inputResetConfirm.focus(), 80);
       });
+
+      inputResetConfirm.addEventListener('input', () => {
+        const val = inputResetConfirm.value.trim();
+        if (val === 'DESEJO ZERAR') {
+          btnConfirmReset.disabled = false;
+          btnConfirmReset.className = 'px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition shadow-xs';
+        } else {
+          btnConfirmReset.disabled = true;
+          btnConfirmReset.className = 'px-4 py-2 rounded-lg bg-rose-600 text-white text-xs font-bold transition opacity-50 cursor-not-allowed';
+        }
+      });
+
       document.getElementById('btn-cancel-reset').addEventListener('click', () => {
         modalReset.classList.add('hidden');
         modalReset.classList.remove('flex');
       });
-      document.getElementById('btn-confirm-reset').addEventListener('click', () => {
+
+      btnConfirmReset.addEventListener('click', () => {
+        if (inputResetConfirm.value.trim() !== 'DESEJO ZERAR') return;
         appState = createDefaultState();
         saveState();
         refreshAll();
         modalReset.classList.add('hidden');
         modalReset.classList.remove('flex');
-        showToast('Todos os registros foram zerados.');
-      });
-    });
+        showToast('Todos os registros foram zerados com sucesso.');
+      });    });
   </script>
 </body>
 </html>
