@@ -136,6 +136,10 @@
         </div>
 
         <div class="flex items-center gap-2">
+          <button type="button" id="btn-save-progress" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition shadow-xs" title="Salvar progresso do dia e sincronizar na nuvem">
+            <i data-lucide="save" class="w-4 h-4 text-emerald-100"></i>
+            <span>Salvar</span>
+          </button>
           <button type="button" id="btn-open-sidebar" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-2 transition shadow-xs" title="Abrir menu lateral (Nuvem, Backup, Restaurar, Zerar)">
             <i data-lucide="menu" class="w-4 h-4 text-amber-400"></i>
             <span>Menu & Dados</span>
@@ -1908,18 +1912,25 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
     // =========================================================================
     const STORAGE_KEY = 'oab48_schedule_state_v1';
     const CLOUD_CONFIG_KEY = 'oab48_cloud_config_v1';
-    let cloudConfig = {
+    const DEFAULT_CLOUD_CONFIG = {
       provider: 'supabase',
-      supabaseUrl: '',
-      supabaseKey: '',
+      supabaseUrl: 'https://zifdbulyllmktbjzhewk.supabase.co',
+      supabaseKey: 'sb_publishable_epJnyNVnoNGRvsiwNgD1fw_i4qqJUa3',
       supabaseUser: 'joao_oab48',
       url: '',
       key: 'joao_oab48'
     };
+    let cloudConfig = Object.assign({}, DEFAULT_CLOUD_CONFIG);
     let cloudSyncTimer = null;
     let supabaseClientInstance = null;
 
+    function sanitizeSupabaseUrl(url) {
+      if (!url) return '';
+      return url.trim().replace(/\/rest\/v1\/?$/i, '').replace(/\/+$/, '');
+    }
+
     function getSupabaseClient() {
+      cloudConfig.supabaseUrl = sanitizeSupabaseUrl(cloudConfig.supabaseUrl);
       if (!cloudConfig.supabaseUrl || !cloudConfig.supabaseKey) return null;
       if (supabaseClientInstance) return supabaseClientInstance;
       if (window.supabase && typeof window.supabase.createClient === 'function') {
@@ -1940,12 +1951,18 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
           const parsed = JSON.parse(raw);
           if (parsed) {
             cloudConfig.provider = parsed.provider || (parsed.supabaseUrl ? 'supabase' : 'firebase');
-            cloudConfig.supabaseUrl = (parsed.supabaseUrl || '').trim().replace(/\/+$/, '');
-            cloudConfig.supabaseKey = (parsed.supabaseKey || '').trim();
-            cloudConfig.supabaseUser = (parsed.supabaseUser || parsed.key || 'joao_oab48').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
+            cloudConfig.supabaseUrl = sanitizeSupabaseUrl(parsed.supabaseUrl || DEFAULT_CLOUD_CONFIG.supabaseUrl);
+            cloudConfig.supabaseKey = (parsed.supabaseKey || DEFAULT_CLOUD_CONFIG.supabaseKey).trim();
+            cloudConfig.supabaseUser = (parsed.supabaseUser || parsed.key || DEFAULT_CLOUD_CONFIG.supabaseUser).trim().replace(/[^a-zA-Z0-9_-]/g, '_');
             cloudConfig.url = (parsed.url || '').trim().replace(/\/+$/, '');
             cloudConfig.key = (parsed.key || 'joao_oab48').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
           }
+        } else {
+          // Pre-configuração padrão para conexão automática em qualquer dispositivo
+          cloudConfig = Object.assign({}, DEFAULT_CLOUD_CONFIG);
+          try {
+            localStorage.setItem(CLOUD_CONFIG_KEY, JSON.stringify(DEFAULT_CLOUD_CONFIG));
+          } catch (e) {}
         }
       } catch (e) {
         console.warn('Erro ao ler config de nuvem:', e);
@@ -2047,7 +2064,11 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         } catch (err) {
           console.warn('Falha ao salvar no Supabase:', err);
           updateCloudUI('Erro Supabase');
-          if (showNotification) showToast('Erro ao salvar no Supabase. Verifique a URL, a chave anon e se a tabela oab_progress foi criada.', 'error');
+          const errMsg = (err && err.message) ? err.message : '';
+          const detail = errMsg.includes('relation') || errMsg.includes('does not exist') || errMsg.includes('404')
+            ? 'Tabela oab_progress não encontrada! Execute o script SQL no Supabase.'
+            : (errMsg.slice(0, 90) || 'Verifique URL e chave');
+          if (showNotification) showToast('Erro Supabase: ' + detail, 'error');
         }
       } else {
         // Firebase RTDB REST
@@ -2113,7 +2134,11 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         } catch (err) {
           console.warn('Erro ao buscar dados do Supabase:', err);
           updateCloudUI('Offline / Local');
-          if (showNotification) showToast('Erro ao baixar do Supabase. Verifique a URL e a chave anon.', 'error');
+          const errMsg = (err && err.message) ? err.message : '';
+          const detail = errMsg.includes('relation') || errMsg.includes('does not exist') || errMsg.includes('404')
+            ? 'Tabela oab_progress não encontrada! Execute o script SQL no Supabase.'
+            : (errMsg.slice(0, 90) || 'Verifique URL e chave');
+          if (showNotification) showToast('Erro Supabase: ' + detail, 'error');
         }
       } else {
         // Firebase RTDB
@@ -2222,7 +2247,8 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       } catch (e) {
         console.warn('Erro ao salvar no LocalStorage:', e);
       }
-      if (cloudConfig.url) {
+      const hasCloud = (cloudConfig.provider === 'supabase' && cloudConfig.supabaseUrl && cloudConfig.supabaseKey) || Boolean(cloudConfig.url);
+      if (hasCloud) {
         if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
         cloudSyncTimer = setTimeout(() => {
           pushStateToCloud(false);
@@ -3016,8 +3042,48 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       loadCloudConfig();
       populateFilterSelects();
       refreshAll();
-      if (cloudConfig.url) {
+
+      const hasCloudInitial = (cloudConfig.provider === 'supabase' && cloudConfig.supabaseUrl && cloudConfig.supabaseKey) || Boolean(cloudConfig.url);
+      if (hasCloudInitial) {
         pullStateFromCloud(false);
+      }
+
+      // Salvamento automático periódico de 5 em 5 minutos (silencioso, em segundo plano)
+      setInterval(() => {
+        saveState();
+        const hasCloudAuto = (cloudConfig.provider === 'supabase' && cloudConfig.supabaseUrl && cloudConfig.supabaseKey) || Boolean(cloudConfig.url);
+        if (hasCloudAuto) {
+          pushStateToCloud(false); // false = não exibe toast ou alerta ao usuário
+        }
+      }, 5 * 60 * 1000);
+
+      // Botão Salvar Progresso (ao lado do Menu)
+      const btnSaveProg = document.getElementById('btn-save-progress');
+      if (btnSaveProg) {
+        btnSaveProg.addEventListener('click', async () => {
+          const origHtml = btnSaveProg.innerHTML;
+          btnSaveProg.disabled = true;
+          btnSaveProg.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin text-white"></i><span>Salvando...</span>`;
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+
+          saveState();
+          const hasCloud = (cloudConfig.provider === 'supabase' && cloudConfig.supabaseUrl && cloudConfig.supabaseKey) || Boolean(cloudConfig.url);
+          if (hasCloud) {
+            await pushStateToCloud(true);
+          } else {
+            showToast('Progresso salvo localmente com sucesso!');
+          }
+
+          setTimeout(() => {
+            btnSaveProg.disabled = false;
+            btnSaveProg.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-white"></i><span>Salvo!</span>`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            setTimeout(() => {
+              btnSaveProg.innerHTML = origHtml;
+              if (typeof lucide !== 'undefined') lucide.createIcons();
+            }, 1400);
+          }, 350);
+        });
       }
 
       // Navigation Tabs
@@ -3331,7 +3397,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         }
 
         cloudConfig.provider = 'supabase';
-        cloudConfig.supabaseUrl = rawUrl.replace(/\/+$/, '');
+        cloudConfig.supabaseUrl = sanitizeSupabaseUrl(rawUrl);
         cloudConfig.supabaseKey = rawKey;
         cloudConfig.supabaseUser = rawUser.replace(/[^a-zA-Z0-9_-]/g, '_');
         supabaseClientInstance = null; // Reinstanciar
