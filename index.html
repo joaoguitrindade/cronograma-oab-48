@@ -1908,7 +1908,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
     ];
 
     // =========================================================================
-    // 3. UTILITÁRIOS DE DATA E ESTADO COM PERSISTÊNCIA LOCALSTORAGE E SINCRONIZAÇÃO EM NUVEM
+    // 3. UTILITÁRIOS DE DATA E ESTADO COM PERSISTÊNCIA LOCALSTORAGE E NUVEM (CORRIGIDO)
     // =========================================================================
     const STORAGE_KEY = 'oab48_schedule_state_v1';
     const CLOUD_CONFIG_KEY = 'oab48_cloud_config_v1';
@@ -2105,90 +2105,81 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       }
     }
 
-    // --- MESCLAGEM INTELIGENTE DE ESTADOS (ANTI-PERDA DE DADOS) ---
-    function mergeStates(local, remote) {
+    // --- IDENTIFICA SE O ESTADO CONTÉM PROGRESSO DO USUÁRIO ---
+    function hasUserProgress(state) {
+      if (!state || !state.days) return false;
+      for (const dayNum in state.days) {
+        const d = state.days[dayNum];
+        if (d.completed) return true;
+        if ((d.acertos || 0) > 0 || (d.erros || 0) > 0) return true;
+        if (d.notes && d.notes.trim().length > 0) return true;
+        if (d.customTopics && d.customTopics.length > 0) return true;
+        if (d.completedTopics && d.completedTopics.some(Boolean)) return true;
+      }
+      if (state.simulados && state.simulados.length > 0) {
+        if (state.simulados.some(s => (s.acertos || 0) > 0 || (s.erros || 0) > 0)) return true;
+      }
+      return false;
+    }
+
+    // --- MESCLAGEM INTELIGENTE BASEADA EM TIMESTAMPS (PERMITE DESMARCAR E CORRIGIR) ---
+    function smartMerge(local, remote) {
       if (!remote || !remote.days) return local;
       if (!local || !local.days) return remote;
 
+      const localGlobalTime = local.updatedAt || 0;
+      const remoteGlobalTime = remote.updatedAt || 0;
+
       const merged = {
-        activeDay: local.activeDay || remote.activeDay || 1,
+        activeDay: localGlobalTime >= remoteGlobalTime ? (local.activeDay || 1) : (remote.activeDay || 1),
         includeSimuladosInGlobal: local.includeSimuladosInGlobal !== undefined ? local.includeSimuladosInGlobal : (remote.includeSimuladosInGlobal !== undefined ? remote.includeSimuladosInGlobal : true),
-        updatedAt: Math.max(local.updatedAt || 0, remote.updatedAt || 0, Date.now()),
+        updatedAt: Math.max(localGlobalTime, remoteGlobalTime),
         days: {},
         simulados: []
       };
 
       RAW_SCHEDULE.forEach(item => {
-        const dayA = local.days[item.day] || local.days[String(item.day)] || {};
-        const dayB = remote.days[item.day] || remote.days[String(item.day)] || {};
+        const dA = local.days[item.day] || local.days[String(item.day)] || {};
+        const dB = remote.days[item.day] || remote.days[String(item.day)] || {};
 
-        const completed = Boolean(dayA.completed || dayB.completed);
+        const tA = dA.updatedAt || localGlobalTime;
+        const tB = dB.updatedAt || remoteGlobalTime;
 
-        const completedTopics = item.topics.map((_, idx) => {
-          const aTopic = Boolean(dayA.completedTopics && dayA.completedTopics[idx]);
-          const bTopic = Boolean(dayB.completedTopics && dayB.completedTopics[idx]);
-          return aTopic || bTopic;
-        });
-
-        // Mesclagem de tópicos personalizados por texto único
-        const customMap = new Map();
-        (dayA.customTopics || []).forEach(ct => { if (ct && ct.text) customMap.set(ct.text, { text: ct.text, done: Boolean(ct.done) }); });
-        (dayB.customTopics || []).forEach(ct => {
-          if (ct && ct.text) {
-            if (customMap.has(ct.text)) {
-              const existing = customMap.get(ct.text);
-              existing.done = existing.done || Boolean(ct.done);
-            } else {
-              customMap.set(ct.text, { text: ct.text, done: Boolean(ct.done) });
-            }
-          }
-        });
-
-        const acertos = Math.max(Number(dayA.acertos) || 0, Number(dayB.acertos) || 0);
-        const erros = Math.max(Number(dayA.erros) || 0, Number(dayB.erros) || 0);
-
-        let notes = '';
-        const noteA = (dayA.notes || '').trim();
-        const noteB = (dayB.notes || '').trim();
-        if (!noteA) notes = noteB;
-        else if (!noteB) notes = noteA;
-        else if (noteA === noteB) notes = noteA;
-        else if (noteA.includes(noteB)) notes = noteA;
-        else if (noteB.includes(noteA)) notes = noteB;
-        else notes = `${noteA}\n---\n${noteB}`;
+        let chosen;
+        if (tA > tB) {
+          chosen = dA;
+        } else if (tB > tA) {
+          chosen = dB;
+        } else {
+          const hasA = dA.completed || (dA.acertos || 0) + (dA.erros || 0) > 0 || (dA.completedTopics && dA.completedTopics.some(Boolean));
+          const hasB = dB.completed || (dB.acertos || 0) + (dB.erros || 0) > 0 || (dB.completedTopics && dB.completedTopics.some(Boolean));
+          if (hasA && !hasB) chosen = dA;
+          else if (hasB && !hasA) chosen = dB;
+          else chosen = dA;
+        }
 
         merged.days[item.day] = {
-          completed,
-          completedTopics,
-          customTopics: Array.from(customMap.values()),
-          acertos,
-          erros,
-          notes
+          completed: Boolean(chosen.completed),
+          completedTopics: item.topics.map((_, idx) => Boolean(chosen.completedTopics && chosen.completedTopics[idx])),
+          customTopics: Array.isArray(chosen.customTopics) ? chosen.customTopics : [],
+          acertos: Math.max(0, parseInt(chosen.acertos, 10) || 0),
+          erros: Math.max(0, parseInt(chosen.erros, 10) || 0),
+          notes: chosen.notes || '',
+          updatedAt: Math.max(dA.updatedAt || 0, dB.updatedAt || 0)
         };
       });
 
-      // Mesclagem de simulados
+      // Mesclagem de simulados por id
       const simMap = new Map();
+      (remote.simulados || []).forEach(s => { if (s && s.id) simMap.set(s.id, Object.assign({}, s)); });
       (local.simulados || []).forEach(s => { if (s && s.id) simMap.set(s.id, Object.assign({}, s)); });
-      (remote.simulados || []).forEach(s => {
-        if (s && s.id) {
-          if (simMap.has(s.id)) {
-            const existing = simMap.get(s.id);
-            existing.acertos = Math.max(existing.acertos || 0, s.acertos || 0);
-            existing.erros = Math.max(existing.erros || 0, s.erros || 0);
-            if (!existing.notes && s.notes) existing.notes = s.notes;
-          } else {
-            simMap.set(s.id, Object.assign({}, s));
-          }
-        }
-      });
       merged.simulados = Array.from(simMap.values());
 
       return merged;
     }
 
-    // --- SINCRONIZAÇÃO BIDIRECIONAL ATÔMICA COM A NUVEM ---
-    async function syncWithCloud(showNotification = false) {
+    // --- SALVAMENTO DIRETO NA NUVEM (ENVIA AS ALTERAÇÕES DO USUÁRIO SEM REVERTER) ---
+    async function pushStateToCloud(showNotification = false) {
       if (isSyncing) return;
       isSyncing = true;
       try {
@@ -2197,16 +2188,110 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
             isSyncing = false;
             return;
           }
-          updateCloudUI('Sincronizando...');
+          updateCloudUI('Salvando na nuvem...');
+          const cleanUser = (cloudConfig.supabaseUser || 'joao_oab48').replace(/[^a-zA-Z0-9_-]/g, '_');
+          const payload = {
+            id: cleanUser,
+            data: appState,
+            updated_at: new Date().toISOString()
+          };
+
+          const client = getSupabaseClient();
+          let saveSuccess = false;
+
+          if (client) {
+            try {
+              const { error } = await client.from('oab_progress').upsert(payload, { onConflict: 'id' });
+              if (!error) saveSuccess = true;
+              else console.warn('Supabase client upsert erro:', error);
+            } catch (e) {
+              console.warn('Supabase client exception:', e);
+            }
+          }
+
+          if (!saveSuccess) {
+            const supabaseEndpoint = sanitizeSupabaseUrl(cloudConfig.supabaseUrl) + '/rest/v1/oab_progress?on_conflict=id';
+            const res = await fetch(supabaseEndpoint, {
+              method: 'POST',
+              headers: {
+                'apikey': cloudConfig.supabaseKey,
+                'Authorization': `Bearer ${cloudConfig.supabaseKey}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'resolution=merge-duplicates'
+              },
+              body: JSON.stringify(payload)
+            });
+            if (res.ok) {
+              saveSuccess = true;
+            } else {
+              const errTxt = await res.text().catch(() => '');
+              throw new Error(errTxt || ('HTTP ' + res.status));
+            }
+          }
+
+          isCloudInitialized = true;
+          updateCloudUI('Sincronizado ✓');
+          if (showNotification) showToast('Progresso salvo na nuvem com sucesso!');
+        } else {
+          // Firebase RTDB
+          if (!cloudConfig.url) {
+            isSyncing = false;
+            return;
+          }
+          updateCloudUI('Salvando no Firebase...');
+          const base = cloudConfig.url.replace(/\.json$/i, '').replace(/\/+$/, '');
+          const cleanKey = (cloudConfig.key || 'joao_oab48').replace(/[^a-zA-Z0-9_-]/g, '_');
+          const endpoint = `${base}/oab48_sync_${cleanKey}.json`;
+
+          const res = await fetch(endpoint, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(appState)
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          isCloudInitialized = true;
+          updateCloudUI('Sincronizado ✓');
+          if (showNotification) showToast('Progresso salvo no Firebase!');
+        }
+      } catch (err) {
+        console.warn('Falha ao salvar na nuvem:', err);
+        updateCloudUI('Erro na Nuvem');
+        if (showNotification) {
+          const msg = (err && err.message) ? err.message : '';
+          showToast('Erro ao salvar na nuvem: ' + msg.slice(0, 80), 'error');
+        }
+      } finally {
+        isSyncing = false;
+      }
+    }
+
+    // --- BUSCA DO PROGRESSO NA NUVEM (PULL) ---
+    async function pullStateFromCloud(showNotification = false) {
+      if (isSyncing) return;
+      isSyncing = true;
+      try {
+        if (cloudConfig.provider === 'supabase') {
+          if (!cloudConfig.supabaseUrl || !cloudConfig.supabaseKey) {
+            isSyncing = false;
+            return;
+          }
+          updateCloudUI('Buscando na nuvem...');
           const cleanUser = (cloudConfig.supabaseUser || 'joao_oab48').replace(/[^a-zA-Z0-9_-]/g, '_');
           const client = getSupabaseClient();
           let remoteRecord = null;
 
           if (client) {
-            const { data, error } = await client.from('oab_progress').select('data, updated_at').eq('id', cleanUser).maybeSingle();
-            if (!error && data) remoteRecord = data;
-          } else {
-            const supabaseQueryUrl = cloudConfig.supabaseUrl + '/rest/v1/oab_progress?id=eq.' + encodeURIComponent(cleanUser) + '&select=data,updated_at';
+            try {
+              const { data, error } = await client.from('oab_progress').select('data, updated_at').eq('id', cleanUser).maybeSingle();
+              if (!error && data) remoteRecord = data;
+              else if (error) console.warn('Supabase client select erro:', error);
+            } catch (e) {
+              console.warn('Supabase client select exception:', e);
+            }
+          }
+
+          if (!remoteRecord) {
+            const supabaseQueryUrl = sanitizeSupabaseUrl(cloudConfig.supabaseUrl) + '/rest/v1/oab_progress?id=eq.' + encodeURIComponent(cleanUser) + '&select=data,updated_at';
             const res = await fetch(supabaseQueryUrl, {
               method: 'GET',
               headers: {
@@ -2221,48 +2306,47 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
           }
 
           if (remoteRecord && remoteRecord.data && remoteRecord.data.days) {
-            // Mescla sem apagar nenhum progresso
-            appState = mergeStates(appState, remoteRecord.data);
-          }
-          appState.updatedAt = Date.now();
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+            const remoteData = remoteRecord.data;
+            const localHas = hasUserProgress(appState);
+            const remoteHas = hasUserProgress(remoteData);
 
-          // Envia o estado combinado/mesclado de volta para o Supabase
-          const payload = {
-            id: cleanUser,
-            data: appState,
-            updated_at: new Date().toISOString()
-          };
-
-          if (client) {
-            const { error: upsertErr } = await client.from('oab_progress').upsert(payload, { onConflict: 'id' });
-            if (upsertErr) throw upsertErr;
+            if (!localHas && remoteHas) {
+              // Dispositivo novo/vazio abre e baixa o progresso existente na nuvem
+              appState = remoteData;
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+              refreshAll();
+              updateCloudUI('Sincronizado ✓');
+              if (showNotification) showToast('Progresso baixado da nuvem com sucesso!');
+            } else if (localHas && !remoteHas) {
+              // Nuvem vazia mas este dispositivo tem dados: envia para lá
+              isSyncing = false;
+              await pushStateToCloud(showNotification);
+              return;
+            } else {
+              // Ambos possuem progresso: mescla com prioridade para a alteração mais recente
+              appState = smartMerge(appState, remoteData);
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+              refreshAll();
+              updateCloudUI('Sincronizado ✓');
+              if (showNotification) showToast('Dados sincronizados com a nuvem!');
+            }
           } else {
-            const supabaseEndpoint = cloudConfig.supabaseUrl + '/rest/v1/oab_progress';
-            const res = await fetch(supabaseEndpoint, {
-              method: 'POST',
-              headers: {
-                'apikey': cloudConfig.supabaseKey,
-                'Authorization': `Bearer ${cloudConfig.supabaseKey}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'resolution=merge-duplicates'
-              },
-              body: JSON.stringify(payload)
-            });
-            if (!res.ok) throw new Error('HTTP ' + res.status);
+            // Nuvem sem registro ainda: se temos dados, salva
+            if (hasUserProgress(appState)) {
+              isSyncing = false;
+              await pushStateToCloud(showNotification);
+              return;
+            }
+            updateCloudUI('Sincronizado ✓');
           }
-
           isCloudInitialized = true;
-          refreshAll();
-          updateCloudUI('Sincronizado ✓');
-          if (showNotification) showToast('Progresso sincronizado com a nuvem!');
         } else {
-          // Provedor Firebase
+          // Firebase RTDB
           if (!cloudConfig.url) {
             isSyncing = false;
             return;
           }
-          updateCloudUI('Sincronizando...');
+          updateCloudUI('Buscando no Firebase...');
           const base = cloudConfig.url.replace(/\.json$/i, '').replace(/\/+$/, '');
           const cleanKey = (cloudConfig.key || 'joao_oab48').replace(/[^a-zA-Z0-9_-]/g, '_');
           const endpoint = `${base}/oab48_sync_${cleanKey}.json`;
@@ -2271,39 +2355,37 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
           if (res.ok) {
             const cloudData = await res.json();
             if (cloudData && cloudData.days) {
-              appState = mergeStates(appState, cloudData);
+              const localHas = hasUserProgress(appState);
+              const remoteHas = hasUserProgress(cloudData);
+              if (!localHas && remoteHas) {
+                appState = cloudData;
+              } else {
+                appState = smartMerge(appState, cloudData);
+              }
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+              refreshAll();
+              updateCloudUI('Sincronizado ✓');
+              if (showNotification) showToast('Progresso baixado do Firebase!');
             }
           }
-          appState.updatedAt = Date.now();
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-
-          const putRes = await fetch(endpoint, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(appState)
-          });
-          if (!putRes.ok) throw new Error('HTTP ' + putRes.status);
-
           isCloudInitialized = true;
-          refreshAll();
-          updateCloudUI('Sincronizado ✓');
-          if (showNotification) showToast('Progresso sincronizado com o Firebase!');
         }
       } catch (err) {
-        console.warn('Erro na sincronização com nuvem:', err);
+        console.warn('Erro ao buscar na nuvem:', err);
         updateCloudUI('Offline / Local');
-        if (showNotification) showToast('Falha na sincronização com a nuvem.', 'error');
+        if (showNotification) showToast('Falha na conexão com a nuvem.', 'error');
       } finally {
         isSyncing = false;
       }
     }
 
-    async function pushStateToCloud(showNotification = false) {
-      await syncWithCloud(showNotification);
-    }
-
-    async function pullStateFromCloud(showNotification = false) {
-      await syncWithCloud(showNotification);
+    // Marca quando um dia específico foi editado para manter a integridade dos dados
+    function markDayModified(dayNum) {
+      const now = Date.now();
+      if (appState.days && appState.days[dayNum]) {
+        appState.days[dayNum].updatedAt = now;
+      }
+      appState.updatedAt = now;
     }
 
     const WEEKDAYS_PT = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
@@ -2326,12 +2408,14 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
           customTopics: [],
           acertos: 0,
           erros: 0,
-          notes: ''
+          notes: '',
+          updatedAt: 0
         };
       });
       return {
         activeDay: 1,
         includeSimuladosInGlobal: true,
+        updatedAt: 0,
         days: daysState,
         simulados: [
           {
@@ -2356,6 +2440,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
           if (parsed && parsed.days) {
             appState.activeDay = Math.min(82, Math.max(1, parsed.activeDay || 1));
             appState.includeSimuladosInGlobal = parsed.includeSimuladosInGlobal !== undefined ? parsed.includeSimuladosInGlobal : true;
+            appState.updatedAt = parsed.updatedAt || 0;
             if (Array.isArray(parsed.simulados)) {
               appState.simulados = parsed.simulados;
             }
@@ -2368,7 +2453,8 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
                   customTopics: Array.isArray(savedDay.customTopics) ? savedDay.customTopics : [],
                   acertos: Math.max(0, parseInt(savedDay.acertos, 10) || 0),
                   erros: Math.max(0, parseInt(savedDay.erros, 10) || 0),
-                  notes: savedDay.notes || ''
+                  notes: savedDay.notes || '',
+                  updatedAt: savedDay.updatedAt || 0
                 };
               }
             });
@@ -2381,16 +2467,18 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
 
     function saveState() {
       try {
-        appState.updatedAt = Date.now();
+        if (!appState.updatedAt) appState.updatedAt = Date.now();
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
       } catch (e) {
         console.warn('Erro ao salvar no LocalStorage:', e);
       }
+
+      // Envia as alterações diretamente para a nuvem de forma silenciosa
       const hasCloud = (cloudConfig.provider === 'supabase' && cloudConfig.supabaseUrl && cloudConfig.supabaseKey) || Boolean(cloudConfig.url);
-      if (hasCloud && isCloudInitialized) {
+      if (hasCloud) {
         if (cloudSyncTimer) clearTimeout(cloudSyncTimer);
         cloudSyncTimer = setTimeout(() => {
-          syncWithCloud(false);
+          pushStateToCloud(false);
         }, 1200);
       }
     }
@@ -2596,6 +2684,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         `;
         row.addEventListener('click', () => {
           st.completedTopics[idx] = !st.completedTopics[idx];
+          markDayModified(item.day);
           const allStandardDone = st.completedTopics.every(Boolean);
           const allCustomDone = st.customTopics.every(c => c.done);
           if (allStandardDone && allCustomDone) {
@@ -2621,11 +2710,13 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         `;
         row.querySelector(`[data-custom-toggle="${cIdx}"]`).addEventListener('click', () => {
           st.customTopics[cIdx].done = !st.customTopics[cIdx].done;
+          markDayModified(item.day);
           saveState();
           refreshAll();
         });
         row.querySelector(`[data-custom-remove="${cIdx}"]`).addEventListener('click', () => {
           st.customTopics.splice(cIdx, 1);
+          markDayModified(item.day);
           saveState();
           refreshAll();
         });
@@ -2880,9 +2971,11 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
           `;
 
           // Listeners inside card
-          card.querySelector(`[data-card-done="${item.day}"]`).addEventListener('click', () => {
+          card.querySelector(`[data-card-done=\"${item.day}\"]`).addEventListener('click', () => {
             st.completed = !st.completed;
-            if (st.completed) {
+            markDayModified(item.day);
+        markDayModified(appState.activeDay);
+        if (st.completed) {
               st.completedTopics = st.completedTopics.map(() => true);
             }
             saveState();
@@ -2893,20 +2986,23 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
             li.addEventListener('click', () => {
               const [, tIdx] = li.getAttribute('data-card-topic').split(':').map(Number);
               st.completedTopics[tIdx] = !st.completedTopics[tIdx];
+              markDayModified(item.day);
               if (st.completedTopics.every(Boolean)) st.completed = true;
               saveState();
               refreshAll();
             });
           });
 
-          card.querySelector(`[data-card-acertos="${item.day}"]`).addEventListener('change', (e) => {
+          card.querySelector(`[data-card-acertos=\"${item.day}\"]`).addEventListener('change', (e) => {
             st.acertos = Math.max(0, parseInt(e.target.value, 10) || 0);
+            markDayModified(item.day);
             saveState();
             refreshAll();
           });
 
-          card.querySelector(`[data-card-erros="${item.day}"]`).addEventListener('change', (e) => {
+          card.querySelector(`[data-card-erros=\"${item.day}\"]`).addEventListener('change', (e) => {
             st.erros = Math.max(0, parseInt(e.target.value, 10) || 0);
+            markDayModified(item.day);
             saveState();
             refreshAll();
           });
@@ -3204,14 +3300,17 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
 
       const hasCloudInitial = (cloudConfig.provider === 'supabase' && cloudConfig.supabaseUrl && cloudConfig.supabaseKey) || Boolean(cloudConfig.url);
       if (hasCloudInitial) {
-        syncWithCloud(false);
+        pullStateFromCloud(false);
       }
 
       // Sincronização periódica bidirecional automática de 5 em 5 minutos (mescla estados sem nunca apagar dados)
       setInterval(() => {
         const hasCloudAuto = (cloudConfig.provider === 'supabase' && cloudConfig.supabaseUrl && cloudConfig.supabaseKey) || Boolean(cloudConfig.url);
         if (hasCloudAuto) {
-          syncWithCloud(false);
+          const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+          if (activeTag !== 'input' && activeTag !== 'textarea') {
+            pullStateFromCloud(false);
+          }
         }
       }, 5 * 60 * 1000);
 
@@ -3286,6 +3385,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       document.getElementById('btn-toggle-active-day-done').addEventListener('click', () => {
         const st = appState.days[appState.activeDay];
         st.completed = !st.completed;
+        markDayModified(appState.activeDay);
         if (st.completed) {
           st.completedTopics = st.completedTopics.map(() => true);
           st.customTopics.forEach(c => { c.done = true; });
@@ -3301,6 +3401,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         st.completedTopics = st.completedTopics.map(() => true);
         st.customTopics.forEach(c => { c.done = true; });
         st.completed = true;
+        markDayModified(appState.activeDay);
         saveState();
         refreshAll();
         showToast('Todos os assuntos de hoje foram marcados!');
@@ -3313,6 +3414,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         if (!val) return;
         appState.days[appState.activeDay].customTopics.push({ text: val, done: false });
         inp.value = '';
+        markDayModified(appState.activeDay);
         saveState();
         refreshAll();
         showToast('Subtópico adicionado ao dia!');
@@ -3326,6 +3428,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       inpAcertos.addEventListener('input', () => {
         const st = appState.days[appState.activeDay];
         st.acertos = Math.max(0, parseInt(inpAcertos.value, 10) || 0);
+        markDayModified(appState.activeDay);
         saveState();
         refreshAll();
       });
@@ -3333,12 +3436,14 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       inpErros.addEventListener('input', () => {
         const st = appState.days[appState.activeDay];
         st.erros = Math.max(0, parseInt(inpErros.value, 10) || 0);
+        markDayModified(appState.activeDay);
         saveState();
         refreshAll();
       });
 
       inpFeitas.addEventListener('change', () => {
         const st = appState.days[appState.activeDay];
+        markDayModified(appState.activeDay);
         const newTotal = Math.max(0, parseInt(inpFeitas.value, 10) || 0);
         if (newTotal >= st.acertos) {
           st.erros = newTotal - st.acertos;
@@ -3355,6 +3460,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
           const [field, deltaStr] = btn.getAttribute('data-step').split(':');
           const delta = parseInt(deltaStr, 10);
           const st = appState.days[appState.activeDay];
+          markDayModified(appState.activeDay);
           if (field === 'acertos') {
             st.acertos = Math.max(0, st.acertos + delta);
           } else if (field === 'erros') {
@@ -3377,6 +3483,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       // Notes Input
       document.getElementById('active-input-notes').addEventListener('input', (e) => {
         appState.days[appState.activeDay].notes = e.target.value;
+        markDayModified(appState.activeDay);
         saveState();
       });
 
@@ -3406,6 +3513,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         }
         appState.days[dayNum].acertos += addAc;
         appState.days[dayNum].erros += addEr;
+        markDayModified(dayNum);
         document.getElementById('quick-log-acertos').value = '';
         document.getElementById('quick-log-erros').value = '';
         saveState();
