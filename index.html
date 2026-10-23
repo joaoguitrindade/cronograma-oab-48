@@ -81,10 +81,10 @@
             <span>48º Exame de Ordem Unificado • CFOAB / FGV</span>
           </div>
           <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-          Cronograma até a Prova Objetiva
+            Cronograma Interativo até a Prova Objetiva (10/01/2027)
           </h1>
           <p class="text-sm text-slate-300 leading-relaxed">
-            Planejamento diário completo de <strong>20/10/2026 a 09/01/2027.
+            Planejamento diário completo de <strong>20/10/2026 a 09/01/2027 (82 dias de estudo até a véspera da prova • 12 semanas • mínimo de 25 questões/dia)</strong> cobrindo 100% das 20 disciplinas da 1ª Fase e os tópicos do Anexo II do Edital, com registro diário de <strong>questões feitas, acertos e erros</strong>.
           </p>
         </div>
 
@@ -119,7 +119,7 @@
           </button>
           <button type="button" data-tab="cronograma" class="nav-tab-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
             <i data-lucide="calendar-days" class="w-4 h-4"></i>
-            <span>Cronograma Completo</span>
+            <span>Cronograma Completo (82 Dias)</span>
           </button>
           <button type="button" data-tab="desempenho" class="nav-tab-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
             <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
@@ -131,7 +131,7 @@
           </button>
           <button type="button" data-tab="simulados" class="nav-tab-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
             <i data-lucide="award" class="w-4 h-4"></i>
-            <span>Simulados</span>
+            <span>Simulados (80 Questões)</span>
           </button>
         </div>
 
@@ -772,7 +772,7 @@
 
     <!-- Rodapé do Menu Lateral -->
     <div class="p-4 border-t border-slate-800 text-[11px] text-slate-500 text-center bg-slate-950/40">
-      <span>VENI • VIDI • VICI</span>
+      <span>82 Dias de Estudo • Mín. 25 questões/dia • 10/01/2027</span>
     </div>
   </aside>
 
@@ -945,8 +945,8 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
 
   <footer class="bg-white border-t border-slate-200 mt-10 py-4">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
-      <span>Cronograma 48º Exame de Ordem Unificado (OAB/FGV)</span>
-      <span>Progresso salvo automaticamente</span>
+      <span>Cronograma 48º Exame de Ordem Unificado (OAB/FGV) • 20/10/2026 a 09/01/2027 (Véspera da Prova)</span>
+      <span>Progresso salvo automaticamente no navegador</span>
     </div>
   </footer>
 
@@ -985,931 +985,910 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
     //    Cobrindo 100% dos tópicos do Edital (Itens 3.1, 3.4 e Anexo II)
     // =========================================================================
     const RAW_SCHEDULE = [
-      // ---------------- SEMANA 1: 20/10/2026 a 25/10/2026 ----------------
       {
         day: 1, date: '2026-10-20', week: 1, subjectId: 'etica', suggestedQ: 25,
-        title: 'Atividade de Advocacia, Mandato e Inscrição na OAB',
-        legalBasis: 'Arts. 1º a 12 do EAOAB (Lei 8.906/94) e Arts. 1º a 31 do Regulamento Geral',
+        title: "Atividade de Advocacia, Mandato e Inscrição na OAB",
+        legalBasis: "Arts. 1º a 14 do EAOAB (Lei 8.906/94) e Arts. 1º a 31 do Regulamento Geral da OAB",
         topics: [
-          '1. Atos privativos de advogado, postulação em juízo e assessoria jurídica (Arts. 1º a 4º EAOAB)',
-          '2. Mandato judicial, procuração, renúncia, substabelecimento e atuação sem procuração em urgência (Art. 5º EAOAB)',
-          '3. Requisitos para inscrição nos quadros da OAB como advogado e estagiário (Arts. 8º e 9º EAOAB)',
-          '4. Inscrição principal, suplementar, transferência, cancelamento e licenciamento (Arts. 10 a 12 EAOAB)'
+          "1. Atos privativos de advocacia, postulação em juízo, assessoria e consultoria jurídica (Arts. 1º a 4º do EAOAB e Arts. 5º a 8º do Reg. Geral)",
+          "2. Mandato judicial, procuração, renúncia, revogação, substabelecimento e atuação de urgência sem procuração (Art. 5º do EAOAB e Arts. 9º a 16 do CED)",
+          "3. Requisitos para inscrição como advogado e estagiário, diploma, idoneidade moral e compromisso (Arts. 8º e 9º do EAOAB e Arts. 19 a 23 do Reg. Geral)",
+          "4. Domicílio profissional, inscrição principal, suplementar, transferência, cancelamento e licenciamento (Arts. 10 a 14 do EAOAB)"
         ]
       },
       {
         day: 2, date: '2026-10-21', week: 1, subjectId: 'constitucional', suggestedQ: 25,
-        title: 'Teoria da Constituição, Aplicabilidade e Poder Constituinte',
-        legalBasis: 'Arts. 1º a 4º da CF/88 e ADCT (Itens 1 a 6, 8 e 10 do Anexo II)',
+        title: "Teoria da Constituição, Aplicabilidade das Normas e Poder Constituinte",
+        legalBasis: "Arts. 1º a 4º e 60 da CF/88 e ADCT (Arts. 1º a 114)",
         topics: [
-          '1. Constituição: conceito, classificação, elementos, histórico das Constituições e Neoconstitucionalismo (Itens 1, 3 e 4)',
-          '2. Aplicabilidade e eficácia das normas constitucionais: plena, contida e limitada (Item 2)',
-          '3. Poder Constituinte: originário, derivado (reformador e revisor) e decorrente; mutação constitucional (Item 5)',
-          '4. Hermenêutica e interpretação constitucional, Preâmbulo, Princípios Fundamentais e ADCT (Itens 6, 8, 10 e 26)'
+          "1. Conceito, classificação, elementos e histórico das Constituições brasileiras e Neoconstitucionalismo (Preâmbulo da CF/88)",
+          "2. Aplicabilidade e eficácia das normas constitucionais: plena, contida e limitada; normas programáticas (Art. 5º, § 1º da CF/88)",
+          "3. Poder Constituinte originário (características), derivado reformador (limitações materiais, formais e circunstanciais - Art. 60 da CF/88), revisor e decorrente; mutação constitucional",
+          "4. Princípios Fundamentais da República Federativa do Brasil (Arts. 1º a 4º da CF/88) e interpretação das disposições transitórias (ADCT)"
         ]
       },
       {
         day: 3, date: '2026-10-22', week: 1, subjectId: 'civil', suggestedQ: 25,
-        title: 'LINDB, Pessoas Naturais, Personalidade, LGPD e Pessoas Jurídicas',
-        legalBasis: 'LINDB (DL 4.657/42), Arts. 1º a 78 do Código Civil e Lei 13.709/18 (Itens 1 a 3 do Anexo II)',
+        title: "LINDB, Pessoas Naturais, Direitos da Personalidade, LGPD e Pessoas Jurídicas",
+        legalBasis: "Arts. 1º a 6º do DL 4.657/42 (LINDB), Arts. 1º a 78 do Código Civil e Lei 13.709/18 (LGPD)",
         topics: [
-          '1. LINDB: vigência, revogação, repristinação, integração e eficácia da lei no tempo e espaço (Item 1)',
-          '2. Pessoa natural: início da personalidade, capacidade de fato/direito, emancipação e comoriência (Item 2)',
-          '3. Direitos da personalidade e proteção de dados pessoais — LGPD Lei 13.709/2018 (Item 2)',
-          '4. Pessoa jurídica, desconsideração da personalidade jurídica (Art. 50 CC), ausência e domicílio (Item 3)'
+          "1. LINDB: vigência, vacatio legis, revogação (ab-rogação e derrogação), repristinação, integração (analogia, costumes, princípios) e direito intertemporal (Arts. 1º a 6º da LINDB)",
+          "2. Pessoa natural: início da personalidade, nascituro, capacidade de direito e de fato, incapacidade absoluta e relativa, emancipação e comoriência (Arts. 1º a 10 do Código Civil)",
+          "3. Direitos da personalidade (Arts. 11 a 21 do CC) e princípios fundamentais da proteção de dados pessoais (Arts. 1º, 2º, 7º, 11 e 14 da Lei 13.709/18 - LGPD)",
+          "4. Pessoas jurídicas (Arts. 40 a 69 do CC), desconsideração da personalidade jurídica (Art. 50 do CC), ausência (Arts. 22 a 39 do CC) e domicílio civil (Arts. 70 a 78 do CC)"
         ]
       },
       {
         day: 4, date: '2026-10-23', week: 1, subjectId: 'proc_civil', suggestedQ: 25,
-        title: 'Normas Processuais, Jurisdição, Ação, Competência e Cooperação',
-        legalBasis: 'Arts. 1º a 69 do CPC/2015 (Itens 1 a 12 do Anexo II)',
+        title: "Normas Processuais, Jurisdição, Ação, Competência e Cooperação",
+        legalBasis: "Arts. 1º a 69 do CPC/2015 e Lei 13.140/15 (Mediação)",
         topics: [
-          '1. Normas fundamentais do Processo Civil, autocomposição, mediação, conciliação e arbitragem (Itens 1 e 2)',
-          '2. Jurisdição, Teoria da Ação, condições da ação e pressupostos processuais (Itens 3, 4, 6 a 8, 10 e 11)',
-          '3. Cooperação internacional e nacional, auxílio direto e carta rogatória (Item 5)',
-          '4. Competência: critérios absoluto e relativo, modificação, conexão, continência e foro de eleição (Itens 9 e 12)'
+          "1. Normas fundamentais do Processo Civil, devido processo legal, contraditório substancial, boa-fé e cooperação (Arts. 1º a 15 do CPC/15)",
+          "2. Jurisdição, ação, condições da ação, elementos da ação e mediação/conciliação (Arts. 16 a 25 e 165 a 175 do CPC e Lei 13.140/15)",
+          "3. Cooperação jurídica internacional (auxílio direto, carta rogatória - Arts. 26 a 41 do CPC) e cooperação nacional (Arts. 67 a 69 do CPC)",
+          "4. Competência interna: absoluta e relativa, modificação de competência, conexão, continência, foro de eleição e incompetência (Arts. 42 a 66 do CPC)"
         ]
       },
       {
         day: 5, date: '2026-10-24', week: 1, subjectId: 'penal', suggestedQ: 30,
-        title: 'Princípios Penais, Aplicação da Lei Penal no Tempo e no Espaço',
-        legalBasis: 'Arts. 1º a 12 do Código Penal (Itens 1 a 7.2 do Anexo II)',
+        title: "Princípios Penais, Aplicação da Lei Penal no Tempo e no Espaço",
+        legalBasis: "Arts. 1º a 12 do Código Penal (Decreto-Lei 2.848/40)",
         topics: [
-          '1. História, Criminologia, Política Criminal e Princípios Penais: legalidade, anterioridade, insignificância e lesividade (Itens 1 a 4)',
-          '2. Interpretação, analogia in bonam partem, norma penal em branco e concurso aparente de normas (Itens 5 e 6)',
-          '3. Lei penal no tempo: abolitio criminis, novatio legis in mellius, leis excepcionais/temporárias e tempo do crime (Item 7.1)',
-          '4. Lei penal no espaço: territorialidade, extraterritorialidade, lugar do crime (ubiquidade) e pena cumprida no exterior (Item 7.2)'
+          "1. Princípios penais fundamentais: legalidade, anterioridade, insignificância/bagatela, lesividade, culpabilidade e intervenção mínima (Art. 1º do CP)",
+          "2. Lei penal no tempo: abolitio criminis, novatio legis in mellius/in pejus, leis excepcionais e temporárias, tempo do crime e teoria da atividade (Arts. 2º a 4º do CP)",
+          "3. Lei penal no espaço: princípio da territorialidade mitigada, lugar do crime (teoria da ubiquidade) e hipóteses de extraterritorialidade incondicionada e condicionada (Arts. 5º a 7º do CP)",
+          "4. Pena cumprida no estrangeiro (Art. 8º do CP), eficácia da sentença penal estrangeira (Art. 9º do CP), contagem de prazo penal (Art. 10 do CP) e frações não computáveis (Art. 11 do CP)"
         ]
       },
       {
         day: 6, date: '2026-10-25', week: 1, subjectId: 'administrativo', suggestedQ: 30,
-        title: 'Princípios, LINDB no Direito Público, LAI, LGPD e Organização Administrativa',
-        legalBasis: 'Art. 37 CF, Lei 13.655/18, Lei 12.527/11 e DL 200/67 (Itens 1 a 2.1 do Anexo II)',
+        title: "Princípios, LINDB no Direito Público, LAI, LGPD e Organização Administrativa",
+        legalBasis: "Art. 37 da CF/88, Arts. 20 a 30 da LINDB (Lei 13.655/18), Lei 12.527/11 e DL 200/67",
         topics: [
-          '1. Princípios expressos e implícitos da Administração Pública e disposições da LINDB (Lei 13.655/2018) sobre segurança jurídica (Itens 1 e 1.1)',
-          '2. Lei de Acesso à Informação (Lei 12.527/11) e tratamento de dados pelo Poder Público na LGPD (Item 1.2)',
-          '3. Organização administrativa: desconcentração vs. descentralização; Administração Direta e Indireta: Autarquias, Fundações, EP e SEM (Item 2)',
-          '4. Terceiro Setor: OS, OSCIP, Organizações da Sociedade Civil (Lei 13.019/14) e Serviços Sociais Autônomos (Item 2.1)'
+          "1. Princípios constitucionais expressos (LIMPE - Art. 37, caput da CF/88) e implícitos (supremacia, autotutela, proporcionalidade, continuidade)",
+          "2. Disposições da LINDB sobre segurança jurídica, decisões com base em valores abstratos e consequências práticas (Arts. 20 a 30 do DL 4.657/42)",
+          "3. Lei de Acesso à Informação (Arts. 1º a 14 da Lei 12.527/11) e tratamento de dados pelo Poder Público na LGPD (Arts. 23 a 30 da Lei 13.709/18)",
+          "4. Organização administrativa: desconcentração vs. descentralização; Administração Direta e Indireta (Autarquias, Fundações, Empresas Públicas, SEM - DL 200/67) e Terceiro Setor (OS, OSCIP, Lei 13.019/14)"
         ]
       },
-
-      // ---------------- SEMANA 2: 26/10/2026 a 01/11/2026 ----------------
       {
         day: 7, date: '2026-10-26', week: 2, subjectId: 'trabalho', suggestedQ: 25,
-        title: 'Princípios, Fontes, Relação de Trabalho e Relação de Emprego',
-        legalBasis: 'Arts. 1º a 41 da CLT e LC 150/2015 (Itens 1 a 11 do Anexo II)',
+        title: "Princípios, Fontes, Relação de Trabalho e Relação de Emprego",
+        legalBasis: "Arts. 1º a 41 da CLT e LC 150/2015 (Empregados Domésticos)",
         topics: [
-          '1. Conceito, formação histórica, flexibilização, fontes, hierarquia e princípios do Direito do Trabalho (Itens 1 a 6)',
-          '2. Hermenêutica trabalhista, eficácia no tempo/espaço, renúncia e transação (Itens 5 e 7)',
-          '3. Relação de trabalho (autônomo, eventual, avulso, estágio, voluntário, pejotização) vs. Relação de emprego e CTPS (Itens 8, 9 e 16.3)',
-          '4. Empregado: requisitos, altos empregados, hiperssuficiente, aprendiz, desportivo e empregado doméstico LC 150/15 (Itens 10 e 11)'
+          "1. Princípios do Direito do Trabalho: proteção, in dubio pro operario, norma mais favorável, condição mais benéfica e primazia da realidade (Arts. 1º a 11 da CLT)",
+          "2. Fontes formais e materiais, hermenêutica trabalhista, renúncia, transação e direito intertemporal (Arts. 8º e 9º da CLT)",
+          "3. Relação de trabalho vs. Relação de emprego: elementos fático-jurídicos da relação de emprego (habitualidade, subordinação, onerosidade, pessoalidade - Arts. 2º e 3º da CLT)",
+          "4. CTPS e carteira digital (Arts. 13 a 29 da CLT) e categorias especiais: empregado doméstico (LC 150/15), autônomo e estagiário (Lei 11.788/08)"
         ]
       },
       {
         day: 8, date: '2026-10-27', week: 2, subjectId: 'tributario', suggestedQ: 25,
-        title: 'Sistema Tributário Nacional, Fontes e Princípios Constitucionais Tributários',
-        legalBasis: 'Arts. 145 a 150 da CF/88 e Arts. 96 a 100 do CTN (Itens 1 a 3 do Anexo II)',
+        title: "Sistema Tributário Nacional, Fontes e Princípios Constitucionais Tributários",
+        legalBasis: "Arts. 145 a 150 da CF/88 e Arts. 96 a 100 do CTN (Lei 5.172/66)",
         topics: [
-          '1. Fontes do Direito Tributário: CF, Lei Complementar, Lei Ordinária, Tratados, Convênios e Atos Normativos (Itens 1 a 1.9)',
-          '2. Princípio da Legalidade Tributária e exceções quanto à alteração de alíquotas pelo Executivo (Item 2.1)',
-          '3. Princípios da Anterioridade Anual e Nonagesimal (Noventena) e exceções constitucionais (Item 2.2)',
-          '4. Isonomia, Capacidade Contributiva, Irretroatividade, Não Confisco, Seletividade, Non Olet e Liberdade de Tráfego (Itens 2.3 a 3)'
+          "1. Fontes do Direito Tributário: CF, Lei Complementar, Lei Ordinária, Tratados, Convênios e Atos Normativos (Arts. 96 a 100 do CTN)",
+          "2. Princípio da Legalidade Tributária e suas exceções na alteração de alíquotas pelo Executivo (Art. 150, I c/c Art. 153, § 1º da CF/88)",
+          "3. Princípios da Anterioridade Anual e Nonagesimal (Noventena) e exceções constitucionais (Art. 150, III, 'b' e 'c' da CF/88)",
+          "4. Isonomia, Capacidade Contributiva (Art. 145, § 1º CF), Irretroatividade (Art. 150, III, 'a' CF), Não Confisco (Art. 150, IV CF) e Não Discriminação (Art. 152 CF)"
         ]
       },
       {
         day: 9, date: '2026-10-28', week: 2, subjectId: 'proc_penal', suggestedQ: 25,
-        title: 'Sistemas Processuais, Inquérito Policial, Investigação e ANPP',
-        legalBasis: 'Arts. 1º a 28-A do CPP e Lei 12.830/13 (Itens 1 a 5 e 27 do Anexo II)',
+        title: "Sistemas Processuais, Inquérito Policial, Investigação e ANPP",
+        legalBasis: "Arts. 1º a 28-A do CPP (Decreto-Lei 3.689/41) e Lei 12.830/13",
         topics: [
-          '1. Princípios constitucionais e processuais penais; sistemas acusatório e inquisitivo (Itens 1 e 2)',
-          '2. Lei processual penal no tempo e no espaço; interpretação, integração e imunidades processuais (Itens 3 e 4)',
-          '3. Inquérito Policial: características, instauração, prazos, indiciamento, arquivamento e Súmula Vinculante 14 (Item 5)',
-          '4. Procedimentos de investigação criminal (PIC) e Acordo de Não Persecução Penal — ANPP Art. 28-A do CPP (Item 27)'
+          "1. Princípios processuais penais constitucionais, sistema acusatório e juiz das garantias (Arts. 1º a 3º-F do CPP)",
+          "2. Aplicação da lei processual penal no tempo (tempus regit actum - Art. 2º do CPP) e no espaço (Art. 1º do CPP)",
+          "3. Inquérito Policial: natureza, características (inquisitivo, escrito, dispensável), prazos, indiciamento, arquivamento e acesso do advogado (Arts. 4º a 23 do CPP, SV 14 e Lei 12.830/13)",
+          "4. Acordo de Não Persecução Penal (ANPP): requisitos objetivos/subjetivos, vedações, homologação e rescisão (Art. 28-A do CPP)"
         ]
       },
       {
         day: 10, date: '2026-10-29', week: 2, subjectId: 'etica', suggestedQ: 25,
-        title: 'Direitos e Prerrogativas do Advogado e da Advogada',
-        legalBasis: 'Arts. 6º a 7º-B do EAOAB (Lei 8.906/94 com alterações das Leis 13.363/16 e 14.365/22)',
+        title: "Direitos e Prerrogativas do Advogado e da Advogada",
+        legalBasis: "Arts. 6º a 7º-B do EAOAB (Lei 8.906/94 com Leis 13.363/16 e 14.365/22)",
         topics: [
-          '1. Inviolabilidade do escritório, instrumentos de trabalho e correspondência; requisitos para busca e apreensão (Art. 7º, II e §§ 6º-I)',
-          '2. Comunicação reservada com cliente preso, acesso a autos de inquérito e processos (Art. 7º, III, XIII a XVI e SV 14)',
-          '3. Prisão em flagrante por motivo de exercício da profissão, sala de Estado-Maior e sustentação oral (Art. 7º, IV, V, IX a XII)',
-          '4. Prerrogativas das advogadas gestantes, lactantes, adotantes e puérperas (Art. 7º-A) e crime de violação de prerrogativas (Art. 7º-B)'
+          "1. Inviolabilidade do escritório, instrumentos de trabalho e correspondência física/eletrônica; requisitos estritos de busca e apreensão (Art. 7º, II e §§ 6º a 6º-I do EAOAB)",
+          "2. Comunicação reservada com cliente preso, direito de vistas e acesso amplo a autos de investigação e processos (Art. 7º, III, XIII, XIV, XV do EAOAB e Súmula Vinculante 14)",
+          "3. Prisão em flagrante pelo exercício profissional, sala de Estado-Maior, presença de representante da OAB e sustentação oral (Art. 7º, IV, V, IX e § 2º do EAOAB)",
+          "4. Direitos e garantias das advogadas gestantes, lactantes, adotantes e puérperas (Art. 7º-A do EAOAB) e crime de violação de prerrogativas (Art. 7º-B do EAOAB)"
         ]
       },
       {
         day: 11, date: '2026-10-30', week: 2, subjectId: 'constitucional', suggestedQ: 25,
-        title: 'Direitos e Garantias Fundamentais (Individuais, Coletivos e Sociais)',
-        legalBasis: 'Arts. 5º a 11 da CF/88 (Itens 11 e 13 do Anexo II)',
+        title: "Direitos e Garantias Fundamentais (Individuais, Coletivos e Sociais)",
+        legalBasis: "Arts. 5º a 11 da CF/88",
         topics: [
-          '1. Teoria geral dos Direitos Fundamentais: características, gerações/dimensões, eficácia horizontal e colisão',
-          '2. Direitos e deveres individuais e coletivos: vida, liberdade, igualdade, privacidade, propriedade e devido processo legal (Art. 5º CF)',
-          '3. Garantias penais e processuais constitucionais, extradição e tratados de Direitos Humanos (Art. 5º, §§ 1º a 4º CF)',
-          '4. Direitos Sociais dos trabalhadores urbanos e rurais e direitos coletivos sindicais (Arts. 6º a 11 CF — Item 13)'
+          "1. Teoria geral dos Direitos Fundamentais: características, gerações/dimensões, eficácia horizontal e colisão de direitos fundamentais",
+          "2. Direitos individuais e coletivos: vida, liberdade, igualdade, privacidade, inviolabilidade de domicílio, sigilo de comunicações e direito de propriedade (Art. 5º, incisos I a XXX da CF/88)",
+          "3. Garantias processuais constitucionais: devido processo legal, contraditório, ampla defesa, juiz natural, júri e presunção de inocência (Art. 5º, incisos XXXI a LXXIX e §§ 1º a 4º da CF/88)",
+          "4. Direitos Sociais dos trabalhadores urbanos e rurais (Art. 7º da CF/88) e liberdade de associação profissional e sindical (Arts. 8º a 11 da CF/88)"
         ]
       },
       {
         day: 12, date: '2026-10-31', week: 2, subjectId: 'civil', suggestedQ: 30,
-        title: 'Bens, Fatos, Atos e Negócios Jurídicos, Defeitos, Prescrição e Decadência',
-        legalBasis: 'Arts. 79 a 232 do Código Civil (Itens 4, 5 e 6 do Anexo II)',
+        title: "Bens, Negócios Jurídicos, Defeitos, Invalidade, Prescrição e Decadência",
+        legalBasis: "Arts. 79 a 232 do Código Civil (Lei 10.406/02)",
         topics: [
-          '1. Classificação dos Bens: imóveis/móveis, fungíveis, consumíveis, divisíveis, singulares/coletivos, reciprocamente considerados e públicos (Item 4)',
-          '2. Negócio Jurídico: planos da existência, validade e eficácia; condição, termo e encargo; representação (Item 5)',
-          '3. Defeitos do negócio jurídico (erro, dolo, coação, estado de perigo, lesão e fraude contra credores) e invalidade: nulidade e anulabilidade (Item 5)',
-          '4. Atos ilícitos (Arts. 186-188 CC), Prescrição (causas impeditivas, suspensivas, interruptivas e prazos) e Decadência; Prova (Item 6)'
+          "1. Classificação dos bens: móveis, imóveis, fungíveis, consumíveis, divisíveis, singulares, coletivos, acessórios (pertenças e benfeitorias) e bens públicos (Arts. 79 a 103 do CC)",
+          "2. Negócio jurídico: representação, condição (suspensiva e resolutiva), termo e encargo (Arts. 104 a 137 do CC)",
+          "3. Defeitos do negócio jurídico (erro, dolo, coação, estado de perigo, lesão e fraude contra credores) e nulidade absoluta vs. anulabilidade (Arts. 138 a 185 do CC)",
+          "4. Atos ilícitos (Arts. 186 a 188 do CC), prescrição (causas que impedem, suspendem e interrompem - Arts. 189 a 206 do CC), decadência (Arts. 207 a 211 do CC) e provas (Arts. 212 a 232 do CC)"
         ]
       },
       {
         day: 13, date: '2026-11-01', week: 2, subjectId: 'proc_civil', suggestedQ: 30,
-        title: 'Sujeitos do Processo, Partes, Litisconsórcio, Intervenção de Terceiros e Juiz',
-        legalBasis: 'Arts. 70 a 187 do CPC/2015 (Itens 13 a 17 do Anexo II)',
+        title: "Partes, Procuradores, Litisconsórcio, Intervenção de Terceiros e Juiz",
+        legalBasis: "Arts. 70 a 187 do CPC/2015",
         topics: [
-          '1. Capacidade processual, deveres das partes, litigância de má-fé, despesas, honorários advocatícios e gratuidade da justiça (Itens 13 a 14.2)',
-          '2. Litisconsórcio: classificações (ativo/passivo, necessário/facultativo, unitário/simples) e regime jurídico (Item 15.1)',
-          '3. Intervenção de terceiros: assistência, denunciação da lide, chamamento ao processo, IDPJ e Amicus Curiae (Itens 15.2 a 15.5)',
-          '4. Poderes, deveres, impedimento e suspeição do Juiz; Auxiliares da Justiça e Funções Essenciais: MP, Advocacia Pública e Defensoria (Itens 16 e 17)'
+          "1. Capacidade processual, deveres das partes, litigância de má-fé, despesas, honorários advocatícios sucumbenciais e gratuidade da justiça (Arts. 70 a 102 do CPC)",
+          "2. Litisconsórcio: espécies (necessário, facultativo, unitário e simples) e regime jurídico (Arts. 113 a 118 do CPC)",
+          "3. Intervenção de terceiros: assistência simples e litisconsorcial, denunciação da lide, chamamento ao processo, incidente de desconsideração da personalidade jurídica (IDPJ) e amicus curiae (Arts. 119 a 138 do CPC)",
+          "4. Poderes, deveres, impedimento e suspeição do juiz (Arts. 139 a 148 do CPC), auxiliares da justiça e Funções Essenciais: MP, Advocacia Pública e Defensoria (Arts. 149 a 187 do CPC)"
         ]
       },
-
-      // ---------------- SEMANA 3: 02/11/2026 a 08/11/2026 ----------------
       {
         day: 14, date: '2026-11-02', week: 3, subjectId: 'penal', suggestedQ: 25,
-        title: 'Teoria Geral do Delito I: Conduta, Nexo, Imputação Objetiva, Dolo, Culpa e Tipicidade',
-        legalBasis: 'Arts. 13 a 19 do Código Penal (Itens 8 a 8.5 do Anexo II)',
+        title: "Teoria do Delito I: Conduta, Nexo de Causalidade, Tipicidade, Dolo e Culpa",
+        legalBasis: "Arts. 13 a 19 do Código Penal (Decreto-Lei 2.848/40)",
         topics: [
-          '1. Conceito analítico de crime e Conduta: ação e omissão (crimes omissivos próprios e impróprios / garantidor) e causas que excluem a conduta (Item 8.1)',
-          '2. Relação de causalidade (teoria da equivalência dos antecedentes), concausas absolutamente e relativamente independentes (Item 8.2)',
-          '3. Teoria da Imputação Objetiva: criação de risco proibido e realização do risco no resultado (Item 8.2.1)',
-          '4. Tipo penal doloso (dolo direto e eventual), tipo penal culposo, crime preterdoloso e tipicidade formal/material (Itens 8.3 a 8.5)'
+          "1. Conceito analítico de crime; conduta (ação e omissão), crimes omissivos próprios e impróprios (dever de agir / posição de garantidor) e causas de exclusão da conduta (Art. 13, § 2º do CP)",
+          "2. Relação de causalidade (teoria da conditio sine qua non) e concausas absolutamente e relativamente independentes (Art. 13, caput e § 1º do CP)",
+          "3. Teoria da Imputação Objetiva: criação de risco proibido e realização do risco no resultado",
+          "4. Tipicidade: tipo doloso (dolo direto e eventual - Art. 18, I do CP), tipo culposo (imprudência, negligência, imperícia - Art. 18, II do CP) e crime preterdoloso (Art. 19 do CP)"
         ]
       },
       {
         day: 15, date: '2026-11-03', week: 3, subjectId: 'administrativo', suggestedQ: 25,
-        title: 'Poderes Administrativos, PAD e Atos Administrativos',
-        legalBasis: 'Lei 9.784/99 e Lei 8.112/90 (Itens 3 a 4 e 18 do Anexo II)',
+        title: "Poderes Administrativos, Atos Administrativos e Processo Administrativo Federal",
+        legalBasis: "Lei 9.784/99 (Processo Administrativo) e Lei 8.112/90",
         topics: [
-          '1. Poderes e deveres do administrador, vinculação vs. discricionariedade, uso e abuso de poder: excesso de poder e desvio de finalidade (Item 3)',
-          '2. Poder hierárquico, poder disciplinar (PAD), poder regulamentar e poder de polícia: ciclo, atributos, delegação e prescrição (Itens 3.1 a 3.4)',
-          '3. Atos administrativos: conceito, requisitos/elementos, atributos (presunção de legitimidade, autoexecutoriedade, tipicidade, imperatividade), classificação e espécies (Item 4)',
-          '4. Extinção dos atos administrativos (anulação, revogação, cassação, caducidade) e Processo Administrativo Federal Lei 9.784/99 (Itens 4 e 18)'
+          "1. Poderes da Administração: vinculado, discricionário, hierárquico, regulamentar e poder de polícia (atributos, ciclo de polícia e limites)",
+          "2. Uso e abuso de poder: desvio de finalidade (desvio de poder) e excesso de poder",
+          "3. Atos administrativos: conceito, requisitos/elementos (competência, finalidade, forma, motivo, objeto), atributos (presunção de legitimidade, imperatividade, autoexecutoriedade, tipicidade) e classificação",
+          "4. Extinção dos atos: revogação, anulação (efeitos ex tunc vs. ex nunc), cassação, caducidade e regras do processo administrativo federal (Arts. 1º a 70 da Lei 9.784/99)"
         ]
       },
       {
         day: 16, date: '2026-11-04', week: 3, subjectId: 'proc_trabalho', suggestedQ: 25,
-        title: 'Princípios, Organização e Competência da Justiça do Trabalho e Partes',
-        legalBasis: 'Arts. 111 a 116 da CF/88 e Arts. 643 a 793-D da CLT (Itens 1 a 5.4 do Anexo II)',
+        title: "Organização, Competência da Justiça do Trabalho, Partes e Gratuidade",
+        legalBasis: "Arts. 111 a 116 da CF/88 e Arts. 643 a 793-D da CLT",
         topics: [
-          '1. Princípios, fontes, autonomia, integração e eficácia do Direito Processual do Trabalho; organização da JT e do MPT (Itens 1 a 3.4)',
-          '2. Competência da Justiça do Trabalho em razão da matéria (Art. 114 CF e Súmula Vinculante 53), das pessoas, funcional e territorial (Art. 651 CLT) (Item 4)',
-          '3. Partes, representação, substituição processual, Jus Postulandi (Súmula 425 TST) e mandato tácito (Itens 5, 5.3 e 5.4)',
-          '4. Justiça Gratuita (Art. 790, §§ 3º e 4º CLT), Assistência Judiciária e Honorários Advocatícios Sucumbenciais e Periciais após a Reforma e ADI 5766 (Itens 5.1, 5.2 e 11.1)'
+          "1. Organização da Justiça do Trabalho (Varas, TRTs, TST) e do MPT (Arts. 111 a 116 da CF/88 e Arts. 643 a 735 da CLT)",
+          "2. Competência da Justiça do Trabalho em razão da matéria (Art. 114 da CF/88 e Súmula Vinculante 53) e territorial (Art. 651 da CLT)",
+          "3. Partes, representação, procuração, mandato tácito (Súmula 383 TST) e Jus Postulandi da parte e limites (Art. 791 da CLT e Súmula 425 TST)",
+          "4. Justiça Gratuita (Art. 790, §§ 3º e 4º da CLT), Honorários Periciais (Art. 790-B da CLT) e Honorários Sucumbenciais na JT (Art. 791-A da CLT com decisão da ADI 5766/STF)"
         ]
       },
       {
         day: 17, date: '2026-11-05', week: 3, subjectId: 'empresarial', suggestedQ: 25,
-        title: 'Teoria da Empresa, Empresário, Estabelecimento, Nome e Registro',
-        legalBasis: 'Arts. 966 a 1.195 do Código Civil e LC 123/2006 (Itens 1, 3 e 4 do Anexo II)',
+        title: "Teoria da Empresa, Empresário Individual, Estabelecimento e Registro",
+        legalBasis: "Arts. 966 a 980 e 1.142 a 1.195 do Código Civil e LC 123/2006",
         topics: [
-          '1. Conceito de Empresário (Art. 966 CC), atividades excluídas (profissão intelectual/artística/científica), empresário rural e inscrição (Itens 1.1 a 1.6)',
-          '2. Capacidade para ser empresário, impedimentos, empresário casado e MEI, Microempresa e EPP (Itens 1.5 e 1.7)',
-          '3. Estabelecimento Empresarial: natureza jurídica, trepasse, cláusula de não restabelecimento, sucessão empresarial, aviamento e clientela (Itens 3 a 3.2)',
-          '4. Institutos complementares: Registro Público de Empresas Mercantis (Junta Comercial), Nome Empresarial, Escrituração e Prepostos (Itens 4.1 a 4.4)'
+          "1. Conceito de empresário, requisitos da atividade empresarial e exclusão dos profissionais intelectuais, artísticos e científicos (Art. 966 e parágrafo único do CC)",
+          "2. Capacidade empresarial, impedimentos para o exercício da empresa, empresário casado e emancipado (Arts. 972 a 980 do CC)",
+          "3. Estabelecimento empresarial: conceito, natureza, aviamento, clientela, trespasse, sucessão por dívidas e cláusula de não restabelecimento (Arts. 1.142 a 1.149 do CC)",
+          "4. Nome empresarial (firma e denominação - Arts. 1.155 a 1.168 do CC), registro de empresas mercantis (Lei 8.934/94), escrituração e prepostos (Arts. 1.179 a 1.195 do CC)"
         ]
       },
       {
         day: 18, date: '2026-11-06', week: 3, subjectId: 'humanos', suggestedQ: 25,
-        title: 'Teoria Geral dos Direitos Humanos e Sistema Global (ONU)',
-        legalBasis: 'Declaração Universal de 1948, Pactos de 1966 e Art. 5º, §§ 2º e 3º da CF/88',
+        title: "Teoria Geral dos Direitos Humanos e Sistema Global de Proteção (ONU)",
+        legalBasis: "Declaração Universal de 1948, Pactos de 1966 e Art. 5º, §§ 2º e 3º da CF/88",
         topics: [
-          '1. Conceito, evolução histórica, fundamentos filosóficos e características dos Direitos Humanos (universalidade, indivisibilidade, inalienabilidade)',
-          '2. Carta da ONU, Declaração Universal dos Direitos Humanos (1948) e Pactos Internacionais de Direitos Civis/Políticos e Econômicos/Sociais/Culturais (1966)',
-          '3. Convenções especiais da ONU (Eliminação da Discriminação Racial, Contra a Tortura, CEDAW Mulheres, Direitos da Criança e Pessoas com Deficiência)',
-          '4. Incorporação e hierarquia dos Tratados de Direitos Humanos no Direito Brasileiro (Emenda Constitucional vs. Status Supralegal — STF)'
+          "1. Conceito, características (universalidade, indivisibilidade, irrenunciabilidade, inalienabilidade) e gerações/dimensões de Direitos Humanos",
+          "2. Declaração Universal dos Direitos Humanos (DUDH de 1948): natureza jurídica, direitos civis, políticos, econômicos e sociais (Arts. 1º a 30 da DUDH)",
+          "3. Pacto Internacional sobre Direitos Civis e Políticos (PIDCP) e Pacto sobre Direitos Econômicos, Sociais e Culturais (PIDESC) de 1966",
+          "4. Recepção dos tratados de direitos humanos no ordenamento brasileiro, rito especial de aprovação (Art. 5º, § 3º da CF/88) e tese da supralegalidade (RE 466.343/STF)"
         ]
       },
       {
         day: 19, date: '2026-11-07', week: 3, subjectId: 'constitucional', suggestedQ: 30,
-        title: 'Tutela Constitucional das Liberdades (Remédios Constitucionais), Nacionalidade e Direitos Políticos',
-        legalBasis: 'Arts. 5º (LXVIII a LXXIII), 12 a 17 da CF/88 e Leis 12.016/09, 13.300/16, 9.507/97, 4.717/65 (Itens 12 a 15 do Anexo II)',
+        title: "Remédios Constitucionais, Nacionalidade e Direitos Políticos",
+        legalBasis: "Arts. 5º (LXVIII a LXXIII) e 12 a 17 da CF/88 e Leis 12.016/09, 13.300/16, 9.507/97 e 4.717/65",
         topics: [
-          '1. Habeas Corpus e Habeas Data (Lei 9.507/97): cabimento, legitimidade e procedimento (Itens 12.1 e 12.2)',
-          '2. Mandado de Segurança Individual e Coletivo (Lei 12.016/09) e Mandado de Injunção (Lei 13.300/16) (Itens 12.3 e 12.4)',
-          '3. Ação Popular (Lei 4.717/65), Ação Civil Pública (Lei 7.347/85), Direito de Petição e Certidão (Itens 12.5 a 12.9)',
-          '4. Direito de Nacionalidade (natos, naturalizados, perda e reaquisição — EC 131/2023) e Direitos Políticos (capacidade eleitoral, inelegibilidades e partidos) (Itens 14 e 15)'
+          "1. Habeas Corpus (Art. 5º, LXVIII CF) e Habeas Data (Art. 5º, LXXII CF e Arts. 1º a 21 da Lei 9.507/97 - Súmula Vinculante 2)",
+          "2. Mandado de Segurança Individual e Coletivo (Art. 5º, LXIX/LXX CF e Arts. 1º a 27 da Lei 12.016/09) e Mandado de Injunção (Art. 5º, LXXI CF e Lei 13.300/16)",
+          "3. Ação Popular (Art. 5º, LXXIII CF e Lei 4.717/65) e Ação Civil Pública (Art. 129, III CF e Lei 7.347/85)",
+          "4. Nacionalidade brasileira: natos, naturalizados, hipóteses de perda e reaquisição com a EC 131/2023 (Art. 12 CF) e Direitos Políticos, inelegibilidades e partidos (Arts. 14 a 17 da CF/88)"
         ]
       },
       {
         day: 20, date: '2026-11-08', week: 3, subjectId: 'etica', suggestedQ: 30,
-        title: 'Sociedade de Advogados, Advogado Empregado e Honorários Advocatícios',
-        legalBasis: 'Arts. 15 a 26 do EAOAB e Arts. 35 a 54 do Código de Ética e Disciplina',
+        title: "Sociedade de Advogados, Advogado Empregado e Honorários Advocatícios",
+        legalBasis: "Arts. 15 a 26 do EAOAB (Lei 8.906/94) e Arts. 35 a 54 do Código de Ética e Disciplina",
         topics: [
-          '1. Sociedade de Advogados e Sociedade Unipessoal de Advocacia: registro, razão social, responsabilidade e impedimentos (Arts. 15 a 17 EAOAB)',
-          '2. Advogado Empregado: relação de emprego, isenção técnica, jornada de trabalho, adicional noturno, horas extras e honorários de sucumbência (Arts. 18 a 21 EAOAB com alterações recentes)',
-          '3. Honorários Advocatícios: convencionados, arbitrados judicialmente, sucumbenciais e assistenciais; natureza alimentar e cobrança/prescrição (Arts. 22 a 26 EAOAB)',
-          '4. Quota litis (contrato de risco), prestação de contas ao cliente e regras éticas sobre fixação de honorários no CED'
+          "1. Sociedade de Advogados simples e Sociedade Unipessoal de Advocacia: registro na OAB, responsabilidade ilimitada e vedações de sócio (Arts. 15 a 17 do EAOAB)",
+          "2. Advogado Empregado: jornada de trabalho (20h/40h com a Lei 14.365/22), horas extras, adicional noturno, honorários sucumbenciais e isenção técnica (Arts. 18 a 21 do EAOAB)",
+          "3. Honorários advocatícios: convencionados, sucumbenciais, arbitrados e assistenciais; titularidade, execução autônoma e prescrição de 5 anos (Arts. 22 a 26 do EAOAB)",
+          "4. Contrato de honorários, cláusula quota litis, compensação de créditos e regras éticas de cobrança (Arts. 48 a 54 do Código de Ética e Disciplina da OAB)"
         ]
       },
-
-      // ---------------- SEMANA 4: 09/11/2026 a 15/11/2026 ----------------
       {
         day: 21, date: '2026-11-09', week: 4, subjectId: 'civil', suggestedQ: 25,
-        title: 'Teoria Geral das Obrigações: Modalidades, Transmissão, Adimplemento e Inadimplemento',
-        legalBasis: 'Arts. 233 a 420 do Código Civil (Itens 7 a 7.6 e 8 do Anexo II)',
+        title: "Teoria Geral das Obrigações: Modalidades, Transmissão e Pagamento",
+        legalBasis: "Arts. 233 a 420 do Código Civil (Lei 10.406/02)",
         topics: [
-          '1. Modalidades das obrigações: dar coisa certa/incerta, fazer, não fazer, alternativas, divisíveis/indivisíveis e solidariedade ativa/passiva (Item 7.1)',
-          '2. Transmissão das obrigações: cessão de crédito, assunção de dívida e cessão de posição contratual (Item 7.2)',
-          '3. Adimplemento e extinção das obrigações: pagamento direto, consignação, sub-rogação, imputação, dação, novação, compensação, confusão e remissão (Item 7.3)',
-          '4. Inadimplemento das obrigações: mora, perdas e danos, juros, cláusula penal, arras/sinal e atos unilaterais: promessa de recompensa, gestão de negócios, pagamento indevido e enriquecimento sem causa (Itens 7.4 a 8)'
+          "1. Modalidades de obrigações: dar coisa certa e incerta (Arts. 233 a 246 do CC), fazer e não fazer (Arts. 247 a 251 do CC), alternativas (Arts. 252 a 256 do CC) e divisíveis/indivisíveis (Arts. 257 a 263 do CC)",
+          "2. Solidariedade ativa e passiva: características, renúncia, remissão e julgamento comum (Arts. 264 a 285 do CC)",
+          "3. Transmissão das obrigações: cessão de crédito, assunção de dívida (cessão de débito) e cessão de contrato (Arts. 286 a 303 do CC)",
+          "4. Adimplemento e extinção: pagamento direto, quem deve pagar, a quem se deve pagar, prova do pagamento, quitação (Arts. 304 a 333 do CC) e inadimplemento: mora, perdas e danos, juros legais, cláusula penal e arras (Arts. 389 a 420 do CC)"
         ]
       },
       {
         day: 22, date: '2026-11-10', week: 4, subjectId: 'proc_civil', suggestedQ: 25,
-        title: 'Atos Processuais, Prazos, Citação, Intimações, Nulidades e Tutela Provisória',
-        legalBasis: 'Arts. 188 a 317 do CPC/2015 (Itens 18 a 24 do Anexo II)',
+        title: "Atos Processuais, Prazos, Citação, Nulidades e Tutela Provisória",
+        legalBasis: "Arts. 188 a 317 do CPC/2015",
         topics: [
-          '1. Forma, tempo e lugar dos atos processuais, processo eletrônico e negócios jurídicos processuais (Art. 190 CPC) (Itens 18 a 18.3)',
-          '2. Prazos processuais (contagem em dias úteis, prazos em dobro), preclusão e comunicações: cartas, citação e intimações (Itens 18.4 a 18.8 e 20)',
-          '3. Nulidades processuais (princípio da instrumentalidade das formas e pas de nullité sans grief), formação, suspensão e extinção do processo (Itens 19, 23 e 24)',
-          '4. Tutela Provisória: disposições gerais, tutela de urgência (antecipada e cautelar, antecedente e incidental), estabilização da tutela e tutela da evidência (Itens 22 e 22.1)'
+          "1. Atos processuais: forma, tempo, lugar, negócios jurídicos processuais atípicos e calendário processual (Arts. 188 a 211 do CPC)",
+          "2. Prazos processuais: contagem em dias úteis, prazos próprios e impróprios, preclusão temporal/lógica/consumativa e prerrogativas de prazo (Arts. 212 a 235 do CPC)",
+          "3. Comunicação dos atos: citação pessoal, eletrônica, por correio, oficial de justiça, hora certa e edital; intimações e nulidades processuais (Arts. 236 a 283 do CPC)",
+          "4. Tutela Provisória: disposições gerais (Arts. 294 a 299), tutela de urgência antecipada e cautelar, antecedente e incidental, estabilização da tutela (Arts. 300 a 310) e tutela da evidência (Art. 311 do CPC)"
         ]
       },
       {
         day: 23, date: '2026-11-11', week: 4, subjectId: 'penal', suggestedQ: 25,
-        title: 'Teoria do Delito II: Ilicitude, Culpabilidade, Iter Criminis, Erro e Concurso de Pessoas',
-        legalBasis: 'Arts. 14 a 31 do Código Penal (Itens 8.6 a 10 do Anexo II)',
+        title: "Ilicitude, Culpabilidade, Iter Criminis, Erro e Concurso de Pessoas",
+        legalBasis: "Arts. 20 a 31 do Código Penal (Decreto-Lei 2.848/40)",
         topics: [
-          '1. Antijuridicidade (Ilicitude): estado de necessidade, legítima defesa, estrito cumprimento de dever legal, exercício regular de direito e consentimento do ofendido (Item 8.6)',
-          '2. Culpabilidade: imputabilidade, potencial consciência da ilicitude e exigibilidade de conduta diversa (coação moral irresistível e obediência hierárquica) (Item 8.7)',
-          '3. Iter Criminis: consumação, tentativa, desistência voluntária, arrependimento eficaz, arrependimento posterior e crime impossível (Itens 8.9 a 8.13)',
-          '4. Erro de tipo (essencial e acidental), erro de proibição, descriminantes putativas e Concurso de Pessoas (teoria monista, coautoria, participação de menor importância e cooperação dolosamente distinta) (Itens 9 a 10)'
+          "1. Ilicitude e causas de justificação: estado de necessidade, legítima defesa, estrito cumprimento de dever legal e exercício regular de direito; excesso punível (Arts. 23 a 25 do CP)",
+          "2. Culpabilidade: imputabilidade e causas de inimputabilidade por idade, doença mental e embriaguez involuntária (Arts. 26 a 28 do CP); potencial consciência da ilicitude e exigibilidade de conduta diversa",
+          "3. Iter Criminis: cogitação, preparação, execução, consumação (Art. 14, I do CP), tentativa (Art. 14, II do CP), desistência voluntária e arrependimento eficaz (Art. 15 do CP), arrependimento posterior (Art. 16 do CP) e crime impossível (Art. 17 do CP)",
+          "4. Teoria do erro (erro de tipo essencial e acidental - Art. 20 do CP; erro de proibição - Art. 21 do CP; coação moral irresistível e obediência hierárquica - Art. 22 do CP) e Concurso de pessoas (autoria, coautoria e participação - Arts. 29 a 31 do CP)"
         ]
       },
       {
         day: 24, date: '2026-11-12', week: 4, subjectId: 'proc_penal', suggestedQ: 25,
-        title: 'Ação Penal, Ação Civil ex delicto, Jurisdição, Competência e Questões Incidentes',
-        legalBasis: 'Arts. 24 a 154 do CPP (Itens 6 a 9 do Anexo II)',
+        title: "Ação Penal, Ação Civil ex delicto e Competência Criminal",
+        legalBasis: "Arts. 24 a 91 do CPP (Decreto-Lei 3.689/41)",
         topics: [
-          '1. Ação Penal Pública Incondicionada e Condicionada à representação: princípios, denúncia, prazos e retratação da representação (Itens 6 a 6.2)',
-          '2. Ação Penal Privada (exclusiva, personalíssima e subsidiária da pública): queixa-crime, decadência, renúncia, perdão e perempção (Itens 6.1 e 6.2)',
-          '3. Ação Civil ex delicto e fixação de valor mínimo de indenização na sentença penal (Art. 387, IV CPP) (Item 7)',
-          '4. Jurisdição e Competência no Processo Penal (lugar da infração, domicílio, prevenção, conexão, continência, prerrogativa de função) e Questões/Processos Incidentes (Itens 8 e 9)'
+          "1. Ação Penal Pública incondicionada e condicionada à representação do ofendido ou requisição do Ministro da Justiça (Arts. 24 a 28 do CPP)",
+          "2. Ação Penal Privada exclusiva, personalíssima e subsidiária da pública: prazo decadencial, renúncia, perdão, perempção e sucessores (Arts. 29 a 62 do CPP)",
+          "3. Ação Civil ex delicto: efeitos civis da condenação penal, titularidade e fixação de valor mínimo indenizatório na sentença (Arts. 63 a 68 do CPP c/c Art. 387, IV do CPP)",
+          "4. Critérios de fixação da competência penal: lugar da infração (ratione loci), domicílio do réu, prevenção, conexão e continência (Arts. 69 a 91 do CPP)"
         ]
       },
       {
         day: 25, date: '2026-11-13', week: 4, subjectId: 'trabalho', suggestedQ: 25,
-        title: 'Empregador, Grupo Econômico, Sucessão, Terceirização e Modalidades de Contrato',
-        legalBasis: 'Arts. 2º, 10, 442 a 456-A da CLT e Lei 6.019/74 (Itens 12 a 19 do Anexo II)',
+        title: "Empregador, Grupo Econômico, Sucessão, Terceirização e Contrato de Trabalho",
+        legalBasis: "Arts. 2º, 10, 10-A, 442 a 456-A da CLT e Lei 6.019/74",
         topics: [
-          '1. Empregador: poderes diretivo, regulamentar, fiscalizatório e disciplinar; grupo econômico e consórcio de empregadores (Itens 12 a 12.5)',
-          '2. Sucessão trabalhista de empresas e empregadores (Arts. 10 e 448-A CLT) e responsabilidade do sócio retirante (Art. 10-A CLT) (Itens 12.3 e 12.5)',
-          '3. Terceirização na atividade-meio e atividade-fim (Lei 6.019/74 e STF) e responsabilidade subsidiária da Administração Pública (Súmula 331 TST) (Item 14)',
-          '4. Contrato de emprego: prazo indeterminado vs. prazo determinado (experiência, obra certa, safra), trabalho intermitente, trabalho do menor e dano extrapatrimonial (Itens 15 a 19)'
+          "1. Conceito de empregador (Art. 2º, caput), grupo econômico por direção ou coordenação e responsabilidade solidária (Art. 2º, §§ 2º e 3º da CLT)",
+          "2. Sucessão trabalhista de empregadores (Arts. 10 e 448-A da CLT) e responsabilidade subsidiária do sócio retirante (Art. 10-A da CLT)",
+          "3. Terceirização de atividade-meio e atividade-fim (Arts. 4º-A a 5º-B da Lei 6.019/74 com Lei 13.467/17) e responsabilidade subsidiária do tomador (Súmula 331 do TST)",
+          "4. Contrato de trabalho por prazo determinado, contrato de experiência (Arts. 443 e 445 da CLT), contrato de trabalho intermitente (Art. 452-A da CLT) e dano extrapatrimonial trabalhista (Arts. 223-A a 223-G da CLT)"
         ]
       },
       {
         day: 26, date: '2026-11-14', week: 4, subjectId: 'tributario', suggestedQ: 30,
-        title: 'Imunidades Tributárias, Espécies de Tributos, Competência e Repartição de Receitas',
-        legalBasis: 'Arts. 145 a 162 da CF/88 e Arts. 1º a 95 do CTN (Itens 5 a 8 do Anexo II)',
+        title: "Imunidades Tributárias, Espécies de Tributos e Repartição de Receitas",
+        legalBasis: "Arts. 145 a 162 da CF/88 e Arts. 3º a 18 do CTN",
         topics: [
-          '1. Imunidades Tributárias: recíproca, templos de qualquer culto, partidos/sindicatos/entidades educacionais e assistenciais, cultural/imprensa e musical (Itens 7.1 a 7.1.5)',
-          '2. Conceito de Tributo (Art. 3º CTN) e as 5 espécies tributárias: Impostos, Taxas (polícia e serviço; Súmula Vinculante 19 e 29), Contribuição de Melhoria, Empréstimos Compulsórios e Contribuições Especiais (Itens 5 a 5.5)',
-          '3. Competência Tributária (privativa, comum, residual e extraordinária), bitributação e bis in idem (Item 6)',
-          '4. Principais Impostos Federais, Estaduais (ICMS, IPVA, ITCMD) e Municipais (ISS, IPTU, ITBI) e Repartição Constitucional de Receitas (Itens 5.1 e 8)'
+          "1. Imunidades constitucionais: recíproca entre entes federativos, templos religiosos, partidos, sindicatos e entidades de educação/assistência social, livros/jornais e fonogramas musicais (Art. 150, VI, alíneas 'a', 'b', 'c', 'd' e 'e' da CF/88)",
+          "2. Conceito de tributo (Art. 3º do CTN) e teoria pentapartida: Impostos (Arts. 145, I CF e 16 CTN), Taxas de polícia e serviço (Arts. 145, II CF e 77 CTN - Súmulas Vinculantes 19 e 29) e Contribuições de Melhoria (Arts. 145, III CF e 81 CTN)",
+          "3. Empréstimos Compulsórios (Art. 148 da CF/88) e Contribuições Especiais sociais, de intervenção no domínio econômico e corporativas (Art. 149 da CF/88 c/c Art. 149-A para iluminação pública - COSIP)",
+          "4. Competência tributária privativa, comum, residual (Art. 154, I CF) e repartição das receitas tributárias entre União, Estados e Municípios (Arts. 157 a 162 da CF/88)"
         ]
       },
       {
         day: 27, date: '2026-11-15', week: 4, subjectId: 'administrativo', suggestedQ: 30,
-        title: 'Licitações e Contratos Administrativos (Nova Lei 14.133/2021)',
-        legalBasis: 'Lei 14.133/2021 (Item 5 do Anexo II)',
+        title: "Licitações e Contratos Administrativos (Nova Lei 14.133/2021)",
+        legalBasis: "Arts. 1º a 154 da Lei 14.133/2021 (Nova Lei de Licitações)",
         topics: [
-          '1. Âmbito de aplicação da Lei 14.133/2021, princípios, agentes de contratação e fases do processo licitatório',
-          '2. Modalidades de licitação: pregão, concorrência, concurso, leilão e diálogo competitivo (vedação a tomada de preços e convite) e critérios de julgamento',
-          '3. Contratação direta: hipóteses de Inexigibilidade (Art. 74) e Dispensa de Licitação (Art. 75) e procedimentos auxiliares (credenciamento, SRP, PMI)',
-          '4. Contratos Administrativos: cláusulas exorbitantes, garantias, duração, alteração unilateral/equilíbrio econômico-financeiro, extinção e sanções'
+          "1. Princípios licitatórios, âmbito de aplicação da Nova Lei, agentes de contratação, comissão de contratação e fase preparatória (Arts. 1º a 27 da Lei 14.133/21)",
+          "2. Modalidades licitatórias: pregão, concorrência, concurso, leilão e diálogo competitivo; critérios de julgamento e fases do procedimento (Arts. 28 a 52 da Lei 14.133/21)",
+          "3. Contratação direta: hipóteses taxativas de inexigibilidade de licitação (Art. 74) e dispensas de licitação (Art. 75) e procedimentos auxiliares: credenciamento, pré-qualificação, SRP e PMI (Arts. 76 a 88 da Lei 14.133/21)",
+          "4. Contratos administrativos: formalização, cláusulas exorbitantes, garantias, duração, alteração unilateral e reequilíbrio econômico-financeiro (Arts. 89 a 136) e extinção/sanções administrativas (Arts. 137 a 154 da Lei 14.133/21)"
         ]
       },
-
-      // ---------------- SEMANA 5: 16/11/2026 a 22/11/2026 ----------------
       {
         day: 28, date: '2026-11-16', week: 5, subjectId: 'constitucional', suggestedQ: 25,
-        title: 'Organização Político-Administrativa do Estado, Federação e Intervenção',
-        legalBasis: 'Arts. 18 a 43 da CF/88 (Itens 16 a 18 do Anexo II)',
+        title: "Organização do Estado, Repartição de Competências e Intervenção Federal",
+        legalBasis: "Arts. 18 a 36 da CF/88",
         topics: [
-          '1. Forma de Estado (Federação), União, Estados, Distrito Federal, Municípios e Territórios; bens da União e dos Estados (Itens 16 a 16.4)',
-          '2. Repartição constitucional de competências: exclusivas (Art. 21), privativas (Art. 22), comuns (Art. 23) e concorrentes (Art. 24); competência municipal (Art. 30)',
-          '3. Criação, incorporação, fusão e desmembramento de Estados e Municípios (Art. 18, §§ 3º e 4º CF)',
-          '4. Intervenção Federal e Intervenção Estadual: hipóteses, espontânea vs. provocada, representação interventiva e controle político (Item 17)'
+          "1. Forma federativa de Estado, autonomia dos entes federativos (União, Estados, DF e Municípios), criação de novos Estados e Municípios e bens públicos constitucionais (Arts. 18 a 20 e 26 da CF/88)",
+          "2. Competências da União: exclusivas materiais (Art. 21 da CF/88) e privativas legislativas (Art. 22 da CF/88 com possibilidade de delegação por LC)",
+          "3. Competências comuns administrativas (Art. 23 da CF/88) e competências concorrentes legislativas entre União, Estados e DF (Art. 24 da CF/88); competências dos Municípios (Art. 30 da CF/88)",
+          "4. Intervenção Federal nos Estados/DF e Intervenção Estadual nos Municípios: hipóteses taxativas, iniciativa (de ofício ou provocada) e controle político e judicial (Arts. 34 a 36 da CF/88)"
         ]
       },
       {
         day: 29, date: '2026-11-17', week: 5, subjectId: 'civil', suggestedQ: 25,
-        title: 'Teoria Geral dos Contratos e Contratos em Espécie',
-        legalBasis: 'Arts. 421 a 853 do Código Civil (Itens 9 e 10 do Anexo II)',
+        title: "Teoria Geral dos Contratos e Contratos em Espécie",
+        legalBasis: "Arts. 421 a 853 do Código Civil (Lei 10.406/02)",
         topics: [
-          '1. Princípios contratuais (função social, boa-fé objetiva, intervenção mínima — Lei da Liberdade Econômica) e formação dos contratos (Item 9)',
-          '2. Estipulação em favor de terceiro, promessa de fato de terceiro, vícios redibitórios e evicção (Item 9)',
-          '3. Extinção dos contratos: exceção do contrato não cumprido, resolução por onerosidade excessiva, resilição unilateral e distrato (Item 9)',
-          '4. Contratos em espécie: compra e venda (cláusulas especiais), doação, locação, comodato, mútuo, prestação de serviço, empreitada, mandato, fiança e seguro (Item 10)'
+          "1. Princípios contratuais: autonomia da vontade, boa-fé objetiva, função social do contrato (Arts. 421 e 421-A com a Lei da Liberdade Econômica) e formação dos contratos (Arts. 427 a 435 do CC)",
+          "2. Vícios redibitórios e prazos de garantia (Arts. 441 a 446 do CC), evicção e direitos do evicto (Arts. 447 a 457 do CC) e extinção contratual: exceção do contrato não cumprido e resolução por onerosidade excessiva (Arts. 476 a 480 do CC)",
+          "3. Contrato de compra e venda (Arts. 481 a 504 do CC), cláusulas especiais de venda (Arts. 505 a 532 do CC) e doação com encargos/revogação (Arts. 538 a 564 do CC)",
+          "4. Locação de coisas (Arts. 565 a 578 do CC), empréstimo (comodato e mútuo - Arts. 579 a 592 do CC), prestação de serviços (Arts. 593 a 609 do CC), empreitada (Arts. 610 a 626 do CC), mandato (Arts. 653 a 692 do CC) e fiança (Arts. 818 a 839 do CC)"
         ]
       },
       {
         day: 30, date: '2026-11-18', week: 5, subjectId: 'proc_civil', suggestedQ: 25,
-        title: 'Procedimento Comum I: Petição Inicial, Audiência, Respostas do Réu, Revelia e Saneamento',
-        legalBasis: 'Arts. 318 a 368 do CPC/2015 (Itens 25 a 27.3 do Anexo II)',
+        title: "Procedimento Comum I: Petição Inicial, Respostas do Réu e Saneamento",
+        legalBasis: "Arts. 318 a 368 do CPC/2015",
         topics: [
-          '1. Petição inicial: requisitos, pedido (certo, determinado, genérico, cumulativo), valor da causa, emenda e indeferimento (Itens 25.3 a 25.6)',
-          '2. Improcedência liminar do pedido (Art. 332 CPC) e audiência de conciliação ou de mediação (Art. 334 CPC — multa por ausência) (Itens 25.7 e 25.9)',
-          '3. Respostas do réu: Contestação (preliminares do Art. 337 e princípio da eventualidade) e Reconvenção; Revelia e seus efeitos (Itens 25.11 a 26.4)',
-          '4. Julgamento conforme o estado do processo: extinção sem/com mérito, julgamento antecipado total ou parcial do mérito (Art. 356 — agravo de instrumento) e decisão de saneamento (Itens 27 a 27.3)'
+          "1. Petição inicial: requisitos essenciais, pedidos, emenda à inicial e hipóteses de indeferimento da inicial (Arts. 319 a 331 do CPC)",
+          "2. Improcedência liminar do pedido com base em precedentes (Art. 332 do CPC) e audiência de conciliação ou mediação e multa por não comparecimento (Art. 334 do CPC)",
+          "3. Respostas do réu: Contestação (preliminares do Art. 337 e princípio da concentração da defesa), reconvenção (Art. 343 do CPC) e revelia com seus efeitos materiais e processuais (Arts. 344 a 346 do CPC)",
+          "4. Julgamento conforme o estado do processo: extinção do feito (Arts. 354 c/c 485/487), julgamento antecipado total ou parcial do mérito (Arts. 355 e 356 do CPC) e decisão de saneamento e organização do processo (Art. 357 do CPC)"
         ]
       },
       {
         day: 31, date: '2026-11-19', week: 5, subjectId: 'etica', suggestedQ: 25,
-        title: 'Incompatibilidades, Impedimentos, Publicidade Profissional e Deveres Éticos',
-        legalBasis: 'Arts. 27 a 33 do EAOAB, Código de Ética (Res. 02/2015) e Provimento 205/2021',
+        title: "Incompatibilidades, Impedimentos, Sigilo e Publicidade na Advocacia",
+        legalBasis: "Arts. 27 a 33 do EAOAB, Arts. 35 a 47 do CED e Provimento 205/2021 do CFOAB",
         topics: [
-          '1. Incompatibilidade (proibição total — Art. 28 EAOAB) vs. Impedimento (proibição parcial — Art. 30 EAOAB): hipóteses completas e distinções (ex.: Polícia, Magistério, Mesa do Legislativo)',
-          '2. Deveres éticos do advogado, sigilo profissional e hipóteses excepcionais de quebra de sigilo (Arts. 35 a 38 do CED)',
-          '3. Publicidade profissional na advocacia e marketing jurídico (Arts. 39 a 47 do CED e Provimento 205/2021): redes sociais, impulsionamento e vedações à mercantilização',
-          '4. Advocacia pro bono (Art. 30 do CED) e relações com o cliente, colegas e tribunais'
+          "1. Incompatibilidade para a advocacia (proibição total - membros do Executivo, Magistratura, MP, policiais, militares da ativa, servidores de fiscalização - Art. 28 do EAOAB)",
+          "2. Impedimento para a advocacia (proibição parcial de advogar contra o ente pagador ou membros do Legislativo contra PJ de direito público - Art. 30 do EAOAB)",
+          "3. Sigilo profissional do advogado: dever indeclinável, hipóteses excepcionais de quebra em legítima defesa e imunidade do segredo (Arts. 35 a 38 do Código de Ética e Disciplina)",
+          "4. Publicidade profissional e marketing jurídico: caráter informativo, moderação, redes sociais, impulsionamento e vedações à mercantilização e captação de clientela (Arts. 39 a 47 do CED e Provimento 205/2021)"
         ]
       },
       {
         day: 32, date: '2026-11-20', week: 5, subjectId: 'consumidor', suggestedQ: 25,
-        title: 'Relação de Consumo, Direitos Básicos e Responsabilidade pelo Fato e Vício (CDC)',
-        legalBasis: 'Arts. 1º a 28 da Lei 8.078/1990 — CDC (Item 25 de Direito Civil no Anexo II)',
+        title: "Relação de Consumo, Direitos Básicos e Responsabilidade pelo Fato e Vício",
+        legalBasis: "Arts. 1º a 28 da Lei 8.078/90 (Código de Defesa do Consumidor)",
         topics: [
-          '1. Conceito de Consumidor (padrão e por equiparação/bystander — Arts. 2º, 17 e 29), Fornecedor, Produto e Serviço; jurisprudência do STJ (Teoria Finalista Mitigada)',
-          '2. Princípios da Política Nacional e Direitos Básicos do Consumidor: inversão do ônus da prova (ope legis vs. ope judicis) (Arts. 4º e 6º CDC)',
-          '3. Responsabilidade pelo Fato do Produto e do Serviço (acidente de consumo — Arts. 12 a 17): excludentes e responsabilidade do comerciante',
-          '4. Responsabilidade pelo Vício do Produto e do Serviço (Arts. 18 a 25), prazos de decadência e prescrição (Arts. 26 e 27) e desconsideração da PJ (Teoria Menor — Art. 28)'
+          "1. Conceitos fundamentais de consumidor padrão (Art. 2º CDC), consumidor por equiparação (bystander - Arts. 17 e 29 CDC), fornecedor, produto e serviço (Art. 3º do CDC)",
+          "2. Princípios da Política Nacional das Relações de Consumo e Direitos Básicos do Consumidor, com inversão do ônus da prova (Arts. 4º a 7º do CDC)",
+          "3. Responsabilidade civil pelo fato do produto e do serviço (acidente de consumo, dano à saúde/segurança, excludentes do nexo e prazo de 5 anos - Arts. 12 a 17 e 27 do CDC)",
+          "4. Responsabilidade por vício do produto e do serviço (inadequação, prazo de 30 dias do Art. 18, opções do consumidor, decadência de 30 e 90 dias - Arts. 18 a 26 do CDC) e desconsideração da personalidade jurídica (Art. 28 do CDC)"
         ]
       },
       {
         day: 33, date: '2026-11-21', week: 5, subjectId: 'filosofia', suggestedQ: 25,
-        title: 'Filosofia do Direito I: Antiguidade Clássica, Contratualismo, Iluminismo e Utilitarismo',
-        legalBasis: 'Conteúdo programático de Filosofia do Direito (Item 3.4.1.1 do Edital)',
+        title: "Filosofia do Direito I: Antiguidade Clássica, Contratualismo, Iluminismo e Utilitarismo",
+        legalBasis: "Teorias Clássicas da Justiça, Moral e Direito no Pensamento Filosófico",
         topics: [
-          '1. Filosofia Grega e Justiça: Sócrates, Platão (A República) e Aristóteles (Ética a Nicômaco: justiça distributiva, corretiva e equidade/epikeia)',
-          '2. Jusnaturalismo medieval e moderno; Contratualistas: Thomas Hobbes (Leviatã), John Locke (Segundo Tratado) e Jean-Jacques Rousseau (Contrato Social)',
-          '3. Immanuel Kant: imperativo categórico, autonomia da vontade e distinção entre Moral e Direito (Doutrina do Direito)',
-          '4. Utilitarismo Jurídico e Político: Jeremy Bentham e John Stuart Mill (princípio da maior felicidade e liberdade)'
+          "1. Grécia Clássica: Sócrates (obediência às leis), Platão (justiça como virtude na República) e Aristóteles (justiça distributiva, comutativa e equidade na Ética a Nicômaco)",
+          "2. Contratualismo moderno: Thomas Hobbes (estado de natureza, Leviatã e segurança jurídica), John Locke (direitos naturais inalienáveis e propriedade) e Jean-Jacques Rousseau (vontade geral e soberania popular)",
+          "3. Filosofia moral de Immanuel Kant: distinção entre Direito e Moral, imperativo categórico, dignidade humana e autonomia da vontade na Fundamentação da Metafísica dos Costumes",
+          "4. Utilitarismo jurídico de Jeremy Bentham e John Stuart Mill: princípio da maior felicidade para o maior número e limites da intervenção estatal na liberdade individual"
         ]
       },
       {
         day: 34, date: '2026-11-22', week: 5, subjectId: 'penal', suggestedQ: 30,
-        title: 'Teoria da Pena, Dosimetria, Regimes, Concurso de Crimes e Extinção da Punibilidade',
-        legalBasis: 'Arts. 32 a 120 do Código Penal (Itens 11 a 17 do Anexo II)',
+        title: "Teoria da Pena, Dosimetria, Concurso de Crimes e Extinção da Punibilidade",
+        legalBasis: "Arts. 32 a 120 do Código Penal (Decreto-Lei 2.848/40)",
         topics: [
-          '1. Espécies de penas (privativas de liberdade, restritivas de direitos e multa), regimes de cumprimento, progressão, detração e Súmulas do STJ/STF (Itens 11 a 12.2)',
-          '2. Aplicação da pena (sistema trifásico de Nélson Hungria: circunstâncias judiciais, agravantes/atenuantes, causas de aumento/diminuição) (Item 12.3)',
-          '3. Concurso de crimes: concurso material, concurso formal (próprio e impróprio) e crime continuado; Sursis, Livramento Condicional e Efeitos da Condenação (Itens 12.4 a 15)',
-          '4. Causas Extintivas da Punibilidade (Art. 107 CP) e Prescrição Penal: punitiva (abstrata, retroativa, intercorrente) e executória (Item 16)'
+          "1. Penas privativas de liberdade (reclusão e detenção), regimes fechado, semiaberto e aberto e penas restritivas de direitos e multa (Arts. 32 a 52 do CP)",
+          "2. Aplicação da pena: critério trifásico (circunstâncias judiciais do Art. 59, atenuantes/agravantes dos Arts. 61 a 67 e causas de aumento/diminuição do CP)",
+          "3. Concurso de crimes: concurso material (cúmulo material - Art. 69 do CP), concurso formal próprio e impróprio (Art. 70 do CP) e crime continuado (Art. 71 do CP); suspensão condicional da pena e livramento condicional (Arts. 77 a 90 do CP)",
+          "4. Extinção da punibilidade: hipóteses do Art. 107 do CP e Prescrição Penal: prescrição da pretensão punitiva (abstrata, retroativa e intercorrente - Arts. 109 e 110 do CP) e prescrição da pretensão executória (Arts. 112 e 113 do CP)"
         ]
       },
-
-      // ---------------- SEMANA 6: 23/11/2026 a 29/11/2026 ----------------
       {
         day: 35, date: '2026-11-23', week: 6, subjectId: 'trabalho', suggestedQ: 25,
-        title: 'Duração do Trabalho, Jornada, Intervalos, Teletrabalho, Férias e Remuneração',
-        legalBasis: 'Arts. 57 a 153 e 457 a 467 da CLT (Itens 20 a 24.1 do Anexo II)',
+        title: "Jornada de Trabalho, Intervalos, Teletrabalho, Férias e Remuneração",
+        legalBasis: "Arts. 57 a 153 e 457 a 467 da CLT (Decreto-Lei 5.452/43)",
         topics: [
-          '1. Jornada de trabalho, horas extras, acordo de compensação, banco de horas, regime 12x36, empregados excluídos do controle (Art. 62 CLT) e teletrabalho (Itens 20 a 20.9)',
-          '2. Trabalho noturno, sobreaviso, prontidão e intervalos intrajornada e interjornada; Repouso Semanal Remunerado (Itens 20.2, 20.8, 21.1 e 21.2)',
-          '3. Férias: aquisição, concessão, fracionamento em até 3 períodos, abono pecuniário, férias coletivas e dobra (Item 21.3)',
-          '4. Remuneração vs. Salário: gorjetas, parcelas salariais e indenizatórias (prêmios, diárias, ajuda de custo), salário in natura, adicionais (insalubridade, periculosidade, transferência) e equiparação salarial (Art. 461 CLT) (Itens 22 a 24.1, 33.1)'
+          "1. Jornada de trabalho (8h diárias, 44h semanais), horas extraordinárias, banco de horas individual e coletivo, regime 12x36 e empregados dispensados do controle (Arts. 58 a 62 da CLT)",
+          "2. Intervalos intrajornada e interjornada (Arts. 66 a 72 da CLT), descanso semanal remunerado e teletrabalho/trabalho remoto (Arts. 75-A a 75-E da CLT)",
+          "3. Férias anuais remuneradas: período aquisitivo e concessivo, fracionamento em até 3 períodos, abono pecuniário e pagamento em dobro (Arts. 129 a 153 da CLT)",
+          "4. Remuneração e salário: gorjetas, parcelas de natureza salarial vs. indenizatória (diárias, prêmios - Art. 457 da CLT), equiparação salarial (Art. 461 da CLT) e adicionais de insalubridade e periculosidade (Arts. 189 a 197 da CLT)"
         ]
       },
       {
         day: 36, date: '2026-11-24', week: 6, subjectId: 'proc_trabalho', suggestedQ: 25,
-        title: 'Procedimentos Trabalhistas, Petição Inicial, Audiência, Revelia, Respostas e Provas',
-        legalBasis: 'Arts. 794 a 852-I da CLT (Itens 6 a 11 do Anexo II)',
+        title: "Procedimentos Trabalhistas, Petição Inicial, Audiência, Respostas e Provas",
+        legalBasis: "Arts. 794 a 852-I da CLT (Decreto-Lei 5.452/43)",
         topics: [
-          '1. Atos, termos, prazos e nulidades no Processo do Trabalho (Itens 6 e 7)',
-          '2. Procedimentos ordinário, sumário e sumaríssimo (até 40 salários mínimos: requisitos, citação e testemunhas) e requisitos da Petição Inicial Trabalhista (Art. 840, §1º CLT) (Itens 8 a 8.3)',
-          '3. Audiência trabalhista: presença das partes, arquivamento e pagamento de custas (Art. 844, §2º CLT), revelia e suas exceções (Art. 844, §4º e §5º CLT) e acordo extrajudicial (Art. 855-B CLT) (Itens 9 a 9.2)',
-          '4. Respostas do réu (contestação, reconvenção e exceção de incompetência territorial Art. 800 CLT), ônus da prova, testemunhas, perícia e sentença (Itens 9.3 a 11)'
+          "1. Procedimento ordinário, sumário e sumaríssimo (causas até 40 salários mínimos: citação, testemunhas e laudo pericial - Arts. 852-A a 852-I da CLT)",
+          "2. Requisitos da Petição Inicial Trabalhista com pedidos certos, determinados e com indicação de valor (Art. 840, § 1º da CLT com a Reforma)",
+          "3. Audiência trabalhista: presença obrigatória das partes, arquivamento por ausência do autor e pagamento de custas (Art. 844, § 2º), revelia e confissão ficta e exceções de revelia (Art. 844, §§ 4º e 5º da CLT)",
+          "4. Respostas do réu (contestação, reconvenção e exceção de incompetência em razão do lugar - Art. 800 da CLT), distribuição do ônus da prova e provas em espécie (Arts. 818 a 830 da CLT)"
         ]
       },
       {
         day: 37, date: '2026-11-25', week: 6, subjectId: 'tributario', suggestedQ: 25,
-        title: 'Vigência, Interpretação, Obrigação Tributária e Responsabilidade Tributária',
-        legalBasis: 'Arts. 96 a 138 do CTN (Itens 4, 9 e 10 do Anexo II)',
+        title: "Vigência, Interpretação, Obrigação Tributária e Responsabilidade Tributária",
+        legalBasis: "Arts. 96 a 138 do CTN (Lei 5.172/66)",
         topics: [
-          '1. Vigência, aplicação (retroatividade benigna Art. 106 CTN), interpretação literal (Art. 111 CTN) e integração da legislação tributária (Item 4)',
-          '2. Obrigação Tributária (principal e acessória), fato gerador, sujeitos ativo e passivo (contribuinte e responsável), capacidade tributária, solidariedade e domicílio (Itens 10 a 10.5)',
-          '3. Responsabilidade dos sucessores (imóveis, espólio, fusão/incorporação e aquisição de fundo de comércio — Art. 133 CTN) (Itens 9.1 e 9.2)',
-          '4. Responsabilidade de terceiros (Art. 134 e 135 CTN — Súmula 430 STJ), responsabilidade por infrações e Denúncia Espontânea (Art. 138 CTN e Súmula 360 STJ) (Itens 9.3 a 9.7)'
+          "1. Vigência e aplicação da legislação tributária: irretroatividade e hipóteses de retroatividade benigna da lei (Arts. 101 a 106 do CTN)",
+          "2. Interpretação literal da lei tributária em outorga de isenção, suspensão do crédito e dispensa de deveres (Art. 111 do CTN) e integração (Art. 108 do CTN)",
+          "3. Obrigação tributária principal e acessória, fato gerador, sujeição ativa e passiva (contribuinte vs. responsável) e domicílio fiscal (Arts. 113 a 127 do CTN)",
+          "4. Responsabilidade tributária dos sucessores (Arts. 129 a 133 do CTN), responsabilidade de terceiros e de sócios/diretores com dolo/fraude (Arts. 134 e 135 do CTN - Súmula 430 STJ) e denúncia espontânea (Art. 138 do CTN)"
         ]
       },
       {
         day: 38, date: '2026-11-26', week: 6, subjectId: 'proc_penal', suggestedQ: 25,
-        title: 'Teoria das Provas, Cadeia de Custódia, Prisões, Audiência de Custódia e Medidas Cautelares',
-        legalBasis: 'Arts. 155 a 350 do CPP (Itens 10, 14, 15 e 27 do Anexo II)',
+        title: "Direito Probatório, Cadeia de Custódia e Prisões Processuais",
+        legalBasis: "Arts. 155 a 350 do CPP e Lei 7.960/89 (Prisão Temporária)",
         topics: [
-          '1. Direito Probatório: provas ilícitas e derivadas (Art. 157 CPP), valor probatório do inquérito (Art. 155 CPP), exame de corpo de delito e Cadeia de Custódia (Arts. 158-A a 158-F CPP) (Itens 10 e 27)',
-          '2. Provas em espécie: interrogatório, confissão, testemunhas, reconhecimento de pessoas (Art. 226 CPP — jurisprudência STJ/STF) e busca e apreensão (Item 10)',
-          '3. Prisão em Flagrante, Audiência de Custódia (Art. 310 CPP), Prisão Preventiva (requisitos, fundamentos e vedação de decretação de ofício pelo juiz) e Prisão Domiciliar (Itens 14 e 27)',
-          '4. Prisão Temporária (Lei 7.960/89 e entendimento do STF), Medidas Cautelares Diversas da Prisão (Art. 319 CPP) e Liberdade Provisória com ou sem fiança (Itens 14 e 15)'
+          "1. Teoria das provas: livre convencimento motivado, provas ilícitas e teoria dos frutos da árvore envenenada com exceções de fonte independente (Arts. 155 a 157 do CPP)",
+          "2. Cadeia de custódia da prova pericial: etapas do rastreamento de vestígios desde o isolamento até o descarte (Arts. 158-A a 158-F do CPP com o Pacote Anticrime)",
+          "3. Prisão em flagrante (modalidades de flagrante e audiência de custódia em 24h - Arts. 301 a 310 do CPP) e prisão preventiva (requisitos, fundamentos e vedação de ofício - Arts. 311 a 316 do CPP)",
+          "4. Prisão domiciliar (Art. 318 do CPP), prisão temporária (Lei 7.960/89 e ADIs 3360/4109 do STF), medidas cautelares diversas da prisão (Art. 319 do CPP) e fiança (Arts. 321 a 350 do CPP)"
         ]
       },
       {
         day: 39, date: '2026-11-27', week: 6, subjectId: 'empresarial', suggestedQ: 25,
-        title: 'Direito Societário: Sociedades Simples, Limitada, Sociedade Anônima e Operações',
-        legalBasis: 'Arts. 981 a 1.141 do Código Civil e Lei 6.404/76 (Itens 2 e 5 do Anexo II)',
+        title: "Direito Societário: Sociedades Não Personificadas, Limitada e Sociedade Anônima",
+        legalBasis: "Arts. 981 a 1.141 do Código Civil e Lei 6.404/76 (Lei das S/A)",
         topics: [
-          '1. Sociedades não personificadas: Sociedade em Comum e Sociedade em Conta de Participação; Sociedades Simples e Cooperativas (Itens 2.1 a 2.6.1, 2.6.3)',
-          '2. Sociedade Limitada: capital social, quotas, administração, deliberações dos sócios (quóruns atualizados), exclusão judicial e extrajudicial de sócio e sociedade limitada unipessoal (Item 2.6.2)',
-          '3. Sociedade Anônima (Lei 6.404/76): capital aberto vs. fechado, valores mobiliários (ações, debêntures), órgãos sociais (AGO/AGE, Conselho de Administração, Diretoria, Conselho Fiscal) e acordos de acionistas (Itens 5 e 6)',
-          '4. Dissolução, liquidação e operações societárias: transformação, incorporação, fusão e cisão (Itens 2.7 e 2.8)'
+          "1. Sociedade em comum (responsabilidade solidária e ilimitada dos sócios - Arts. 986 a 990 do CC) e Sociedade em Conta de Participação (Arts. 991 a 996 do CC)",
+          "2. Sociedade Limitada: quotas sociais, responsabilidade solidária pela integralização, administração, deliberações societárias e sociedade limitada unipessoal (Arts. 1.052 a 1.087 do CC)",
+          "3. Sociedade Anônima: capital aberto vs. fechado, valores mobiliários (ações ordinárias e preferenciais, debêntures) e órgãos sociais: Assembleia Geral, Conselho de Administração e Diretoria (Arts. 1º a 165 da Lei 6.404/76)",
+          "4. Dissolução total e parcial da sociedade, apuração de haveres e operações societárias: transformação, incorporação, fusão e cisão (Arts. 1.113 a 1.122 do CC e Arts. 220 a 229 da Lei 6.404/76)"
         ]
       },
       {
         day: 40, date: '2026-11-28', week: 6, subjectId: 'administrativo', suggestedQ: 30,
-        title: 'Serviços Públicos, Agências Reguladoras, PPPs, Concessões e Agentes Públicos',
-        legalBasis: 'Leis 8.987/95, 11.079/04, 13.848/19 e 8.112/90 (Itens 6 a 7.1 do Anexo II)',
+        title: "Serviços Públicos, Concessões, Parcerias Público-Privadas e Agentes Públicos",
+        legalBasis: "Arts. 37 a 41 da CF/88, Lei 8.987/95, Lei 11.079/04 e Lei 8.112/90",
         topics: [
-          '1. Serviços Públicos: princípios (continuidade, modicidade, atualidade), classificação e interrupção por inadimplemento (Item 6)',
-          '2. Concessão e Permissão de serviços públicos (Lei 8.987/95), Parcerias Público-Privadas — PPPs (patrocinada e administrativa — Lei 11.079/04), consórcios públicos e Agências Reguladoras (Lei 13.848/19) (Itens 6.1 a 6.4)',
-          '3. Agentes Públicos: classificação, cargo, emprego e função, concurso público, acumulação remunerada de cargos, estabilidade e estágio probatório (Item 7)',
-          '4. Regime remuneratório (subsídio, teto constitucional), regime disciplinar na Lei 8.112/90 e responsabilidade civil, penal e administrativa do servidor (Itens 7 e 7.1)'
+          "1. Serviços públicos: princípios (continuidade, modicidade, atualidade), regime de concessão e permissão de serviços públicos comuns (Arts. 1º a 41 da Lei 8.987/95)",
+          "2. Parcerias Público-Privadas (PPPs): concessão patrocinada e concessão administrativa, limites de valor e vedações (Arts. 1º a 28 da Lei 11.079/04)",
+          "3. Agentes públicos: classificação (políticos, administrativos, honoríficos), concurso público, estabilidade no cargo efetivo e estágio probatório (Arts. 37 a 41 da CF/88)",
+          "4. Regime jurídico dos servidores públicos federais: provimento, vacância, acumulação remunerada de cargos públicos, responsabilidades e sanções disciplinares (Arts. 1º a 142 da Lei 8.112/90)"
         ]
       },
       {
         day: 41, date: '2026-11-29', week: 6, subjectId: 'constitucional', suggestedQ: 30,
-        title: 'Organização dos Poderes: Legislativo, Processo Legislativo, Executivo, Judiciário e Funções Essenciais',
-        legalBasis: 'Arts. 44 a 135 da CF/88 (Itens 19 a 19.4 do Anexo II)',
+        title: "Organização dos Poderes: Legislativo, Processo Legislativo, Executivo e Judiciário",
+        legalBasis: "Arts. 44 a 135 da CF/88",
         topics: [
-          '1. Poder Legislativo: Congresso Nacional, atribuições da Câmara e do Senado, imunidades parlamentares (material e formal), CPIs e Tribunal de Contas da União (Art. 71 CF) (Item 19.1)',
-          '2. Processo Legislativo: fases, iniciativa privativa/concorrente, Emendas Constitucionais, Leis Complementares, Leis Ordinárias, Leis Delegadas e Medidas Provisórias (Art. 62 CF) (Item 19.1.2)',
-          '3. Poder Executivo: atribuições do Presidente da República, crimes de responsabilidade vs. infrações penais comuns (Arts. 84 a 86 CF) (Item 19.2)',
-          '4. Poder Judiciário (garantias, vedações, CNJ, competências do STF e STJ, precatórios) e Funções Essenciais à Justiça (MP, Advocacia Pública, Advocacia e Defensoria) (Itens 19.3 e 19.4)'
+          "1. Poder Legislativo: bicameralismo, atribuições exclusivas da Câmara dos Deputados (Art. 51 CF) e do Senado Federal (Art. 52 CF), imunidades parlamentares material e formal (Art. 53 CF) e CPIs (Art. 58, § 3º CF)",
+          "2. Processo legislativo constitucional: iniciativa de leis, emendas parlamentares, quórum de aprovação, sanção e veto presidencial, medidas provisórias e emendas à constituição (Arts. 59 a 69 da CF/88)",
+          "3. Poder Executivo: atribuições do Presidente da República (Art. 84 CF), responsabilidade política (crime de responsabilidade e impeachment) e infrações penais comuns (Arts. 85 a 88 da CF/88)",
+          "4. Poder Judiciário: garantias da magistratura (Art. 95 CF), Conselho Nacional de Justiça - CNJ (Art. 103-B CF), competências originárias e recursais do STF (Art. 102 CF) e do STJ (Art. 105 CF) e Funções Essenciais (Arts. 127 a 135 CF)"
         ]
       },
-
-      // ---------------- SEMANA 7: 30/11/2026 a 06/12/2026 ----------------
       {
         day: 42, date: '2026-11-30', week: 7, subjectId: 'civil', suggestedQ: 25,
-        title: 'Responsabilidade Civil, Posse, Propriedade e Direitos Reais',
-        legalBasis: 'Arts. 927 a 954 e 1.196 a 1.510-E do Código Civil (Itens 11 a 14 do Anexo II)',
+        title: "Responsabilidade Civil, Posse, Propriedade e Direitos Reais sobre Coisas Alheias",
+        legalBasis: "Arts. 927 a 954 e 1.196 a 1.510-E do Código Civil (Lei 10.406/02)",
         topics: [
-          '1. Responsabilidade Civil: subjetiva vs. objetiva (parágrafo único do Art. 927 e Art. 932 CC), excludentes de ilicitude/nexo e quantificação da indenização (Itens 11 e 12)',
-          '2. Posse: teorias, classificação (justa/injusta, boa-fé/má-fé), aquisição, efeitos (frutos, benfeitorias e direito de retenção) e proteção possessória (Item 13)',
-          '3. Propriedade: aquisição (usucapião: espécies constitucional, extraordinária, ordinária, familiar e extrajudicial), direitos de vizinhança e condomínio (Item 13)',
-          '4. Direitos Reais sobre coisa alheia: superfície, servidões, usufruto, uso, habitação, direito real de laje e garantias reais: penhor, hipoteca e anticrese (Item 14)'
+          "1. Responsabilidade civil subjetiva e objetiva (Art. 927 e parágrafo único do CC), responsabilidade por ato de terceiro (Art. 932 do CC), dano material, moral e estético e excludentes de nexo",
+          "2. Posse: teorias de Ihering e Savigny, classificação (justa/injusta, boa-fé/má-fé), efeitos possessórios, benfeitorias, indenização, retenção e ações possessórias (Arts. 1.196 a 1.224 do CC)",
+          "3. Propriedade: aquisição imobiliária, modalidades de usucapião (extraordinária Art. 1.238, ordinária Art. 1.242, constitucional urbana Art. 1.240 e rural Art. 1.239 do CC) e direitos de vizinhança (Arts. 1.277 a 1.313 do CC)",
+          "4. Direitos reais sobre coisas alheias: superfície, servidões, usufruto, uso, habitação, direito de laje (Arts. 1.369 a 1.510-E do CC) e garantias reais: penhor, hipoteca e anticrese (Arts. 1.419 a 1.510 do CC)"
         ]
       },
       {
         day: 43, date: '2026-12-01', week: 7, subjectId: 'proc_civil', suggestedQ: 25,
-        title: 'Procedimento Comum II: Direito Probatório, Sentença, Coisa Julgada e Precedentes',
-        legalBasis: 'Arts. 369 a 512 do CPC/2015 (Itens 28 a 31 do Anexo II)',
+        title: "Direito Probatório, Sentença, Coisa Julgada e Sistema de Precedentes",
+        legalBasis: "Arts. 369 a 512 e 926 a 988 do CPC/2015",
         topics: [
-          '1. Teoria Geral das Provas: ônus da prova (estático e distribuição dinâmica Art. 373, §1º CPC) e produção antecipada da prova (Item 28.1)',
-          '2. Provas em espécie: ata notarial, depoimento pessoal, confissão, exibição de documento, prova documental, testemunhal, pericial e inspeção judicial (Item 28.2)',
-          '3. Sentença (elementos essenciais Art. 489 CPC), remessa necessária (Art. 496 CPC) e Coisa Julgada (limites objetivos e subjetivos) (Itens 29, 31 e 32.1)',
-          '4. Precedentes judiciais, IRDR, IAC, Reclamação (Art. 988 CPC) e Ação Rescisória (Art. 966 CPC) (Itens 30, 32.4 a 32.10)'
+          "1. Teoria geral da prova, ônus da prova estático e distribuição dinâmica do ônus da prova pelo juiz (Arts. 369 a 380 do CPC)",
+          "2. Provas em espécie: ata notarial, depoimento pessoal, confissão, exibição de documentos, prova testemunhal e pericial (Arts. 381 a 484 do CPC)",
+          "3. Sentença: elementos essenciais (relatório, fundamentação estruturada do Art. 489, dispositivo), remessa necessária (Art. 496 do CPC) e coisa julgada material e formal (Arts. 502 a 508 do CPC)",
+          "4. Precedentes judiciais obrigatórios (Art. 927 do CPC), Incidente de Resolução de Demandas Repetitivas - IRDR (Arts. 976 a 987 do CPC) e Ação Rescisória (Arts. 966 a 975 do CPC)"
         ]
       },
       {
         day: 44, date: '2026-12-02', week: 7, subjectId: 'eca', suggestedQ: 25,
-        title: 'ECA I: Direitos Fundamentais, Convivência Familiar, Guarda, Tutela, Adoção e Viagens',
-        legalBasis: 'Arts. 1º a 85 da Lei 8.069/1990 — ECA (Item 35.4 de Proc. Civil no Anexo II)',
+        title: "ECA I: Direitos Fundamentais, Família Substituta, Guarda, Tutela, Adoção e Viagens",
+        legalBasis: "Arts. 1º a 85 da Lei 8.069/1990 (Estatuto da Criança e do Adolescente)",
         topics: [
-          '1. Doutrina da Proteção Integral, prioridade absoluta e direitos fundamentais à vida, saúde, liberdade, educação e profissionalização',
-          '2. Convivência familiar e comunitária: família natural, extensa e substituta; perda e suspensão do poder familiar',
-          '3. Guarda, Tutela e Adoção (requisitos, idade mínima, diferença de 16 anos, adoção póstuma, unilateral, conjunta e internacional)',
-          '4. Prevenção especial e autorização para viajar (nacional e internacional — Arts. 83 a 85 do ECA com redação atualizada)'
+          "1. Princípio da proteção integral, prioridade absoluta e direitos fundamentais à vida, saúde, liberdade, respeito e convivência familiar (Arts. 1º a 18-B do ECA)",
+          "2. Colocação em família substituta: princípios gerais, consentimento e preparação prévia (Arts. 19 a 32 do ECA)",
+          "3. Guarda (Arts. 33 a 35), Tutela (Arts. 36 a 38) e Adoção: requisitos, idade mínima, diferença de idade de 16 anos, irrevogabilidade e adoção internacional (Arts. 39 a 52-D do ECA)",
+          "4. Direito à profissionalização e proteção no trabalho do menor (Arts. 60 a 69 do ECA) e autorização judicial para viagens nacionais e internacionais (Arts. 83 a 85 do ECA com redação atualizada)"
         ]
       },
       {
         day: 45, date: '2026-12-03', week: 7, subjectId: 'ambiental', suggestedQ: 25,
-        title: 'Direito Ambiental I: Princípios, Competências LC 140/11, PNMA e Licenciamento Ambiental',
-        legalBasis: 'Art. 225 CF/88, Lei 6.938/81 e LC 140/2011',
+        title: "Direito Ambiental I: Princípios, Competências Ambientais, SISNAMA e Licenciamento",
+        legalBasis: "Art. 225 da CF/88, Lei Complementar 140/2011 e Lei 6.938/1981 (PNMA)",
         topics: [
-          '1. Princípios do Direito Ambiental: prevenção, precaução, poluidor-pagador, usuário-pagador, desenvolvimento sustentável e proibição do retrocesso ecológico',
-          '2. Repartição de competências ambientais legislativas e materiais/administrativas (LC 140/2011 — critério do ente licenciante)',
-          '3. Política Nacional do Meio Ambiente (Lei 6.938/81), SISNAMA, CONAMA e instrumentos da PNMA',
-          '4. Licenciamento Ambiental (LP, LI e LO), Estudo Prévio de Impacto Ambiental (EIA/RIMA) e audiência pública'
+          "1. Princípios do Direito Ambiental: prevenção, precaução, poluidor-pagador, usuário-pagador, desenvolvimento sustentável e vedação ao retrocesso ambiental (Art. 225 da CF/88)",
+          "2. Repartição de competências ambientais materiais e fiscalizatórias entre União, Estados e Municípios (Arts. 1º a 17 da Lei Complementar 140/2011)",
+          "3. Política Nacional do Meio Ambiente: objetivos, SISNAMA, competências do CONAMA e padrões de qualidade ambiental (Arts. 1º a 19 da Lei 6.938/81)",
+          "4. Licenciamento ambiental ordinário (Licença Prévia, de Instalação e de Operação) e Estudo Prévio de Impacto Ambiental / Relatório (EIA/RIMA - Art. 225, § 1º, IV da CF/88)"
         ]
       },
       {
         day: 46, date: '2026-12-04', week: 7, subjectId: 'etica', suggestedQ: 25,
-        title: 'Infrações, Sanções Disciplinares e Processo Disciplinar na OAB (+ Alerta Edital: Boleto)',
-        legalBasis: 'Arts. 34 a 43 e 68 a 77 do EAOAB (ATENÇÃO: 04/12/2026 é o prazo limite para pagamento da taxa de inscrição!)',
+        title: "Infrações e Sanções Disciplinares, Prescrição e Processo Disciplinar na OAB",
+        legalBasis: "Arts. 34 a 43 e 68 a 77 do EAOAB (Lei 8.906/94) e Código de Ética e Disciplina",
         topics: [
-          '1. Infrações disciplinares puníveis com Censura (Art. 36), Suspensão (Art. 37), Exclusão (Art. 38) e Multa (Art. 39) no Estatuto da OAB',
-          '2. Circunstâncias atenuantes, reabilitação e prescrição da pretensão punitiva disciplinar (5 anos e prescrição intercorrente de 3 anos — Art. 43 EAOAB)',
-          '3. Processo Disciplinar na OAB: competência do TED e do Conselho Seccional, suspensão preventiva (90 dias), prazos e recursos com efeito suspensivo',
-          '4. ALERTA DO EDITAL (Anexo V): Confira se sua inscrição no 48º EOU está homologada (04/12/2026 às 17h é o último dia para reimpressão/pagamento do boleto)'
+          "1. Infrações disciplinares e sanções aplicáveis: advertência e censura (Arts. 34 a 36 do EAOAB)",
+          "2. Sanções de suspensão do exercício profissional (Art. 37 do EAOAB), exclusão dos quadros da OAB (Art. 38 do EAOAB) e multa disciplinar (Art. 39 do EAOAB)",
+          "3. Circunstâncias atenuantes (Art. 40 do EAOAB), reabilitação e prescrição da pretensão punitiva de 5 anos e intercorrente de 3 anos (Art. 43 do EAOAB)",
+          "4. Processo disciplinar perante o Tribunal de Ética e Disciplina (TED): instauração de ofício ou por representação, sigilo, defesa prévia e recursos aos Conselhos (Arts. 68 a 77 do EAOAB)"
         ]
       },
       {
         day: 47, date: '2026-12-05', week: 7, subjectId: 'constitucional', suggestedQ: 30,
-        title: 'Controle de Constitucionalidade Difuso e Concentrado (ADI, ADC, ADO, ADPF e SV)',
-        legalBasis: 'Arts. 97, 102 e 103 da CF/88 e Leis 9.868/99, 9.882/99 e 11.417/06 (Itens 7 a 7.8 do Anexo II)',
+        title: "Controle de Constitucionalidade: Difuso, Concentrado, ADI, ADC, ADO, ADPF e Súmula Vinculante",
+        legalBasis: "Arts. 97, 102 e 103 da CF/88, Leis 9.868/99, 9.882/99, 12.063/09 e 11.417/06",
         topics: [
-          '1. Espécies de inconstitucionalidade, controle preventivo (CCJ e veto jurídico) e controle repressivo difuso/incidental (Cláusula de Reserva de Plenário Art. 97 CF e SV 10) (Item 7)',
-          '2. Ação Direta de Inconstitucionalidade (ADI) e Ação Declaratória de Constitucionalidade (ADC): legitimados universais e especiais (Art. 103 CF), objeto, medida cautelar e modulação de efeitos (Itens 7.1, 7.3 e 7.5)',
-          '3. Ação Direta de Inconstitucionalidade por Omissão (ADO) e Arguição de Descumprimento de Preceito Fundamental (ADPF — Lei 9.882/99: subsidiariedade e direito pré-constitucional/municipal) (Itens 7.2, 7.4 e 7.6)',
-          '4. Súmula Vinculante (Lei 11.417/06), Reclamação Constitucional e Representação de Inconstitucionalidade nos Tribunais de Justiça (RI estadual) (Itens 7.7 e 7.8)'
+          "1. Controle difuso ou incidental de constitucionalidade: cláusula de reserva de plenário pelos tribunais (Art. 97 da CF/88 e Súmula Vinculante 10) e papel do Senado Federal (Art. 52, X da CF/88)",
+          "2. Ação Direta de Inconstitucionalidade (ADI) e Ação Declaratória de Constitucionalidade (ADC): legitimados do Art. 103 da CF/88, medida cautelar e modulação temporal dos efeitos (Arts. 1º a 28 da Lei 9.868/99)",
+          "3. Arguição de Descumprimento de Preceito Fundamental (ADPF): princípio da subsidiariedade e cabimento contra direito pré-constitucional e municipal (Arts. 1º a 13 da Lei 9.882/99)",
+          "4. Ação Direta por Omissão - ADO (Lei 12.063/09), Reclamação Constitucional (Art. 102, I, 'l' CF) e Súmula Vinculante (Art. 103-A da CF/88 e Lei 11.417/06)"
         ]
       },
       {
         day: 48, date: '2026-12-06', week: 7, subjectId: 'penal', suggestedQ: 30,
-        title: 'Crimes em Espécie I: Crimes contra a Pessoa, Patrimônio e Dignidade Sexual',
-        legalBasis: 'Arts. 121 a 218-C do Código Penal (Item 18 do Anexo II)',
+        title: "Crimes contra a Pessoa, Crimes contra o Patrimônio e Crimes Sexuais",
+        legalBasis: "Arts. 121 a 183 e 213 a 234-B do Código Penal (Decreto-Lei 2.848/40)",
         topics: [
-          '1. Crimes contra a Vida: homicídio (qualificadoras, feminicídio Art. 121-A, homicídio privilegiado), induzimento ao suicídio/automutilação, infanticídio e aborto (Item 18)',
-          '2. Lesão corporal (Lei Maria da Penha), crimes contra a honra (calúnia, difamação, injúria e injúria racial), ameaça, perseguição (stalking Art. 147-A) e violência psicológica (Item 18)',
-          '3. Crimes contra o Patrimônio: furto, roubo (majorantes e latrocínio), extorsão, estelionato (regra de representação Art. 171, §5º CP), apropriação indébita, receptação e escusas absolutórias (Arts. 181-183 CP) (Item 18)',
-          '4. Crimes contra a Dignidade Sexual: estupro, estupro de vulnerável (Súmula 593 STJ), importunação sexual e ação penal pública incondicionada (Art. 225 CP) (Item 18)'
+          "1. Crimes contra a vida: homicídio simples, qualificado, privilegiado e feminicídio (Art. 121 do CP); infanticídio, aborto e induzimento ao suicídio ou automutilação (Arts. 122 a 128 do CP)",
+          "2. Lesões corporais de natureza leve, grave, gravíssima e seguida de morte (Art. 129 do CP) e crimes contra a honra: calúnia, difamação e injúria (Arts. 138 a 145 do CP)",
+          "3. Crimes contra o patrimônio: furto simples e qualificado (Art. 155 do CP), roubo circunstanciado e latrocínio (Art. 157 do CP), extorsão (Art. 158 do CP), apropriação indébita (Art. 168 do CP), estelionato (Art. 171 do CP) e receptação (Art. 180 do CP)",
+          "4. Crimes contra a dignidade sexual: estupro (Art. 213 do CP), estupro de vulnerável (Art. 217-A do CP) e importunação sexual (Art. 215-A do CP); ação penal pública incondicionada (Art. 225 do CP)"
         ]
       },
-
-      // ---------------- SEMANA 8: 07/12/2026 a 13/12/2026 ----------------
       {
         day: 49, date: '2026-12-07', week: 8, subjectId: 'trabalho', suggestedQ: 25,
-        title: 'Alteração, Suspensão, Interrupção e Extinção do Contrato de Trabalho, Estabilidades e FGTS',
-        legalBasis: 'Arts. 468 a 510 da CLT e Lei 8.036/90 (Itens 25 a 32.1 do Anexo II)',
+        title: "Alteração, Suspensão, Interrupção e Extinção do Contrato de Trabalho e Estabilidades",
+        legalBasis: "Arts. 468 a 504 da CLT (Decreto-Lei 5.452/43) e Lei 8.036/90 (FGTS)",
         topics: [
-          '1. Alteração do contrato de trabalho (jus variandi, princípio da inalterabilidade lesiva Art. 468 CLT, reversão ao cargo efetivo e transferência) (Itens 25 a 25.7)',
-          '2. Hipóteses e distinções entre Suspensão (sem salário e sem contagem) e Interrupção (com salário e contagem) do contrato de trabalho (Item 27)',
-          '3. Extinção do contrato: pedido de demissão, dispensa sem justa causa, justa causa do empregado (Art. 482), rescisão indireta (Art. 483), culpa recíproca e distrato (Art. 484-A CLT); Aviso Prévio e multas dos Arts. 467 e 477 CLT (Itens 28 a 29.5)',
-          '4. Estabilidades provisórias (gestante, cipeiro, dirigente sindical, acidentado), FGTS e Prescrição Trabalhista (bienal, quinquenal e intercorrente Art. 11-A CLT) (Itens 30 a 32.1)'
+          "1. Alteração do contrato de trabalho: jus variandi, princípio da inalterabilidade contratual lesiva, transferência e reversão de cargo de confiança (Arts. 468 a 470 da CLT)",
+          "2. Hipóteses e distinções essenciais entre suspensão e interrupção do contrato individual de trabalho (Arts. 471 a 476-A da CLT)",
+          "3. Extinção do contrato: demissão, dispensa imotivada, dispensa por justa causa pelo empregado (Art. 482 da CLT), rescisão indireta pelo empregador (Art. 483 da CLT), distrato consensual (Art. 484-A da CLT) e aviso prévio (Arts. 487 a 491 da CLT)",
+          "4. Estabilidades provisórias no emprego: gestante, dirigente sindical, membro da CIPA e acidentado do trabalho (Art. 10, II do ADCT, Art. 543 da CLT e Art. 118 da Lei 8.213/91)"
         ]
       },
       {
         day: 50, date: '2026-12-08', week: 8, subjectId: 'proc_trabalho', suggestedQ: 25,
-        title: 'Sistema Recursal Trabalhista: RO, RR, Agravos, Embargos e Pressupostos',
-        legalBasis: 'Arts. 893 a 901 da CLT (Itens 12 a 12.4 do Anexo II)',
+        title: "Sistema Recursal Trabalhista: RO, RR, Agravos, Embargos e Pressupostos",
+        legalBasis: "Arts. 893 a 902 da CLT (Decreto-Lei 5.452/43)",
         topics: [
-          '1. Princípios recursais trabalhistas: irrecorribilidade imediata das decisões interlocutórias (Súmula 214 TST), unirrecorribilidade e efeito meramente devolutivo (Item 12.1)',
-          '2. Pressupostos recursais: preparo (custas e depósito recursal: isenções, redução pela metade, substituição por seguro garantia/fiança bancária Art. 899, §§ 9º a 11 CLT) (Item 12.3)',
-          '3. Recurso Ordinário (RO), Embargos de Declaração, Agravo de Instrumento (destrancar recurso) e Agravo de Petição (na execução) (Item 12.2)',
-          '4. Recurso de Revista (RR — transcendência, rito sumaríssimo e execução), Embargos no TST e Recurso Adesivo (Item 12.2)'
+          "1. Teoria geral dos recursos trabalhistas: princípio da irrecorribilidade imediata das decisões interlocutórias (Súmula 214 do TST), prazo unificado de 8 dias e efeito devolutivo",
+          "2. Pressupostos recursais objetivos e subjetivos: preparo trabalhista, custas processuais e depósito recursal (isenções, redução de 50% e substituição por seguro garantia - Art. 899 da CLT)",
+          "3. Recurso Ordinário (cabimento contra decisões definitivas e terminativas das Varas - Art. 895 da CLT) e Embargos de Declaração trabalhistas (Art. 897-A da CLT)",
+          "4. Recurso de Revista perante o TST e requisito da transcendência (Art. 896 da CLT), Agravo de Instrumento para destrancar recurso (Art. 897, 'b' da CLT) e Agravo de Petição na execução (Art. 897, 'a' da CLT)"
         ]
       },
       {
         day: 51, date: '2026-12-09', week: 8, subjectId: 'tributario', suggestedQ: 25,
-        title: 'Crédito Tributário: Lançamento, Suspensão, Extinção, Prescrição, Decadência e Exclusão',
-        legalBasis: 'Arts. 139 a 193 do CTN (Itens 11 a 12 do Anexo II)',
+        title: "Crédito Tributário: Lançamento, Suspensão, Extinção, Prescrição e Decadência",
+        legalBasis: "Arts. 139 a 193 do CTN (Lei 5.172/66)",
         topics: [
-          '1. Constituição do Crédito Tributário: Lançamento (de ofício, por declaração e por homologação — Súmula 436 STJ) (Item 11.1)',
-          '2. Suspensão da exigibilidade do crédito tributário (Art. 151 CTN): moratória, depósito do montante integral, reclamações/recursos administrativos, liminar em MS/tutela e parcelamento (Item 11.2)',
-          '3. Extinção do crédito tributário (Art. 156 CTN) e regras de Decadência (Art. 173, I vs. Art. 150, §4º CTN) e Prescrição Tributária (Art. 174 CTN) (Itens 11.3 e 11.3.1)',
-          '4. Exclusão do crédito tributário: Isenção e Anistia (Art. 175 CTN); Garantias e Privilégios do Crédito Tributário e Fraude à Execução Fiscal (Art. 185 CTN e Súmula 375 STJ) (Itens 11.4 e 12)'
+          "1. Constituição do crédito tributário e modalidades de lançamento: direto/de ofício, por declaração/misto e por homologação (Arts. 142 a 150 do CTN)",
+          "2. Hipóteses taxativas de suspensão da exigibilidade do crédito tributário: moratória, depósito judicial, impugnações/recursos administrativos, liminares e parcelamento (Art. 151 do CTN)",
+          "3. Extinção do crédito tributário (Art. 156 do CTN) e regras de decadência (Arts. 150, § 4º e 173 do CTN) e prescrição tributária de 5 anos e interrupção (Art. 174 do CTN)",
+          "4. Exclusão do crédito tributário por isenção e anistia (Arts. 175 a 182 do CTN) e garantias/privilégios do crédito e fraude à execução fiscal (Arts. 183 a 193 do CTN)"
         ]
       },
       {
         day: 52, date: '2026-12-10', week: 8, subjectId: 'proc_penal', suggestedQ: 25,
-        title: 'Procedimentos Penais, Tribunal do Júri, Sentença, Nulidades, Recursos e HC',
-        legalBasis: 'Arts. 394 a 667 do CPP e Lei 9.099/95 (Itens 11 a 13 e 16 a 22 do Anexo II)',
+        title: "Procedimentos Comum e do Júri, Sentença Penal, Nulidades e Recursos",
+        legalBasis: "Arts. 394 a 667 do CPP (Decreto-Lei 3.689/41) e Lei 9.099/95 (JECRIM)",
         topics: [
-          '1. Citações (pessoal, hora certa e edital — Art. 366 CPP) e Procedimento Comum Ordinário, Sumário e Sumaríssimo (JECRIM Lei 9.099/95: transação penal e suspensão condicional do processo Art. 89) (Itens 12, 16 e 17)',
-          '2. Procedimento Bifásico do Tribunal do Júri: pronúncia, impronúncia, absolvição sumária, desclassificação e julgamento em plenário (Item 16)',
-          '3. Sentença penal (emendatio libelli Art. 383 e mutatio libelli Art. 384 CPP) e Nulidades no Processo Penal (Itens 13 e 18)',
-          '4. Recursos em Espécie: Recurso em Sentido Estrito (RESE Art. 581), Apelação (Art. 593), Embargos Infringentes e de Nulidade, Agravo em Execução e Ações Autônomas: Habeas Corpus e Revisão Criminal (Itens 20 e 21)'
+          "1. Procedimento comum ordinário e sumário (Arts. 394 a 405 e 531 a 538 do CPP) e Juizados Especiais Criminais: composição civil, transação penal e suspensão condicional do processo (Arts. 60 a 89 da Lei 9.099/95)",
+          "2. Procedimento especial do Tribunal do Júri: primeira fase (iudicium accusationis: pronúncia, impronúncia, absolvição sumária e desclassificação - Arts. 406 a 421) e sessão plenária de julgamento (Arts. 453 a 497 do CPP)",
+          "3. Sentença penal: requisitos, absolvição (Art. 386), condenação, emendatio libelli (Art. 383) e mutatio libelli (Art. 384 do CPP) e nulidades relativas e absolutas (Arts. 563 a 573 do CPP)",
+          "4. Recursos no Processo Penal: Apelação (Art. 593 do CPP), Recurso em Sentido Estrito - RESE (hipóteses do Art. 581 do CPP), Embargos Infringentes e de Nulidade (Art. 609 do CPP), Carta Testemunhável, Revisão Criminal (Arts. 621 a 630 do CPP) e Habeas Corpus (Arts. 647 a 667 do CPP)"
         ]
       },
       {
         day: 53, date: '2026-12-11', week: 8, subjectId: 'empresarial', suggestedQ: 25,
-        title: 'Títulos de Crédito: Teoria Geral, Letra de Câmbio, Nota Promissória, Cheque, Duplicata e Protesto',
-        legalBasis: 'Arts. 887 a 926 do CC, LUG, Lei 7.357/85, Lei 5.474/68 e Lei 9.492/97 (Itens 9 a 9.7 do Anexo II)',
+        title: "Títulos de Crédito: Teoria Geral, Letra de Câmbio, Nota Promissória, Cheque e Duplicata",
+        legalBasis: "Arts. 887 a 926 do Código Civil, LUG (Dec. 57.663/66), Lei 7.357/85 e Lei 5.474/68",
         topics: [
-          '1. Teoria Geral dos Títulos de Crédito: princípios da cartularidade, literalidade e autonomia (abstração e inoponibilidade das exceções pessoais a terceiros de boa-fé) (Item 9.1)',
-          '2. Atos cambiais: saque, aceite, endosso (em branco, em preto, mandato, caução e póstumo), aval (outorga conjugal Art. 1.647 CC vs. títulos típicos) e vencimento (Itens 9.1 a 9.3)',
-          '3. Letra de Câmbio, Nota Promissória, Cheque (Lei 7.357/85: apresentação, prescrição e Súmula 531 STJ) e Duplicata Mercantil e Escritural (Lei 5.474/68 e Lei 13.775/18) (Itens 9.3 e 9.4)',
-          '4. Títulos do Agronegócio (CPR), Protesto de Títulos (Lei 9.492/97) e sustação/cancelamento de protesto (Itens 9.5 a 9.7)'
+          "1. Teoria geral dos títulos de crédito: princípios da cartularidade, literalidade e autonomia (subprincípios da abstração e inoponibilidade das exceções a terceiros de boa-fé - Arts. 887 a 903 do CC)",
+          "2. Atos cambiários: emissão, saque, aceite, recusa de aceite, endosso em branco e em preto, endosso-mandato e aval vs. fiança (Arts. 904 a 926 do CC e LUG)",
+          "3. Letra de Câmbio e Nota Promissória na Lei Uniforme de Genebra (Decreto 57.663/66)",
+          "4. Cheque (Arts. 1º a 70 da Lei 7.357/85: emissão, prazos de apresentação, sustação e prescrição de 6 meses) e Duplicata mercantil e de serviços (Arts. 1º a 27 da Lei 5.474/68)"
         ]
       },
       {
         day: 54, date: '2026-12-12', week: 8, subjectId: 'civil', suggestedQ: 30,
-        title: 'Direito de Família: Casamento, União Estável, Regime de Bens, Parentesco e Alimentos',
-        legalBasis: 'Arts. 1.511 a 1.783-A do Código Civil e Lei 5.478/68 (Itens 15 a 21 do Anexo II)',
+        title: "Direito de Família: Casamento, União Estável, Regimes de Bens e Alimentos",
+        legalBasis: "Arts. 1.511 a 1.783-A do Código Civil (Lei 10.406/02) e Lei 5.478/68 (Alimentos)",
         topics: [
-          '1. Casamento (capacidade, impedimentos, causas suspensivas, invalidade e divórcio) e União Estável (requisitos, efeitos patrimoniais e conversão) (Itens 15 e 16)',
-          '2. Regime de Bens: pacto antenupcial, comunhão parcial, comunhão universal, participação final nos aquestos, separação convencional e obrigatória (Art. 1.641 CC e Súmula 377/STF) e mutabilidade (Item 20)',
-          '3. Parentesco, filiação, multiparentalidade, reconhecimento de filhos, poder familiar e alienação parental (Itens 17 e 19)',
-          '4. Alimentos (características, alimentos gravídicos Lei 11.804/08, obrigação avoenga Súmula 596 STJ), Bem de Família (legal Lei 8.009/90 e voluntário), Tutela, Curatela e Tomada de Decisão Apoiada (Itens 20.1 a 21)'
+          "1. Casamento: capacidade matrimonial, impedimentos (Art. 1.521), causas suspensivas (Art. 1.523), nulidade e anulabilidade (Arts. 1.548 a 1.564) e divórcio direto",
+          "2. União estável: requisitos de convivência pública, contínua e duradoura, deveres, conversão em casamento e equiparação sucessória (Arts. 1.723 a 1.727 do CC e STF)",
+          "3. Regimes de bens: pacto antenupcial, comunhão parcial de bens, comunhão universal, separação convencional e obrigatória (Art. 1.641 do CC - Súmula 377 STF) e participação final nos aquestos (Arts. 1.639 a 1.688 do CC)",
+          "4. Parentesco, filiação e reconhecimento de filhos (Arts. 1.591 a 1.638 do CC), poder familiar e alimentos: características, obrigação dos parentes, ação de alimentos (Arts. 1.694 a 1.710 do CC e Lei 5.478/68) e tutela e curatela (Arts. 1.728 a 1.783-A do CC)"
         ]
       },
       {
         day: 55, date: '2026-12-13', week: 8, subjectId: 'proc_civil', suggestedQ: 30,
-        title: 'Teoria Geral dos Recursos e Recursos em Espécie no Processo Civil',
-        legalBasis: 'Arts. 994 a 1.044 do CPC/2015 (Item 32.2 do Anexo II)',
+        title: "Teoria Geral dos Recursos e Recursos Cíveis em Espécie",
+        legalBasis: "Arts. 994 a 1.044 do CPC/2015",
         topics: [
-          '1. Teoria Geral dos Recursos: juízo de admissibilidade, efeitos (devolutivo, suspensivo, translativo, regressivo), preparo (deserção), prazo e recurso adesivo (Item 32.2)',
-          '2. Apelação (Art. 1.009 CPC — impugnação das interlocutórias não agraváveis em preliminar) e Agravo de Instrumento (Art. 1.015 CPC e taxatividade mitigada do STJ) (Item 32.2)',
-          '3. Agravo Interno (Art. 1.021 CPC) e Embargos de Declaração (Art. 1.022 CPC — efeito interrompente e prequestionamento ficto Art. 1.025) (Item 32.2)',
-          '4. Recurso Ordinário Constitucional (ROC), Recurso Especial (REsp), Recurso Extraordinário (RE — repercussão geral), Agravo em REsp/RE e Embargos de Divergência (Item 32.2)'
+          "1. Teoria geral dos recursos: juízo de admissibilidade, preparo (deserção), efeitos devolutivo, suspensivo e translativo, princípio da unirrecorribilidade e recurso adesivo (Arts. 994 a 1.008 do CPC)",
+          "2. Recurso de Apelação: cabimento contra sentença terminativa e definitiva, preliminares de apelação e teoria da causa madura (Arts. 1.009 a 1.014 do CPC)",
+          "3. Agravo de Instrumento: hipóteses de cabimento (Art. 1.015 do CPC e tese da taxatividade mitigada do Tema 988/STJ) e procedimento perante o tribunal (Arts. 1.016 a 1.020 do CPC)",
+          "4. Agravo Interno (Art. 1.021), Embargos de Declaração (omissão, contradição, obscuridade e erro material - Arts. 1.022 a 1.026 do CPC) e Recursos aos Tribunais Superiores: Recurso Ordinário, Recurso Especial (Art. 105, III CF), Recurso Extraordinário com Repercussão Geral (Art. 102, III CF e Arts. 1.029 a 1.041 CPC) e Agravo em REsp/RE (Art. 1.042 do CPC)"
         ]
       },
-
-      // ---------------- SEMANA 9: 14/12/2026 a 20/12/2026 ----------------
       {
         day: 56, date: '2026-12-14', week: 9, subjectId: 'administrativo', suggestedQ: 25,
-        title: 'Improbidade Administrativa (Lei 14.230/21), Responsabilidade Civil do Estado e Controle',
-        legalBasis: 'Lei 8.429/92 (com Lei 14.230/21), Lei 12.846/13 e Art. 37, §6º CF (Itens 11 a 15 do Anexo II)',
+        title: "Improbidade Administrativa, Responsabilidade Civil do Estado e Controle",
+        legalBasis: "Lei 8.429/92 (com alterações da Lei 14.230/21) e Art. 37, § 6º da CF/88",
         topics: [
-          '1. Improbidade Administrativa após a Lei 14.230/2021: exigência de dolo específico, espécies de atos (Arts. 9º, 10 e 11), sanções, legitimidade, ANPC e novo regime de prescrição (8 anos e intercorrente de 4 anos) (Item 12)',
-          '2. Lei Anticorrupção (Lei 12.846/13 — responsabilidade objetiva da PJ e acordo de leniência) e Lei de Abuso de Autoridade (Lei 13.869/19) (Itens 11.2 e 13)',
-          '3. Responsabilidade Civil do Estado (Art. 37, §6º CF): teoria do risco administrativo, omissão estatal, excludentes, ação regressiva e prescrição contra a Fazenda Pública (Decreto 20.910/32) (Itens 14 e 15)',
-          '4. Controle da Administração Pública: controle administrativo, legislativo (sustação de atos e julgamento de contas) e judicial (Itens 11 e 11.1)'
+          "1. Lei de Improbidade Administrativa reformada: necessidade de comprovação de dolo específico e eliminação da modalidade culposa (Arts. 1º a 8º-A da Lei 8.429/92)",
+          "2. Atos de improbidade que importam enriquecimento ilícito (Art. 9º), prejuízo ao erário (Art. 10) e atentado contra os princípios da administração (Art. 11 da Lei 8.429/92)",
+          "3. Sanções por improbidade, perda da função pública, suspensão dos direitos políticos, indisponibilidade de bens, acordo de não persecução civil e prescrição de 8 anos (Arts. 12 a 23 da Lei 8.429/92)",
+          "4. Responsabilidade civil extracontratual do Estado: teoria do risco administrativo (Art. 37, § 6º da CF/88), condutas comissivas e omissivas, excludentes do nexo causal e ação de regresso contra o servidor"
         ]
       },
       {
         day: 57, date: '2026-12-15', week: 9, subjectId: 'penal', suggestedQ: 25,
-        title: 'Crimes em Espécie II (Fé Pública e Administração Pública) e Legislação Penal Extravagante',
-        legalBasis: 'Arts. 289 a 359-R do CP e Leis Penais Especiais (Itens 18 a 21.1 do Anexo II)',
+        title: "Crimes contra a Fé Pública, Administração Pública e Legislação Penal Especial",
+        legalBasis: "Arts. 289 a 359-R do CP, Leis 11.343/06 (Drogas) e 8.072/90 (Hediondos)",
         topics: [
-          '1. Crimes contra a Fé Pública: moeda falsa, falsificação de documento público/particular, falsidade ideológica e uso de documento falso (Item 18)',
-          '2. Crimes contra a Administração Pública: peculato (apropriação, desvio, furto e culposo), concussão, corrupção passiva e ativa, prevaricação, desacato e crimes contra a Administração da Justiça (Item 18)',
-          '3. Execução Penal (Lei 7.210/84 — LEP): trabalho do preso, remição (trabalho e estudo), falta grave, saída temporária (alterações recentes) e agravo em execução (Itens 19 a 19.6)',
-          '4. Leis Penais Especiais: Lei de Drogas (Lei 11.343/06), Crimes Hediondos (Lei 8.072/90), Estatuto do Desarmamento (Lei 10.826/03), Lei Maria da Penha (Lei 11.340/06) e Tortura/Racismo (Itens 21 e 21.1)'
+          "1. Crimes contra a fé pública: moeda falsa (Art. 289), falsificação de documento público (Art. 297), particular (Art. 298), falsidade ideológica (Art. 299) e uso de documento falso (Art. 304 do CP)",
+          "2. Crimes praticados por funcionário público contra a administração: peculato e suas formas (Art. 312), concussão (Art. 316), corrupção passiva (Art. 317) e prevaricação (Art. 319 do CP)",
+          "3. Crimes praticados por particular contra a administração: desacato (Art. 331), corrupção ativa (Art. 333) e usurpação de função pública (Art. 328 do CP)",
+          "4. Legislação penal extravagante: Lei de Drogas (porte para consumo Art. 28, tráfico Art. 33 e tráfico privilegiado Art. 33, § 4º da Lei 11.343/06), Lei dos Crimes Hediondos (rol taxativo do Art. 1º da Lei 8.072/90) e Estatuto do Desarmamento (Lei 10.826/03)"
         ]
       },
       {
         day: 58, date: '2026-12-16', week: 9, subjectId: 'internacional', suggestedQ: 25,
-        title: 'Direito Internacional Público: Tratados, Estado, Imunidades e Lei de Migração',
-        legalBasis: 'Convenção de Viena de 1969, Convenções de 1961/1963 e Lei 13.445/2017',
+        title: "Direito Internacional Público: Tratados, Imunidade Diplomática e Lei de Migração",
+        legalBasis: "Convenção de Viena de 1969 sobre Direito dos Tratados e Lei 13.445/2017 (Migração)",
         topics: [
-          '1. Fontes do Direito Internacional Público (Art. 38 do Estatuto da CIJ) e Direito dos Tratados (fases de celebração, aprovação congressual, ratificação e promulgação)',
-          '2. Imunidade de jurisdição e de execução do Estado estrangeiro, missões diplomáticas e repartições consulares',
-          '3. Lei de Migração (Lei 13.445/2017) e Estatuto dos Refugiados (Lei 9.474/97): repatriação, deportação e expulsão (hipóteses de vedação)',
-          '4. Extradição (ativa e passiva, requisitos, entrega ao TPI e vedações do Art. 5º, LI e LII da CF/88)'
+          "1. Fontes do Direito Internacional Público (costumes, tratados, princípios gerais de direito - Art. 38 do Estatuto da CIJ) e sujeitos internacionais (Estados e Organizações)",
+          "2. Conclusão de tratados internacionais: negociação, assinatura, aprovação pelo Congresso Nacional (Art. 49, I CF), ratificação e promulgação por decreto pelo Presidente (Art. 84, VIII CF)",
+          "3. Imunidade de jurisdição e de execução do Estado estrangeiro (distinção entre atos de império e atos de gestão) e Convenção de Viena sobre Relações Diplomáticas de 1961",
+          "4. Medidas compulsórias da Lei de Migração: repatriação, deportação, expulsão (hipóteses de vedação de expulsão) e extradição ativa e passiva (Arts. 45 a 100 da Lei 13.445/17)"
         ]
       },
       {
         day: 59, date: '2026-12-17', week: 9, subjectId: 'humanos', suggestedQ: 25,
-        title: 'Sistema Interamericano de Direitos Humanos (OEA) e Proteção de Grupos Vulneráveis',
-        legalBasis: 'Convenção Americana sobre Direitos Humanos (Pacto de São José da Costa Rica) e Estatutos Internos',
+        title: "Sistema Interamericano de Direitos Humanos e Grupos Vulneráveis",
+        legalBasis: "Pacto de San José da Costa Rica de 1969, Lei 13.146/15 e Lei 12.288/10",
         topics: [
-          '1. Convenção Americana sobre Direitos Humanos (1969): direitos civis e políticos protegidos e cláusula federal',
-          '2. Comissão Interamericana de Direitos Humanos (CIDH): petições individuais, requisitos de admissibilidade (esgotamento dos recursos internos) e medidas cautelares',
-          '3. Corte Interamericana de Direitos Humanos: competência consultiva e contenciosa, casos contra o Brasil e execução de sentença internacional',
-          '4. Incidente de Deslocamento de Competência (IDC — Art. 109, §5º CF) e Estatuto da Pessoa com Deficiência (Lei 13.146/15) / Estatuto da Igualdade Racial (Lei 12.288/10)'
+          "1. Convenção Americana sobre Direitos Humanos (Pacto de San José da Costa Rica de 1969): catálogo de direitos civis e políticos protegidos e deveres dos Estados (Arts. 1º a 32 da CADH)",
+          "2. Comissão Interamericana de Direitos Humanos (CIDH): legitimidade para petições individuais, esgotamento prévio dos recursos internos e medidas cautelares (Arts. 34 a 51 da CADH)",
+          "3. Corte Interamericana de Direitos Humanos (Corte IDH): competência contenciosa e consultiva, julgamento de violações de direitos humanos e cumprimento das sentenças da Corte (Arts. 52 a 69 da CADH)",
+          "4. Estatuto da Pessoa com Deficiência (direitos fundamentais, acessibilidade e capacidade civil plena - Lei 13.146/15) e Estatuto da Igualdade Racial (Lei 12.288/10)"
         ]
       },
       {
         day: 60, date: '2026-12-18', week: 9, subjectId: 'consumidor', suggestedQ: 25,
-        title: 'Práticas Comerciais, Proteção Contratual, Superendividamento e Defesa em Juízo (CDC)',
-        legalBasis: 'Arts. 29 a 104 da Lei 8.078/1990 — CDC (com alterações da Lei 14.181/2021)',
+        title: "Práticas Comerciais, Proteção Contratual, Superendividamento e Defesa Coletiva",
+        legalBasis: "Arts. 29 a 104 da Lei 8.078/90 (CDC) com a Lei 14.181/2021",
         topics: [
-          '1. Oferta e efeito vinculante (Arts. 30 e 35 CDC), publicidade enganosa e abusiva (Art. 37 CDC)',
-          '2. Práticas Abusivas (Art. 39 CDC — venda casada, envio sem solicitação, orçamento prévio), cobrança de dívidas (repetição do indébito em dobro Art. 42, parágrafo único) e Bancos de Dados (Art. 43 e Súmulas STJ 359, 385, 404, 550)',
-          '3. Proteção Contratual: direito de arrependimento (7 dias — Art. 49 CDC), cláusulas abusivas (Art. 51 CDC) e Prevenção e Tratamento do Superendividamento (Lei 14.181/2021 — Arts. 54-A a 54-G e 104-A)',
-          '4. Defesa do Consumidor em Juízo: interesses difusos, coletivos e individuais homogêneos (Art. 81 CDC), legitimidade e coisa julgada coletiva (Art. 103 CDC)'
+          "1. Práticas comerciais: oferta e publicidade vinculante (Arts. 30 a 35), publicidade enganosa e abusiva (Arts. 36 a 38) e práticas abusivas no mercado (Art. 39 do CDC)",
+          "2. Cobrança de dívidas, repetição de indébito em dobro (Art. 42, parágrafo único do CDC) e bancos de dados cadastrais e órgãos de proteção ao crédito (SPC/Serasa - Art. 43 do CDC)",
+          "3. Proteção contratual: interpretação favorável, cláusulas abusivas nulas de pleno direito (Art. 51 do CDC), direito de arrependimento de 7 dias (Art. 49 do CDC) e prevenção e tratamento do superendividamento (Arts. 54-A a 54-G e 104-A a 104-C do CDC)",
+          "4. Defesa do consumidor em juízo: tutela coletiva de direitos difusos, coletivos em sentido estrito e individuais homogêneos, legitimidade extraordinária e coisa julgada coletiva (Arts. 81 a 104 do CDC)"
         ]
       },
       {
         day: 61, date: '2026-12-19', week: 9, subjectId: 'etica', suggestedQ: 30,
-        title: 'Estrutura da OAB, Órgãos, Eleições e Exame de Ordem',
-        legalBasis: 'Arts. 44 a 67 do EAOAB e Regulamento Geral da OAB',
+        title: "Estrutura e Órgãos da OAB, Eleições e Regulamentação Profissional",
+        legalBasis: "Arts. 44 a 67 do EAOAB (Lei 8.906/94) e Regulamento Geral da OAB",
         topics: [
-          '1. Natureza jurídica da OAB (serviço público independente, imunidade tributária, insubmissão a concurso público — ADI 3026 STF)',
-          '2. Órgãos da OAB: Conselho Federal, Conselhos Seccionais, Subseções e Caixas de Assistência dos Advogados (CAA): composição e competências (Arts. 45 a 62 EAOAB)',
-          '3. Eleições na OAB: data, voto obrigatório, requisitos de candidatura (3 ou 5 anos de exercício efetivo), chapas, paridade de gênero e cotas raciais (Arts. 63 a 67 EAOAB)',
-          '4. Conferência Nacional da Advocacia, Medalha Rui Barbosa e prerrogativas dos ex-presidentes'
+          "1. Natureza jurídica sui generis da OAB, finalidades institucionais, imunidade tributária e patrimônio (Arts. 44 e 45 do EAOAB)",
+          "2. Conselho Federal da OAB: composição, delegações dos Estados e DF, competências normativas, fiscalizatórias e recursais (Arts. 51 a 55 do EAOAB)",
+          "3. Conselhos Seccionais, Subseções e Caixas de Assistência dos Advogados (CAA): criação, autonomia administrativa e financeira e competências (Arts. 56 a 62 do EAOAB)",
+          "4. Eleições na OAB: mandato de 3 anos, sufrágio obrigatório, elegibilidade, quóruns e paridade de gênero e cotas raciais nas chapas eleitorais (Arts. 63 a 67 do EAOAB)"
         ]
       },
       {
         day: 62, date: '2026-12-20', week: 9, subjectId: 'civil', suggestedQ: 30,
-        title: 'Direito das Sucessões: Sucessão Legítima, Testamentária, Inventário e Partilha',
-        legalBasis: 'Arts. 1.784 a 2.027 do Código Civil (Itens 22 e 23 do Anexo II)',
+        title: "Direito das Sucessões: Sucessão Legítima, Testamentária, Inventário e Partilha",
+        legalBasis: "Arts. 1.784 a 2.027 do Código Civil (Lei 10.406/02)",
         topics: [
-          '1. Sucessão em geral: abertura da sucessão (princípio de saisine), aceitação e renúncia da herança, cessão de direitos hereditários, indignidade vs. deserdação (Item 22)',
-          '2. Sucessão Legítima: ordem de vocação hereditária (Art. 1.829 CC), concorrência do cônjuge e do companheiro (equiparação pelo STF — RE 878.694), direito de representação e direito real de habitação (Item 22)',
-          '3. Sucessão Testamentária: capacidade, formas de testamento (público, cerrado, particular e especiais), legados, direito de acrescer, substituições e rompimento do testamento (Item 23)',
-          '4. Inventário (judicial e extrajudicial), sonegados, colação e partilha (Item 22)'
+          "1. Abertura da sucessão: princípio de saisine, transmissão imediata, aceitação e renúncia da herança, cessão de direitos hereditários e indignidade vs. deserdação (Arts. 1.784 a 1.818 do CC)",
+          "2. Sucessão legítima e ordem de vocação hereditária: concorrência do cônjuge/companheiro com descendentes e ascendentes (Art. 1.829 do CC com tese do STF no RE 878.694) e direito de representação (Arts. 1.851 a 1.856 do CC)",
+          "3. Sucessão testamentária: capacidade testamentária ativa e passiva, testamento público, cerrado e particular, disposições testamentárias, legados e deserdação (Arts. 1.857 a 1.990 do CC)",
+          "4. Inventário judicial e extrajudicial em cartório, sonegados, colação e regras de partilha da herança (Arts. 1.991 a 2.027 do CC)"
         ]
       },
-
-      // ---------------- SEMANA 10: 21/12/2026 a 27/12/2026 ----------------
       {
         day: 63, date: '2026-12-21', week: 10, subjectId: 'proc_civil', suggestedQ: 25,
-        title: 'Cumprimento de Sentença, Processo de Execução e Procedimentos Especiais',
-        legalBasis: 'Arts. 513 a 925 do CPC/2015 e Lei 9.099/95 (Itens 33 a 36.8 do Anexo II)',
+        title: "Cumprimento de Sentença, Execução de Título Extrajudicial e Ações Possessórias",
+        legalBasis: "Arts. 513 a 538, 554 a 568 e 771 a 925 do CPC/2015",
         topics: [
-          '1. Liquidação e Cumprimento de Sentença: obrigação de pagar quantia certa (multa de 10% Art. 523 CPC), impugnação ao cumprimento, obrigação de prestar alimentos (prisão civil) e contra a Fazenda Pública (Itens 33 a 33.4)',
-          '2. Processo de Execução de Título Extrajudicial: títulos executivos (Art. 784 CPC, incl. contrato eletrônico), responsabilidade patrimonial, fraude à execução, penhora, impenhorabilidades (Art. 833 CPC) e Embargos à Execução (Itens 33.5 a 33.12)',
-          '3. Procedimentos Especiais do CPC: consignação em pagamento, exigir contas, ações possessórias, embargos de terceiro, ação monitória e jurisdição voluntária (Itens 34 e 34.1)',
-          '4. Juizados Especiais Cíveis, Federais e da Fazenda Pública (Leis 9.099/95, 10.259/01 e 12.153/09), Locações (Lei 8.245/91) e Processo Coletivo (Itens 35 a 36.8)'
+          "1. Cumprimento provisório e definitivo de sentença: obrigação de pagar quantia certa, intimação para pagamento em 15 dias, multa de 10% e honorários de 10% (Art. 523 do CPC) e Impugnação ao Cumprimento (Art. 525 do CPC)",
+          "2. Cumprimento de sentença de prestação de alimentos (prisão civil de 1 a 3 meses ou penhora - Arts. 528 a 533 do CPC) e cumprimento contra a Fazenda Pública (Art. 535 do CPC)",
+          "3. Execução de título extrajudicial: títulos executivos extrajudiciais (Art. 784 do CPC), citação para pagamento em 3 dias, penhora, rol de impenhorabilidade (Art. 833 do CPC) e Embargos à Execução em 15 dias (Arts. 914 a 920 do CPC)",
+          "4. Procedimentos especiais: Ações possessórias (manutenção, reintegração e interdito proibitório - Arts. 554 a 568 do CPC), Ação Monitória (Arts. 700 a 702 do CPC) e Embargos de Terceiro (Arts. 674 a 681 do CPC)"
         ]
       },
       {
         day: 64, date: '2026-12-22', week: 10, subjectId: 'trabalho', suggestedQ: 25,
-        title: 'Direito Coletivo do Trabalho: Sindicatos, Negociação Coletiva, Greve e Leis Recentes',
-        legalBasis: 'Arts. 511 a 625-H da CLT e Lei 7.783/89 (Itens 34 a 48 do Anexo II)',
+        title: "Direito Coletivo do Trabalho, Negociação Coletiva, Greve e Normas Especiais",
+        legalBasis: "Arts. 511 a 625 da CLT e Lei 7.783/89 (Lei de Greve)",
         topics: [
-          '1. Liberdade e organização sindical brasileira: unicidade sindical, categoria econômica, profissional e diferenciada, estabilidade do dirigente sindical (Súmula 369 TST) e contribuição sindical facultativa (Itens 34 a 37)',
-          '2. Acordo Coletivo (ACT) e Convenção Coletiva de Trabalho (CCT): vigência máxima de 2 anos, vedação à ultratividade e prevalência do ACT sobre a CCT (Art. 620 CLT) (Item 38)',
-          '3. Prevalência do negociado sobre o legislado (Art. 611-A CLT) vs. direitos absolutamente indisponíveis (Art. 611-B CLT) e tema 1046 do STF (Itens 38.2 e 38.3)',
-          '4. Direito de Greve (Lei 7.783/89: serviços essenciais, aviso prévio e vedação ao lockout), Lei Emprega + Mulheres (Lei 14.457/22) e Teses Vinculantes do TST (Itens 41, 44 e 48)'
+          "1. Organização sindical brasileira: unicidade sindical territorial (Art. 8º, II da CF/88), categorias profissional e econômica, representação sindical e estabilidade do dirigente sindical (Art. 543 da CLT)",
+          "2. Negociação coletiva: Convenção Coletiva de Trabalho (CCT) e Acordo Coletivo de Trabalho (ACT) e regra de prevalência do ACT sobre a CCT (Art. 620 da CLT com a Reforma)",
+          "3. Prevalência do negociado sobre o legislado: rol de direitos disponíveis para negociação (Art. 611-A da CLT) vs. rol taxativo de direitos absolutamente indisponíveis (Art. 611-B da CLT e Tema 1046/STF)",
+          "4. Direito de greve: serviços e atividades essenciais, aviso prévio, legitimidade e vedação ao lockout pelo empregador (Arts. 1º a 17 da Lei 7.783/89)"
         ]
       },
       {
         day: 65, date: '2026-12-23', week: 10, subjectId: 'proc_trabalho', suggestedQ: 25,
-        title: 'Execução Trabalhista, Liquidação, Penhora, Embargos e Procedimentos Especiais',
-        legalBasis: 'Arts. 853 a 892 da CLT (Itens 13 a 23 do Anexo II)',
+        title: "Execução Trabalhista, Liquidação, Embargos e Procedimentos Especiais",
+        legalBasis: "Arts. 853 a 892 da CLT (Decreto-Lei 5.452/43)",
         topics: [
-          '1. Liquidação da sentença trabalhista e início da Execução Trabalhista (impulso oficial limitado às partes sem advogado — Art. 878 CLT) (Itens 13.1 e 14)',
-          '2. Citação para pagamento em 48 horas, garantia do juízo, penhora, IDPJ na Justiça do Trabalho (Art. 855-A CLT) e execução contra empresa em recuperação judicial/massa falida (Itens 13.4 e 14.1 a 14.5)',
-          '3. Defesa na execução: Embargos à Execução (prazo de 5 dias — Art. 884 CLT), Impugnação à Sentença de Liquidação, Exceção de Pré-Executividade e Embargos de Terceiro (Itens 15 a 15.3)',
-          '4. Inquérito Judicial para Apuração de Falta Grave (Art. 853 CLT — prazo decadencial de 30 dias Súmula 403 STF), Mandado de Segurança, Ação Rescisória e Dissídio Coletivo (Itens 18 a 23)'
+          "1. Liquidação de sentença por cálculos, arbitramento e artigos (Arts. 879 e 884 da CLT) e início da execução trabalhista apenas mediante provocação das partes assistidas por advogado (Art. 878 da CLT)",
+          "2. Citação do executado para pagamento ou garantia da execução em 48 horas (Art. 880 da CLT), penhora de bens e Incidente de Desconsideração da Personalidade Jurídica na Justiça do Trabalho (Art. 855-A da CLT)",
+          "3. Defesa do executado: Embargos à Execução no prazo de 5 dias após garantido o juízo (Art. 884 da CLT), impugnação à liquidação e Exceção de Pré-Executividade na seara laboral",
+          "4. Ações especiais trabalhistas: Inquérito para Apuração de Falta Grave de empregado estável (Arts. 853 a 855 da CLT - prazo de 30 dias e Súmula 403 STF) e Ação Rescisória no processo do trabalho (Súmula 259 TST)"
         ]
       },
       {
         day: 66, date: '2026-12-24', week: 10, subjectId: 'eca', suggestedQ: 25,
-        title: 'ECA II: Conselho Tutelar, Ato Infracional, Medidas Socioeducativas e Crimes no ECA',
-        legalBasis: 'Arts. 86 a 267 da Lei 8.069/1990 e Lei 12.594/2012 (SINASE)',
+        title: "ECA II: Conselho Tutelar, Prática de Ato Infracional, Medidas Socioeducativas e Crimes",
+        legalBasis: "Arts. 86 a 267 da Lei 8.069/1990 (ECA) e Lei 12.594/12 (SINASE)",
         topics: [
-          '1. Política de Atendimento, entidades de atendimento, Medidas de Proteção (Art. 101 ECA) e Conselho Tutelar (composição, atribuições e mandato)',
-          '2. Prática de Ato Infracional: inimputabilidade penal de menores de 18 anos, apreensão de adolescente, internação provisória (máximo 45 dias) e garantias processuais',
-          '3. Medidas Socioeducativas (Art. 112 ECA): advertência, reparação do dano, prestação de serviços, liberdade assistida, semiliberdade e internação (hipóteses taxativas Art. 122 ECA, prazo máximo de 3 anos e liberação aos 21 anos); remissão',
-          '4. Recursos no ECA (prazo de 10 dias corridos — Art. 198), Crimes em espécie e Infrações Administrativas no ECA'
+          "1. Conselho Tutelar: natureza jurídica, composição por 5 membros, mandato de 4 anos com reconduções e atribuições de proteção à criança e adolescente (Arts. 131 a 140 do ECA)",
+          "2. Prática de ato infracional por criança (sujeita exclusivamente a medidas de proteção - Art. 101) e por adolescente (sujeito a medidas socioeducativas - Art. 112 do ECA); apreensão em flagrante e internação provisória de até 45 dias (Arts. 106 a 108 do ECA)",
+          "3. Medidas socioeducativas em espécie: advertência, obrigação de reparar o dano, prestação de serviços à comunidade, liberdade assistida, semiliberdade e internação (hipóteses taxativas do Art. 122 do ECA, prazo máximo de 3 anos e liberação compulsória aos 21 anos)",
+          "4. Apuração judicial de ato infracional, remissão ministerial e judicial como forma de exclusão, extinção ou suspensão do processo (Arts. 126 a 128 do ECA) e crimes e infrações administrativas no ECA (Arts. 225 a 258-C)"
         ]
       },
       {
         day: 67, date: '2026-12-25', week: 10, subjectId: 'filosofia', suggestedQ: 25,
-        title: 'Filosofia do Direito II: Positivismo Jurídico (Kelsen, Hart, Bobbio) e Pós-Positivismo (Dworkin, Alexy, Rawls)',
-        legalBasis: 'Conteúdo programático de Filosofia do Direito (Item 3.4.1.1 do Edital)',
+        title: "Filosofia do Direito II: Positivismo Jurídico e Pós-Positivismo Contemporâneo",
+        legalBasis: "Teorias Contemporâneas da Validade, Interpretação e Argumentação Jurídica",
         topics: [
-          '1. Positivismo Normativista de Hans Kelsen (Teoria Pura do Direito): norma hipotética fundamental, pirâmide normativa, validade vs. eficácia e moldura interpretativa',
-          '2. Herbert Hart (O Conceito de Direito: regras primárias e secundárias, regra de reconhecimento e textura aberta da linguagem) e Norberto Bobbio (Teoria da Norma e do Ordenamento Jurídico: antinomias e lacunas)',
-          '3. Pós-Positivismo e Neoconstitucionalismo: Ronald Dworkin (Levando os Direitos a Sério: regras vs. princípios, juiz Hércules e direito como integridade) e Robert Alexy (Teoria dos Direitos Fundamentais: mandados de otimização e ponderação)',
-          '4. Teorias Contemporâneas da Justiça e Democracia: John Rawls (Uma Teoria da Justiça: posição original e véu da ignorância) e Jürgen Habermas (Direito e Democracia / agir comunicativo)'
+          "1. Positivismo normativista de Hans Kelsen (Teoria Pura do Direito): corte epistemológico, norma fundamental hipotética (Grundnorm), escalonamento hierárquico e moldura interpretativa",
+          "2. Positivismo analítico de H. L. A. Hart (O Conceito de Direito): união de regras primárias e secundárias (reconhecimento, alteração e julgamento) e a textura aberta do direito",
+          "3. Norberto Bobbio (Teoria do Ordenamento Jurídico): unidade, coerência (antinomias e critérios de solução hierárquico, cronológico e da especialidade) e completude do sistema jurídico",
+          "4. Pós-positivismo: Ronald Dworkin (distinção forte entre regras e princípios, romance em cadeia e a resposta correta), Robert Alexy (princípios como mandamentos de otimização e fórmula da ponderação) e John Rawls (teoria da justiça como equidade)"
         ]
       },
       {
         day: 68, date: '2026-12-26', week: 10, subjectId: 'tributario', suggestedQ: 30,
-        title: 'Administração Tributária, Dívida Ativa, Execução Fiscal e Ações Tributárias',
-        legalBasis: 'Arts. 194 a 208 do CTN, Lei 6.830/80 (LEF) e Lei 8.397/92 (Itens 13 a 17.7 do Anexo II)',
+        title: "Administração Tributária, Dívida Ativa, Execução Fiscal e Ações Tributárias",
+        legalBasis: "Arts. 194 a 208 do CTN, Lei 6.830/80 (LEF) e Código de Processo Civil",
         topics: [
-          '1. Administração Tributária: fiscalização, sigilo fiscal (hipóteses de compartilhamento sem autorização judicial — Art. 198 CTN e STF), Dívida Ativa (CDA), protesto de CDA e Certidões Negativas (CND e CPEND) (Itens 13 a 13.4)',
-          '2. Processo Administrativo Tributário e Processo de Consulta (Itens 16 a 16.3)',
-          '3. Ações de iniciativa do Fisco: Execução Fiscal (Lei 6.830/80: citação, penhora, prescrição intercorrente Art. 40 LEF, Embargos à Execução Fiscal em 30 dias vs. Exceção de Pré-Executividade Súmula 393 STJ) e Medida Cautelar Fiscal (Itens 17.6 a 17.6.3)',
-          '4. Ações de iniciativa do Contribuinte: Ação Declaratória, Ação Anulatória, Mandado de Segurança em matéria tributária, Consignação em Pagamento e Repetição de Indébito (Art. 166 CTN e prazo de 5 anos) (Itens 17.1 a 17.5)'
+          "1. Fiscalização tributária, dever de sigilo fiscal e hipóteses autorizadas de compartilhamento de dados sem reserva de jurisdição (Arts. 194 a 200 do CTN e jurisprudência do STF)",
+          "2. Dívida Ativa tributária: termo de inscrição, requisitos essenciais da Certidão de Dívida Ativa (CDA), presunção relativa de liquidez e certeza e Certidões Negativas CND e CPEND (Arts. 201 a 208 do CTN)",
+          "3. Ação de Execução Fiscal: petição inicial acompanhada da CDA, citação para pagamento em 5 dias ou garantia do juízo (Art. 8º da Lei 6.830/80), prescrição intercorrente (Art. 40 da LEF) e Embargos à Execução Fiscal no prazo de 30 dias (Art. 16 da LEF) vs. Exceção de Pré-Executividade (Súmula 393 do STJ)",
+          "4. Ações de iniciativa do contribuinte: Ação Declaratória de Inexistência de Relação Jurídico-Tributária, Ação Anulatória de Débito Fiscal, Mandado de Segurança Tributário, Ação de Consignação em Pagamento (Art. 164 do CTN) e Ação de Repetição de Indébito Tributário e prazo de 5 anos (Arts. 165 a 169 do CTN)"
         ]
       },
       {
         day: 69, date: '2026-12-27', week: 10, subjectId: 'empresarial', suggestedQ: 30,
-        title: 'Recuperação Judicial, Extrajudicial, Falência (Lei 11.101/05), Contratos e Propriedade Industrial',
-        legalBasis: 'Lei 11.101/2005 (com Lei 14.112/20) e Lei 9.279/1996 (Itens 7, 8, 11 a 18 do Anexo II)',
+        title: "Recuperação Judicial, Extrajudicial, Falência e Propriedade Industrial",
+        legalBasis: "Lei 11.101/2005 (com reformas da Lei 14.112/20) e Lei 9.279/1996 (LPI)",
         topics: [
-          '1. Recuperação Judicial (Lei 11.101/05): legitimados, sujeitos excluídos (Art. 2º), créditos sujeitos e extraconcursais, stay period (180 dias), plano de recuperação, cram down e plano alternativo dos credores (Item 7)',
-          '2. Falência: hipóteses de decretação (impontualidade > 40 SM, execução frustrada e atos de falência Art. 94), classificação dos créditos (Art. 83), pedido de restituição, ineficácia e ação revocatória (Item 7)',
-          '3. Propriedade Industrial (Lei 9.279/96 — LPI): Patentes (invenção 20 anos e modelo de utilidade 15 anos), Desenho Industrial, Marcas (alto renome vs. notoriamente conhecida) e concorrência desleal (Itens 11 a 11.4)',
-          '4. Contratos Empresariais: Franquia (Lei 13.966/19), Arrendamento Mercantil (Leasing), Alienação Fiduciária, Representação Comercial e Locação Empresarial/Ação Renovatória (Itens 8, 16, 17 e 18)'
+          "1. Recuperação judicial: legitimidade ativa, devedores excluídos (Art. 2º da Lei 11.101/05), créditos concursais e extraconcursais, suspensão de ações (stay period de 180 dias prorrogável) e plano de recuperação e cram down (Arts. 47 a 74)",
+          "2. Falência: hipóteses de decretação (impontualidade injustificada superior a 40 salários mínimos, execução frustrada e atos de falência - Art. 94 da Lei 11.101/05) e ordem legal de classificação dos créditos na falência (Art. 83 com nova redação)",
+          "3. Ação revocatória falimentar (Art. 130), ineficácia objetiva de atos (Art. 129 da Lei 11.101/05) e pedido de restituição de bens arrecadados em posse de terceiros (Arts. 85 a 93)",
+          "4. Propriedade Industrial: Patentes de invenção (prazo de 20 anos) e modelo de utilidade (15 anos - Arts. 6º a 45 da Lei 9.279/96), Registro de Marcas (prazo de 10 anos prorrogável - Arts. 122 a 165) e repressão à concorrência desleal (Art. 195 da LPI)"
         ]
       },
-
-      // ---------------- SEMANA 11: 28/12/2026 a 03/01/2027 ----------------
       {
         day: 70, date: '2026-12-28', week: 11, subjectId: 'ambiental', suggestedQ: 25,
-        title: 'Direito Ambiental II: SNUC, Código Florestal, Recursos Hídricos e Responsabilidade Tríplice',
-        legalBasis: 'Lei 9.985/00 (SNUC), Lei 12.651/12 (Código Florestal) e Lei 9.605/98 (Crimes Ambientais)',
+        title: "SNUC, Código Florestal, Recursos Hídricos e Responsabilidade Ambiental",
+        legalBasis: "Lei 9.985/00 (SNUC), Lei 12.651/12 (Código Florestal) e Lei 9.605/98 (Crimes)",
         topics: [
-          '1. Sistema Nacional de Unidades de Conservação (SNUC — Lei 9.985/00): Unidades de Proteção Integral vs. Unidades de Uso Sustentável; zona de amortecimento',
-          '2. Código Florestal (Lei 12.651/12): Áreas de Preservação Permanente (APP), Reserva Legal, Cadastro Ambiental Rural (CAR) e obrigação propter rem (Súmula 623 STJ)',
-          '3. Política Nacional de Recursos Hídricos (Lei 9.433/97), Resíduos Sólidos (Lei 12.305/10 — logística reversa) e Patrimônio Genético',
-          '4. Responsabilidade Ambiental Tríplice: Civil (objetiva pelo risco integral e imprescritível — STF Tema 999), Administrativa e Penal da Pessoa Física e Jurídica (Lei 9.605/98)'
+          "1. Sistema Nacional de Unidades de Conservação (SNUC): Unidades de Proteção Integral (Parque Nacional, Reserva Biológica) vs. Unidades de Uso Sustentável (APA, Floresta Nacional, RDS - Arts. 7º a 21 da Lei 9.985/00)",
+          "2. Código Florestal: Áreas de Preservação Permanente (APP - Arts. 4º a 9º), Reserva Legal e percentuais obrigatórios por bioma (Art. 12) e Cadastro Ambiental Rural (CAR - Lei 12.651/12)",
+          "3. Política Nacional de Recursos Hídricos: água como bem público de domínio público e cobrança pelo uso (Arts. 1º a 31 da Lei 9.433/97) e Política Nacional de Resíduos Sólidos (logística reversa - Lei 12.305/10)",
+          "4. Responsabilidade civil ambiental: regime objetivo sob a modalidade do risco integral (Súmula 652 do STJ), imprescritibilidade da reparação do dano ecológico (Tema 999/STF) e responsabilidade penal da pessoa jurídica (Art. 225, § 3º CF e Arts. 1º a 24 da Lei 9.605/98)"
         ]
       },
       {
         day: 71, date: '2026-12-29', week: 11, subjectId: 'internacional', suggestedQ: 25,
-        title: 'Direito Internacional Privado: Elementos de Conexão (LINDB), Sentença Estrangeira e Cooperação',
-        legalBasis: 'Arts. 7º a 19 da LINDB e Arts. 26 a 41 e 960 a 965 do CPC/2015',
+        title: "Direito Internacional Privado: Elementos de Conexão e Cooperação Judiciária",
+        legalBasis: "Arts. 7º a 19 da LINDB (DL 4.657/42), Arts. 21 a 41 e 960 a 965 do CPC/2015",
         topics: [
-          '1. Elementos de conexão na LINDB: estatuto pessoal e família (lex domicilii — Art. 7º), bens (lex rei sitae — Art. 8º), obrigações (lex loci celebrationis — Art. 9º) e sucessões (Art. 10)',
-          '2. Proibição do reenvio (Art. 16 LINDB), prova do direito estrangeiro (Art. 14 LINDB) e limite da ordem pública (Art. 17 LINDB)',
-          '3. Competência Internacional Concorrente (Arts. 21 e 22 CPC — ausência de litispendência internacional Art. 24) e Competência Exclusiva da autoridade brasileira (Art. 23 CPC)',
-          '4. Homologação de Decisão Estrangeira e concessão de exequatur a Carta Rogatória perante o STJ (Art. 105, I, i da CF e Arts. 960-965 CPC) e Convenção da Haia sobre Sequestro Internacional de Crianças'
+          "1. Elementos de conexão da LINDB: estatuto pessoal regido pelo domicílio da pessoa (lex domicilii - Art. 7º), regime de bens do casamento e sucessão causa mortis (Arts. 7º, § 4º e 10)",
+          "2. Estatuto das coisas materiais (lex rei sitae - Art. 8º da LINDB), regime das obrigações (lex loci celebrationis - Art. 9º da LINDB) e limite intransponível da ordem pública e soberania nacional (Art. 17 da LINDB)",
+          "3. Competência internacional da jurisdição brasileira: competência concorrente (Arts. 21 e 22 do CPC) e competência internacional exclusiva da autoridade judiciária brasileira sobre imóveis no Brasil e sucessão (Art. 23 do CPC)",
+          "4. Homologação de Decisão Estrangeira pelo Superior Tribunal de Justiça (STJ) e concessão de exequatur a Cartas Rogatórias (Art. 105, I, 'i' da CF/88 e Arts. 960 a 965 do CPC)"
         ]
       },
       {
         day: 72, date: '2026-12-30', week: 11, subjectId: 'financeiro', suggestedQ: 30,
-        title: 'Direito Financeiro Completo: Orçamento Público (PPA, LDO, LOA), Despesa, Receita, Precatórios e LRF',
-        legalBasis: 'Arts. 163 a 169 da CF/88, Lei 4.320/64 e LC 101/2000 — LRF (Itens 21 e 23.1 de Constitucional no Anexo II)',
+        title: "Direito Financeiro: Leis Orçamentárias, Despesa, Receita, Precatórios e LRF",
+        legalBasis: "Arts. 100 e 163 a 169 da CF/88, Lei 4.320/64 e LC 101/2000 (Lei de Responsabilidade Fiscal)",
         topics: [
-          '1. Leis Orçamentárias: Plano Plurianual (PPA), Lei de Diretrizes Orçamentárias (LDO) e Lei Orçamentária Anual (LOA); princípios orçamentários (exclusividade, anualidade, não afetação de impostos Art. 167, IV CF)',
-          '2. Processo legislativo orçamentário, emendas parlamentares impositivas (individuais e de bancada) e Créditos Adicionais (suplementares, especiais e extraordinários)',
-          '3. Receita Pública (originária vs. derivada, renúncia de receita Art. 14 LRF) e Despesa Pública (estágios: empenho, liquidação e pagamento; despesas com pessoal Arts. 18 a 23 LRF)',
-          '4. Regime Constitucional dos Precatórios e RPV (Art. 100 da CF/88), Operações de Crédito (Regra de Ouro Art. 167, III CF) e Restos a Pagar (Art. 42 LRF)'
+          "1. Leis orçamentárias constitucionais: Plano Plurianual (PPA), Lei de Diretrizes Orçamentárias (LDO) e Lei Orçamentária Anual (LOA); princípios orçamentários (legalidade, anualidade, universalidade e unidade - Art. 165 da CF/88)",
+          "2. Vedações orçamentárias e despesas públicas (Art. 167 da CF/88), estágios da despesa pública: fixação, empenho, liquidação e pagamento (Arts. 58 a 65 da Lei 4.320/64) e regime dos restos a pagar",
+          "3. Regime Constitucional dos Precatórios e Requisições de Pequeno Valor (RPV): ordem cronológica, preferências alimentares e prazos de requisição até 2 de abril (Art. 100 da CF/88)",
+          "4. Lei de Responsabilidade Fiscal (LC 101/00): renúncia de receita pública (Art. 14), limites de despesas com pessoal para União, Estados e Municípios (Arts. 18 a 23 da LRF) e regra de ouro fiscal (Art. 167, III CF)"
         ]
       },
       {
         day: 73, date: '2026-12-31', week: 11, subjectId: 'previdenciario', suggestedQ: 30,
-        title: 'Direito Previdenciário Completo: Seguridade Social, Segurados, Dependentes, Carência e Benefícios RGPS',
-        legalBasis: 'Arts. 194 a 204 da CF/88 e Leis 8.212/91 e 8.213/91',
+        title: "Direito Previdenciário: Seguridade Social, Segurados do RGPS e Benefícios Previdenciários",
+        legalBasis: "Arts. 194 a 204 da CF/88, Lei 8.212/91 (Custeio) e Lei 8.213/91 (Benefícios RGPS)",
         topics: [
-          '1. Seguridade Social na CF/88: princípios (solidariedade, universalidade, diversidade da base de financiamento, preexistência do custeio), Saúde, Assistência Social (BPC/LOAS — critérios e jurisprudência) e Previdência',
-          '2. Filiação e Segurados do RGPS: obrigatórios (empregado, doméstico, contribuinte individual, trabalhador avulso e segurado especial) e segurado facultativo',
-          '3. Manutenção e perda da qualidade de segurado (período de graça Art. 15 da Lei 8.213/91), Dependentes (3 classes, dependência econômica e união estável) e Carência (isenções Art. 26)',
-          '4. Benefícios em espécie após a EC 103/2019: Aposentadoria Programada, por Incapacidade Permanente, Especial, Auxílio por Incapacidade Temporária, Auxílio-Acidente, Salário-Maternidade, Pensão por Morte e Auxílio-Reclusão'
+          "1. Princípios constitucionais da Seguridade Social: universalidade, solidariedade, distributividade, irredutibilidade do valor dos benefícios e preexistência do custeio (Art. 195, § 5º da CF/88)",
+          "2. Segurados obrigatórios do Regime Geral de Previdência Social - RGPS (empregado, doméstico, contribuinte individual, avulso e especial - Art. 11 da Lei 8.213/91) e segurado facultativo (Art. 14 da Lei 8.213/91)",
+          "3. Período de graça e manutenção da qualidade de segurado (Art. 15 da Lei 8.213/91), dependentes de 1ª, 2ª e 3ª classes (Art. 16) e carência dos benefícios (Arts. 24 a 27 da Lei 8.213/91)",
+          "4. Benefícios do RGPS após a Reforma da Previdência (EC 103/2019): Aposentadoria programada, aposentadoria especial, auxílio por incapacidade temporária (auxílio-doença), auxílio-acidente, pensão por morte e salário-maternidade (Arts. 39 a 88 da Lei 8.213/91)"
         ]
       },
       {
         day: 74, date: '2027-01-01', week: 11, subjectId: 'eleitoral', suggestedQ: 30,
-        title: 'Direito Eleitoral Completo: Elegibilidade, Lei da Ficha Limpa, Partidos, Eleições e Ações Eleitorais',
-        legalBasis: 'Arts. 14 a 17 da CF/88, Código Eleitoral (Lei 4.737/65), Lei 9.504/97 e LC 64/90',
+        title: "Direito Eleitoral: Elegibilidade, Inelegibilidades, Partidos, Campanhas e Ações",
+        legalBasis: "Arts. 14 a 17 da CF/88, Lei 9.504/97 (Eleições), Lei 9.096/95 (Partidos) e LC 64/90",
         topics: [
-          '1. Organização e competência da Justiça Eleitoral, alistamento eleitoral e condições de elegibilidade (Art. 14, §3º CF)',
-          '2. Inelegibilidades Constitucionais (absolutas e relativas: reeleição, parentesco/reflexa Art. 14, §7º e desincompatibilização) e Inelegibilidades Infraconstitucionais (LC 64/90 — Lei da Ficha Limpa)',
-          '3. Partidos Políticos e Federações Partidárias (Lei 9.096/95, cláusula de desempenho, fidelidade partidária e cotas de gênero de no mínimo 30%)',
-          '4. Propaganda Eleitoral, abuso de poder e Ações Eleitorais: AIRC, AIJE (Art. 22 LC 64/90), AIME (Art. 14, §10 CF) e Recurso Contra Expedição de Diploma (RCED)'
+          "1. Direitos políticos e condições de elegibilidade: nacionalidade, pleno exercício dos direitos, alistamento, domicílio e idades mínimas constitucionais (Art. 14, § 3º da CF/88)",
+          "2. Inelegibilidades absolutas (inalistáveis e analfabetos - Art. 14, § 4º CF) e relativas (reeleição de chefes do Executivo, parentesco/reflexa Art. 14, § 7º CF e desincompatibilização de cargos) e LC 64/90 (Lei da Ficha Limpa)",
+          "3. Partidos políticos e federações partidárias (Lei 9.096/95), registro de candidaturas e cota obrigatória de no mínimo 30% por gênero (Art. 10, § 3º da Lei 9.504/97)",
+          "4. Propaganda eleitoral e Ações Eleitorais: Ação de Impugnação de Registro de Candidatura (AIRC), Ação de Investigação Judicial Eleitoral (AIJE por abuso de poder - Art. 22 da LC 64/90) e Ação de Impugnação de Mandato Eletivo (AIME - Art. 14, § 10 da CF/88)"
         ]
       },
       {
         day: 75, date: '2027-01-02', week: 11, subjectId: 'administrativo', suggestedQ: 30,
-        title: 'Bens Públicos, Intervenção do Estado na Propriedade e Estatuto da Cidade',
-        legalBasis: 'Arts. 98 a 103 do CC, Decreto-Lei 3.365/41 e Lei 10.257/2001 (Itens 8, 9, 10 e 21 do Anexo II)',
+        title: "Bens Públicos, Intervenção do Estado na Propriedade e Desapropriação",
+        legalBasis: "Arts. 98 a 103 do CC, Decreto-Lei 3.365/41 e Lei 10.257/2001 (Estatuto da Cidade)",
         topics: [
-          '1. Domínio Público e Bens Públicos: classificação (uso comum, uso especial e dominicais), afetação e desafetação, regime jurídico (inalienabilidade relativa, impenhorabilidade e imprescritibilidade) e uso por particulares (autorização, permissão e concessão de uso) (Item 8)',
-          '2. Intervenção restritiva na propriedade: servidão administrativa, requisição administrativa, ocupação temporária, limitações administrativas e tombamento (Decreto-Lei 25/37) (Item 9)',
-          '3. Desapropriação: utilidade/necessidade pública, interesse social, urbanística sancionatória, confiscatória (Art. 243 CF), desapropriação indireta, tredestinação e retrocessão (Item 9)',
-          '4. Intervenção no domínio econômico e Estatuto da Cidade (Lei 10.257/2001): plano diretor, IPTU progressivo no tempo, direito de preempção e usucapião especial urbana (Itens 10 e 21)'
+          "1. Regime jurídico dos bens públicos: bens de uso comum do povo, bens de uso especial e bens dominicais; afetação e desafetação, inalienabilidade relativa, impenhorabilidade e imprescritibilidade (Arts. 98 a 103 do CC)",
+          "2. Formas de intervenção restritiva na propriedade privada: servidão administrativa, requisição administrativa em perigo público iminente, ocupação temporária, limitação administrativa e tombamento de patrimônio histórico (Decreto-Lei 25/37)",
+          "3. Desapropriação comum por utilidade pública e interesse social: fases declaratória e executória, indenização prévia, justa e em dinheiro (Decreto-Lei 3.365/41 e Lei 4.132/62)",
+          "4. Desapropriação sancionatória urbanística em títulos da dívida pública (Art. 182, § 4º da CF/88 e Arts. 5º a 8º da Lei 10.257/01) e desapropriação confiscatória sem indenização para culturas ilegais de psicotrópicos ou trabalho escravo (Art. 243 da CF/88)"
         ]
       },
       {
         day: 76, date: '2027-01-03', week: 11, subjectId: 'etica', suggestedQ: 40,
-        title: 'Revisão Geral de Ética e Estatuto da OAB (Meta: 8/8 na Prova)',
-        legalBasis: 'Lei 8.906/94, Regulamento Geral e Código de Ética e Disciplina',
+        title: "Revisão Intensiva de Ética e Estatuto da Advocacia (Meta: 8/8 Pontos)",
+        legalBasis: "Lei 8.906/94 (EAOAB), Regulamento Geral e Código de Ética e Disciplina da OAB",
         topics: [
-          '1. Bateria intensiva sobre Prerrogativas da Advocacia, Honorários Advocatícios e Sociedade de Advogados',
-          '2. Bateria intensiva sobre Incompatibilidades vs. Impedimentos, Publicidade Profissional e Sigilo',
-          '3. Bateria intensiva sobre Infrações e Sanções Disciplinares, Processo Disciplinar e Prescrição na OAB',
-          '4. Bateria intensiva sobre Eleições, Órgãos da OAB e Advogado Empregado'
+          "1. Revisão e fixação dos Arts. 1º a 7º-B do EAOAB: atos privativos, mandato e todas as hipóteses de Prerrogativas dos Advogados e Advogadas (com alterações das Leis 13.363/16 e 14.365/22)",
+          "2. Revisão dos Arts. 15 a 26 do EAOAB: Sociedade de Advogados, limites do Advogado Empregado e regime dos Honorários Advocatícios (contratuais, sucumbenciais e quota litis)",
+          "3. Revisão dos Arts. 27 a 33 do EAOAB: tabela completa de Incompatibilidades (proibições totais) vs. Impedimentos (proibições parciais) e Provimento 205/2021 sobre marketing e redes sociais",
+          "4. Revisão dos Arts. 34 a 43 e 68 a 77 do EAOAB: tipificação de todas as faltas disciplinares, sanções de Censura, Suspensão, Exclusão e Multa e prazos prescricionais de 5 anos e intercorrente de 3 anos"
         ]
       },
-
-      // ---------------- SEMANA 12 (SEMANA DA PROVA): 04/01/2027 a 09/01/2027 (VÉSPERA) ----------------
       {
         day: 77, date: '2027-01-04', week: 12, subjectId: 'constitucional', suggestedQ: 35,
-        title: 'Reta Final Semana da Prova: Ordem Econômica, Social, Súmulas Vinculantes e Revisão Constitucional (+ Locais de Prova)',
-        legalBasis: 'Arts. 170 a 232 da CF/88 e Súmulas Vinculantes do STF (Itens 22 a 25 do Anexo II — Hoje sai o local de prova!)',
+        title: "Reta Final da Prova: Ordem Econômica, Social, Súmulas Vinculantes e Controle de Constitucionalidade",
+        legalBasis: "Arts. 136 a 232 da CF/88 e Súmulas Vinculantes do STF (Hoje sai o local de prova!)",
         topics: [
-          '1. Defesa do Estado e das Instituições Democráticas: Estado de Defesa e Estado de Sítio; Segurança Pública (Art. 144 CF) (Item 22)',
-          '2. Ordem Econômica e Financeira (Arts. 170 a 192 CF) e Ordem Social: Educação, Cultura, Desporto, Ciência, Meio Ambiente, Família e Indígenas (Itens 23 e 24)',
-          '3. Revisão de todas as Súmulas Vinculantes do STF mais cobradas pela FGV e Controle de Constitucionalidade (Item 25)',
-          '4. ALERTA DO EDITAL (Item 3.1.1.1): Consulta obrigatória do seu local de realização da prova objetiva em http://oab.fgv.br'
+          "1. Sistema de Defesa do Estado e das Instituições Democráticas: Estado de Defesa, Estado de Sítio e Forças de Segurança Pública (Arts. 136 a 144 da CF/88)",
+          "2. Princípios fundamentais da Ordem Econômica e Financeira (Arts. 170 a 192 da CF/88) e Ordem Social: Saúde, Previdência, Assistência, Educação e Meio Ambiente (Arts. 193 a 232 da CF/88)",
+          "3. Revisão cirúrgica de todas as Súmulas Vinculantes do STF cobradas na 1ª Fase e jurisprudência pacificada do Controle Concentrado (Arts. 102 e 103 da CF/88)",
+          "4. AVISO DO EDITAL (Item 3.1.1.1): Consulta obrigatória do local de prova e confirmação do endereço de aplicação no site da FGV Projetos (oab.fgv.br)"
         ]
       },
       {
         day: 78, date: '2027-01-05', week: 12, subjectId: 'civil', suggestedQ: 35,
-        title: 'Reta Final Semana da Prova: Revisão de Direito Civil & Súmulas do STJ',
-        legalBasis: 'Código Civil e Súmulas Qualificadas do STJ (Item 26 de Civil no Anexo II)',
+        title: "Reta Final da Prova: Revisão Integrada de Direito Civil e Súmulas do STJ",
+        legalBasis: "Arts. 1º a 2.027 do Código Civil e Súmulas Qualificadas do STJ em Direito Privado",
         topics: [
-          '1. Revisão dos pontos críticos do Caderno de Erros em Parte Geral, Prescrição/Decadência e Obrigações',
-          '2. Revisão de Contratos em Espécie, Responsabilidade Civil e Direitos Reais (Posse, Usucapião e Garantias)',
-          '3. Revisão de Direito de Família (Regimes de Bens, União Estável e Alimentos) e Sucessões (Vocação Hereditária e Concorrência Sucessória)'
+          "1. Parte Geral e Obrigações: artigos-chave de personalidade, capacidade, defeitos do negócio jurídico, prescrição/decadência (Arts. 1º a 211) e modalidades e inadimplemento obrigacional (Arts. 233 a 420 do CC)",
+          "2. Contratos e Responsabilidade Civil: princípios contratuais, compra e venda, locação, mandato e regras fundamentais de indenização e responsabilidade objetiva (Arts. 421 a 954 do CC)",
+          "3. Direitos Reais, Família e Sucessões: usucapião imobiliária, regimes de bens matrimonial e sucessão legítima na ordem de vocação hereditária do Art. 1.829 do Código Civil",
+          "4. Súmulas indispensáveis do STJ em matéria civil (Súmulas 308, 375, 377/STF, 385, 490, 596 e 623)"
         ]
       },
       {
         day: 79, date: '2027-01-06', week: 12, subjectId: 'proc_civil', suggestedQ: 35,
-        title: 'Reta Final Semana da Prova: Revisão de Processo Civil & Recursos/Execução',
-        legalBasis: 'CPC/2015 e Súmulas do STJ (Item 37 de Proc. Civil no Anexo II)',
+        title: "Reta Final da Prova: Revisão de Procedimento Comum, Tutelas Provisórias e Recursos no CPC",
+        legalBasis: "Arts. 1º a 1.044 do CPC/2015 e Súmulas Vinculantes",
         topics: [
-          '1. Revisão de Competência, Litisconsórcio, Intervenção de Terceiros (IDPJ e Chamamento/Denunciação) e Tutelas Provisórias',
-          '2. Revisão de Procedimento Comum: Petição Inicial, Contestação, Reconvenção, Revelia e Julgamento Antecipado Parcial',
-          '3. Revisão de Recursos (Apelação, Agravo de Instrumento, Embargos de Declaração, REsp/RE) e Cumprimento de Sentença / Execução'
+          "1. Competência, intervenção de terceiros (IDPJ e amicus curiae) e o regime completo das tutelas de urgência e da evidência (Arts. 294 a 311 do CPC/15)",
+          "2. Petição inicial, audiência de conciliação do Art. 334, contestação e preliminares de defesa do Art. 337 e decisão de saneamento e organização do processo (Art. 357 do CPC/15)",
+          "3. Teoria geral dos recursos, prazo de 15 dias úteis (salvo embargos de declaração de 5 dias), preparo, apelação (Art. 1.009) e rol de cabimento do agravo de instrumento (Art. 1.015 do CPC/15)",
+          "4. Cumprimento de sentença de quantia certa com multa e honorários do Art. 523 do CPC e execução de título extrajudicial (Arts. 784, 833 e 914 do CPC/15)"
         ]
       },
       {
         day: 80, date: '2027-01-07', week: 12, subjectId: 'penal', suggestedQ: 35,
-        title: 'Reta Final Semana da Prova: Revisão Integrada de Direito Penal & Processo Penal',
-        legalBasis: 'CP, CPP, LEP e Súmulas Criminais do STF e STJ (Item 20 de Penal e 26 de Proc. Penal)',
+        title: "Reta Final da Prova: Revisão Integrada de Direito Penal e Processo Penal",
+        legalBasis: "Arts. 1º a 359-R do CP, Arts. 1º a 667 do CPP e Súmulas Criminais do STF/STJ",
         topics: [
-          '1. Revisão de Teoria do Crime (Tipicidade, Ilicitude, Culpabilidade, Erro, Iter Criminis e Concurso de Pessoas) e Teoria da Pena/Prescrição',
-          '2. Revisão de Crimes em Espécie (Pessoa, Patrimônio e Administração Pública) e Leis Penais Especiais',
-          '3. Revisão de Inquérito Policial, ANPP, Ação Penal, Competência, Provas/Cadeia de Custódia, Prisões/Medidas Cautelares e Recursos no CPP'
+          "1. Penal Parte Geral: princípios da insignificância e legalidade, prescrição penal e o tripé do crime (fato típico, ilicitude com suas excludentes e culpabilidade com suas dirimentes - Arts. 1º a 120 do CP)",
+          "2. Penal Parte Especial: crimes contra a vida (homicídio qualificado), patrimônio (roubo majorado e estelionato) e administração pública (peculato, concussão e corrupções dos Arts. 312 a 337 do CP)",
+          "3. Processo Penal: inquérito policial e ANPP (Art. 28-A), ação penal (pública vs. privada subsidiária), nulidades e regime de prisões (flagrante, preventiva do Art. 312 e temporária)",
+          "4. Recursos no CPP: apelação penal (Art. 593), Recurso em Sentido Estrito - RESE (hipóteses do Art. 581) e ações constitucionais de Habeas Corpus e Revisão Criminal"
         ]
       },
       {
         day: 81, date: '2027-01-08', week: 12, subjectId: 'trabalho', suggestedQ: 35,
-        title: 'Reta Final Semana da Prova: Revisão Integrada de Trabalho, Processo do Trabalho & Tributário',
-        legalBasis: 'CLT, CTN, Súmulas e OJs do TST e Súmulas Tributárias do STJ/STF',
+        title: "Reta Final da Prova: Revisão Integrada de Direito do Trabalho, Processo do Trabalho e Tributário",
+        legalBasis: "CLT (com Lei 13.467/17), CTN (Lei 5.172/66) e Súmulas/OJs do TST e STJ",
         topics: [
-          '1. Revisão de Direito Individual e Coletivo do Trabalho: Jornada, Remuneração, Extinção do Contrato, Estabilidades e Reforma Trabalhista',
-          '2. Revisão de Processo do Trabalho: Competência, Rito Sumaríssimo, Audiência/Revelia, Recursos Trabalhistas (Depósito/Custas) e Execução',
-          '3. Revisão de Direito Tributário: Limitações ao Poder de Tributar (Princípios e Imunidades), Responsabilidade, Crédito Tributário e Execução Fiscal'
+          "1. Direito do Trabalho: jornada de trabalho (Arts. 58 a 62), parcelas salariais e indenizatórias (Art. 457), causas de justa causa do Art. 482 e estabilidades provisórias de emprego",
+          "2. Processo do Trabalho: competência do Art. 114 da CF, petição inicial líquida do Art. 840, revelia no Art. 844 e recursos trabalhistas (RO Art. 895, RR Art. 896 e Agravo de Petição Art. 897 CLT)",
+          "3. Direito Tributário: limitações constitucionais ao poder de tributar (princípios e imunidades do Art. 150 CF), responsabilidade tributária de sócios do Art. 135 CTN e causas de suspensão (Art. 151 CTN) e extinção (Art. 156 CTN)",
+          "4. Súmulas e jurisprudências obrigatórias da FGV em matéria trabalhista e tributária (Súmulas 331 e 425 do TST; Súmula 360, 393 e 430 do STJ)"
         ]
       },
       {
         day: 82, date: '2027-01-09', week: 12, subjectId: 'etica', suggestedQ: 25,
-        title: 'Véspera da Prova (Sábado — Último Dia do Cronograma): Revisão Final de Ética OAB, Filosofia, Direitos Humanos e Checklist de Prova',
-        legalBasis: 'Item 3.6 do Edital do 48º Exame de Ordem Unificado (Prova amanhã, 10/01/2027, das 13h às 18h • Portões fecham às 12h30)',
+        title: "Véspera da Prova (Sábado — Último Dia do Cronograma): Revisão Final de Ética OAB, Filosofia, Direitos Humanos e Checklist de Prova",
+        legalBasis: "Arts. 1º a 43 do EAOAB, Código de Ética e Item 3.6 do Edital do 48º EOU (Prova amanhã, 10/01/2027, das 13h às 18h • Fechamento dos portões: 12h30)",
         topics: [
-          '1. Leitura estratégica dos artigos mais cobrados do Estatuto da OAB (Arts. 1º a 26 e 34 a 43) e revisão final do Caderno de Erros',
-          '2. Revisão de pontos-chave de Direitos Humanos e Filosofia do Direito (garantindo os 15% mínimos do Item 3.4.1.1 do Edital)',
-          '3. Checklist Físico do Edital para amanhã (Item 3.6.3 e 3.6.6): separar Documento de Identidade Original com foto + Caneta esferográfica azul ou preta de corpo transparente + Programar chegada ao local até 11h30'
+          "1. Leitura rápida e memorização dos artigos mais cobrados do Estatuto da Advocacia: Prerrogativas (Arts. 6º a 7º-B), Incompatibilidades e Impedimentos (Arts. 27 a 30) e Infrações Disciplinares (Art. 34 do EAOAB)",
+          "2. Revisão das normas éticas sobre honorários advocatícios (Arts. 22 a 26 do EAOAB e Arts. 48 a 54 do CED) e publicidade e marketing jurídico (Provimento 205/2021)",
+          "3. Revisão dos pontos-chave de Direitos Humanos (DUDH e Pacto de San José) e Filosofia do Direito (Aristóteles, Kant e Dworkin - garantindo os 15% mínimos do Item 3.4.1.1 do Edital)",
+          "4. Checklist Físico e Operacional para a Prova de Amanhã (Itens 3.6.3 e 3.6.6 do Edital): Documento de Identidade original com foto em bom estado + Caneta esferográfica de tinta azul ou preta de corpo transparente + Saída antecipada para chegar ao local de prova antes das 11h30 (portões fecham impreterivelmente às 12h30)"
         ]
       }
     ];
 
-    // =========================================================================
-    // 3. UTILITÁRIOS DE DATA E ESTADO COM PERSISTÊNCIA LOCALSTORAGE E NUVEM (CORRIGIDO)
-    // =========================================================================
     const STORAGE_KEY = 'oab48_schedule_state_v1';
     const CLOUD_CONFIG_KEY = 'oab48_cloud_config_v1';
     const DEFAULT_CLOUD_CONFIG = {
