@@ -36,12 +36,23 @@
       }
     }
   </script>
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('oab48_theme_mode');
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <style>
     body {
       font-family: 'Inter', sans-serif;
       background-color: #f8fafc;
       color: #0f172a;
       overflow-x: hidden;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
@@ -61,6 +72,386 @@
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
       opacity: 1;
+    }
+
+    /* ==================== MODO ESCURO (ALTO CONTRASTE TOTAL) ==================== */
+    html.dark {
+      color-scheme: dark;
+    }
+    html.dark body {
+      background-color: #0b1120 !important;
+      color: #f8fafc !important;
+    }
+    html.dark .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
+    html.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+
+    /* 1. Superfícies Principais (Cards, Painéis, Tabelas, Modais) */
+    html.dark .bg-white,
+    html.dark .bg-white\/80 {
+      background-color: #111827 !important;
+      color: #f8fafc !important;
+    }
+    html.dark .bg-slate-50,
+    html.dark .bg-slate-50\/50,
+    html.dark .bg-slate-50\/70,
+    html.dark .bg-slate-50\/80,
+    html.dark .hover\:bg-slate-50:hover {
+      background-color: #1e293b !important;
+    }
+    html.dark .bg-slate-100,
+    html.dark .bg-slate-100\/80,
+    html.dark .hover\:bg-slate-100:hover,
+    html.dark .hover\:bg-slate-100\/80:hover {
+      background-color: #273549 !important;
+      color: #f1f5f9 !important;
+    }
+    html.dark .bg-slate-200,
+    html.dark .bg-slate-200\/80,
+    html.dark .hover\:bg-slate-200:hover {
+      background-color: #334155 !important;
+      color: #f8fafc !important;
+    }
+
+    /* 2. Elementos Escuros Internos (Evita escuro sobre escuro nos cards) */
+    html.dark main div.bg-slate-900 {
+      background-color: #172136 !important;
+      border: 1px solid #334155 !important;
+    }
+    html.dark span.bg-slate-900 {
+      background-color: #334155 !important;
+      color: #ffffff !important;
+      border: 1px solid #64748b !important;
+    }
+    html.dark #btn-toggle-active-day-done.bg-slate-900,
+    html.dark #btn-add-simulado {
+      background-color: #2563eb !important;
+      color: #ffffff !important;
+      border: 1px solid #60a5fa !important;
+    }
+    html.dark #btn-toggle-active-day-done.bg-slate-900:hover,
+    html.dark #btn-add-simulado:hover {
+      background-color: #1d4ed8 !important;
+    }
+
+    /* 3. Caixas e Containers Coloridos Suaves (-50 e gradientes) */
+    html.dark .bg-red-50,
+    html.dark .bg-red-50\/60,
+    html.dark .bg-red-50\/70,
+    html.dark .from-red-50,
+    html.dark .from-red-50\/90,
+    html.dark .via-rose-50,
+    html.dark .via-rose-50\/60,
+    html.dark .to-amber-50\/50 {
+      background-color: rgba(153, 27, 27, 0.28) !important;
+      background-image: none !important;
+    }
+    html.dark .bg-rose-50,
+    html.dark .bg-rose-50\/40,
+    html.dark .bg-rose-50\/50,
+    html.dark .bg-rose-50\/60,
+    html.dark .bg-rose-50\/70 {
+      background-color: rgba(159, 18, 57, 0.28) !important;
+    }
+    html.dark .bg-emerald-50,
+    html.dark .bg-emerald-50\/15,
+    html.dark .bg-emerald-50\/20,
+    html.dark .bg-emerald-50\/40,
+    html.dark .bg-emerald-50\/50,
+    html.dark .bg-emerald-50\/60,
+    html.dark .bg-emerald-50\/70 {
+      background-color: rgba(6, 95, 70, 0.30) !important;
+    }
+    html.dark .bg-amber-50,
+    html.dark .bg-amber-50\/50,
+    html.dark .bg-amber-50\/60,
+    html.dark .bg-amber-50\/70 {
+      background-color: rgba(146, 64, 14, 0.28) !important;
+    }
+    html.dark .bg-blue-50,
+    html.dark .bg-blue-50\/40,
+    html.dark .bg-blue-50\/90,
+    html.dark .bg-indigo-50 {
+      background-color: rgba(30, 64, 175, 0.32) !important;
+    }
+
+    /* 4. Badges das 20 Disciplinas, Pílulas, Botões de Passo e Ícones KPI (-100 e -200) */
+    html.dark .bg-amber-100,
+    html.dark .bg-amber-100\/80,
+    html.dark .bg-amber-200 {
+      background-color: rgba(217, 119, 6, 0.28) !important;
+      border-color: rgba(251, 191, 36, 0.5) !important;
+      color: #fde68a !important;
+    }
+    html.dark .bg-yellow-100 {
+      background-color: rgba(202, 138, 4, 0.28) !important;
+      border-color: rgba(250, 204, 21, 0.5) !important;
+      color: #fef08a !important;
+    }
+    html.dark .bg-orange-100 {
+      background-color: rgba(234, 88, 12, 0.28) !important;
+      border-color: rgba(251, 146, 60, 0.5) !important;
+      color: #fed7aa !important;
+    }
+    html.dark .bg-red-100,
+    html.dark .hover\:bg-red-100:hover {
+      background-color: rgba(220, 38, 38, 0.28) !important;
+      border-color: rgba(248, 113, 113, 0.5) !important;
+      color: #fecaca !important;
+    }
+    html.dark .bg-rose-100,
+    html.dark .bg-rose-200,
+    html.dark .bg-rose-200\/70,
+    html.dark .hover\:bg-rose-100:hover,
+    html.dark .hover\:bg-rose-200:hover {
+      background-color: rgba(225, 29, 72, 0.30) !important;
+      border-color: rgba(251, 113, 133, 0.5) !important;
+      color: #fecdd3 !important;
+    }
+    html.dark .bg-pink-100 {
+      background-color: rgba(219, 39, 119, 0.28) !important;
+      border-color: rgba(244, 114, 182, 0.5) !important;
+      color: #fbcfe8 !important;
+    }
+    html.dark .bg-fuchsia-100 {
+      background-color: rgba(192, 38, 211, 0.28) !important;
+      border-color: rgba(232, 121, 249, 0.5) !important;
+      color: #f5d0fe !important;
+    }
+    html.dark .bg-purple-100 {
+      background-color: rgba(147, 51, 234, 0.28) !important;
+      border-color: rgba(192, 132, 252, 0.5) !important;
+      color: #e9d5ff !important;
+    }
+    html.dark .bg-violet-100 {
+      background-color: rgba(124, 58, 237, 0.28) !important;
+      border-color: rgba(167, 139, 250, 0.5) !important;
+      color: #ddd6fe !important;
+    }
+    html.dark .bg-indigo-100,
+    html.dark .bg-indigo-200 {
+      background-color: rgba(79, 70, 229, 0.30) !important;
+      border-color: rgba(129, 140, 248, 0.5) !important;
+      color: #e0e7ff !important;
+    }
+    html.dark .bg-blue-100,
+    html.dark .bg-blue-200,
+    html.dark .hover\:bg-blue-100:hover {
+      background-color: rgba(37, 99, 235, 0.30) !important;
+      border-color: rgba(96, 165, 250, 0.5) !important;
+      color: #dbeafe !important;
+    }
+    html.dark .bg-sky-100 {
+      background-color: rgba(2, 132, 199, 0.28) !important;
+      border-color: rgba(56, 189, 248, 0.5) !important;
+      color: #e0f2fe !important;
+    }
+    html.dark .bg-cyan-100 {
+      background-color: rgba(8, 145, 178, 0.28) !important;
+      border-color: rgba(34, 211, 238, 0.5) !important;
+      color: #cffafe !important;
+    }
+    html.dark .bg-teal-100 {
+      background-color: rgba(13, 148, 136, 0.28) !important;
+      border-color: rgba(45, 212, 191, 0.5) !important;
+      color: #ccfbf1 !important;
+    }
+    html.dark .bg-emerald-100,
+    html.dark .bg-emerald-200,
+    html.dark .bg-emerald-200\/70,
+    html.dark .hover\:bg-emerald-200:hover {
+      background-color: rgba(5, 150, 105, 0.30) !important;
+      border-color: rgba(52, 211, 153, 0.5) !important;
+      color: #d1fae5 !important;
+    }
+    html.dark .bg-green-100 {
+      background-color: rgba(22, 163, 74, 0.28) !important;
+      border-color: rgba(74, 222, 128, 0.5) !important;
+      color: #dcfce7 !important;
+    }
+    html.dark .bg-lime-100 {
+      background-color: rgba(101, 163, 13, 0.28) !important;
+      border-color: rgba(163, 230, 53, 0.5) !important;
+      color: #ecfccb !important;
+    }
+    html.dark .bg-stone-200 {
+      background-color: rgba(87, 83, 78, 0.45) !important;
+      border-color: rgba(168, 162, 158, 0.5) !important;
+      color: #f5f5f4 !important;
+    }
+
+    /* 5. Tipografia e Cores de Texto com Alto Contraste */
+    html.dark .text-slate-950,
+    html.dark .text-slate-900 {
+      color: #f8fafc !important;
+    }
+    html.dark .bg-amber-500.text-slate-950,
+    html.dark .bg-amber-400.text-slate-950,
+    html.dark .bg-emerald-400.text-slate-950 {
+      color: #020617 !important;
+    }
+    html.dark .text-slate-800 {
+      color: #f1f5f9 !important;
+    }
+    html.dark .text-slate-700 {
+      color: #e2e8f0 !important;
+    }
+    html.dark .text-slate-600 {
+      color: #cbd5e1 !important;
+    }
+    html.dark .text-slate-500,
+    html.dark .text-slate-400 {
+      color: #94a3b8 !important;
+    }
+    html.dark .text-amber-900,
+    html.dark .text-amber-800,
+    html.dark .text-amber-700,
+    html.dark .text-amber-600 {
+      color: #fcd34d !important;
+    }
+    html.dark .text-yellow-900 {
+      color: #fef08a !important;
+    }
+    html.dark .text-orange-900 {
+      color: #fdba74 !important;
+    }
+    html.dark .text-red-900,
+    html.dark .text-red-800,
+    html.dark .text-red-700,
+    html.dark .text-red-600 {
+      color: #fca5a5 !important;
+    }
+    html.dark .text-rose-950,
+    html.dark .text-rose-900,
+    html.dark .text-rose-800,
+    html.dark .text-rose-700,
+    html.dark .text-rose-600 {
+      color: #fda4af !important;
+    }
+    html.dark .text-pink-900 {
+      color: #f9a8d4 !important;
+    }
+    html.dark .text-fuchsia-900 {
+      color: #f0abfc !important;
+    }
+    html.dark .text-purple-900 {
+      color: #d8b4fe !important;
+    }
+    html.dark .text-violet-900 {
+      color: #c4b5fd !important;
+    }
+    html.dark .text-indigo-900,
+    html.dark .text-indigo-700 {
+      color: #a5b4fc !important;
+    }
+    html.dark .text-blue-950,
+    html.dark .text-blue-900,
+    html.dark .text-blue-800,
+    html.dark .text-blue-700,
+    html.dark .text-blue-600,
+    html.dark .hover\:text-blue-800:hover {
+      color: #93c5fd !important;
+    }
+    html.dark .text-sky-900 {
+      color: #7dd3fc !important;
+    }
+    html.dark .text-cyan-900 {
+      color: #67e8f9 !important;
+    }
+    html.dark .text-teal-900 {
+      color: #5eead4 !important;
+    }
+    html.dark .text-emerald-950,
+    html.dark .text-emerald-900,
+    html.dark .text-emerald-800,
+    html.dark .text-emerald-700,
+    html.dark .text-emerald-600 {
+      color: #6ee7b7 !important;
+    }
+    html.dark .text-green-900 {
+      color: #86efac !important;
+    }
+    html.dark .text-lime-900 {
+      color: #bef264 !important;
+    }
+    html.dark .text-stone-900 {
+      color: #e7e5e4 !important;
+    }
+
+    /* 6. Bordas e Divisórias Visíveis */
+    html.dark .border-slate-200,
+    html.dark .border-slate-200\/80,
+    html.dark .border-slate-200\/90,
+    html.dark .border-slate-100,
+    html.dark .border-slate-100\/70,
+    html.dark .border-slate-300,
+    html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+    html.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+      border-color: #334155 !important;
+    }
+    html.dark .border-red-200,
+    html.dark .border-red-200\/80,
+    html.dark .border-red-200\/90,
+    html.dark .border-red-300,
+    html.dark .border-red-100 {
+      border-color: rgba(248, 113, 113, 0.45) !important;
+    }
+    html.dark .border-rose-200,
+    html.dark .border-rose-200\/80,
+    html.dark .border-rose-300 {
+      border-color: rgba(251, 113, 133, 0.45) !important;
+    }
+    html.dark .border-emerald-200,
+    html.dark .border-emerald-200\/80,
+    html.dark .border-emerald-300 {
+      border-color: rgba(52, 211, 153, 0.45) !important;
+    }
+    html.dark .border-amber-200,
+    html.dark .border-amber-300 {
+      border-color: rgba(251, 191, 36, 0.45) !important;
+    }
+    html.dark .border-blue-200,
+    html.dark .border-blue-300,
+    html.dark .border-blue-400,
+    html.dark .border-indigo-200,
+    html.dark .border-indigo-300 {
+      border-color: rgba(96, 165, 250, 0.5) !important;
+    }
+
+    /* 7. Inputs, Selects, Textareas e Controles de Formulário */
+    html.dark input:not([type="checkbox"]):not([type="radio"]),
+    html.dark select,
+    html.dark textarea {
+      background-color: #0b1120 !important;
+      color: #f8fafc !important;
+      border-color: #475569 !important;
+    }
+    html.dark #active-input-acertos,
+    html.dark #quick-log-acertos,
+    html.dark #sim-acertos,
+    html.dark input[data-card-acertos] {
+      color: #6ee7b7 !important;
+      border-color: rgba(52, 211, 153, 0.6) !important;
+    }
+    html.dark #active-input-erros,
+    html.dark #quick-log-erros,
+    html.dark input[data-card-erros] {
+      color: #fda4af !important;
+      border-color: rgba(251, 113, 133, 0.6) !important;
+    }
+    html.dark input::placeholder,
+    html.dark textarea::placeholder {
+      color: #94a3b8 !important;
+    }
+    html.dark footer {
+      background-color: #090d16 !important;
+      border-color: #1e293b !important;
     }
   </style>
 </head>
@@ -133,6 +524,10 @@
             <i data-lucide="award" class="w-4 h-4"></i>
             <span>Simulados (80 Questões)</span>
           </button>
+          <button type="button" data-tab="aulas" class="nav-tab-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800">
+            <i data-lucide="youtube" class="w-4 h-4 text-red-400"></i>
+            <span>Playlist YouTube (82 Dias)</span>
+          </button>
         </div>
 
         <div class="flex items-center gap-2">
@@ -140,7 +535,7 @@
             <i data-lucide="save" class="w-4 h-4 text-emerald-100"></i>
             <span>Salvar</span>
           </button>
-          <button type="button" id="btn-open-sidebar" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-2 transition shadow-xs" title="Abrir menu lateral (Nuvem, Backup, Restaurar, Zerar)">
+          <button type="button" id="btn-open-sidebar" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-2 transition shadow-xs" title="Abrir menu lateral (Modo Escuro, Nuvem, Backup, Restaurar, Zerar)">
             <i data-lucide="menu" class="w-4 h-4 text-amber-400"></i>
             <span>Menu & Dados</span>
             <span id="nav-cloud-pill" class="hidden w-2 h-2 rounded-full bg-emerald-400" title="Nuvem conectada"></span>
@@ -270,6 +665,37 @@
 
                 <button type="button" id="btn-toggle-active-day-done" class="px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 transition shadow-xs">
                 </button>
+              </div>
+
+              <!-- Box de Videoaula & Playlist do Dia no YouTube -->
+              <div id="active-day-youtube-box" class="rounded-2xl bg-gradient-to-r from-red-50/90 via-rose-50/60 to-amber-50/50 border border-red-200/90 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs">
+                <div class="flex items-start gap-3.5 min-w-0">
+                  <div class="w-11 h-11 rounded-xl bg-red-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <i data-lucide="play" class="w-5 h-5 fill-current"></i>
+                  </div>
+                  <div class="min-w-0 space-y-1">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider bg-red-600 text-white">Aulão em Destaque • Gran / CERS / CEISC / Estratégia</span>
+                      <span id="active-day-yt-channel" class="text-xs font-bold text-slate-700"></span>
+                      <span id="active-day-yt-duration" class="text-[11px] font-medium text-slate-600 bg-white/80 px-2 py-0.5 rounded border border-slate-200"></span>
+                      <span id="active-day-yt-views" class="text-[11px] font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded border border-amber-200"></span>
+                    </div>
+                    <h4 id="active-day-yt-title" class="text-sm sm:text-base font-extrabold text-slate-900 leading-snug"></h4>
+                    <p id="active-day-yt-alt-desc" class="text-[11px] text-slate-600">
+                      Assista ao Aulão Completo em destaque ou clique diretamente nas videoaulas específicas de cada assunto no checklist abaixo.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
+                  <a id="active-day-yt-watch" href="#" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs flex items-center gap-2 transition shadow-xs">
+                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                    <span>Assistir Aulão em Destaque</span>
+                  </a>
+                  <a id="active-day-yt-search" href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-semibold text-xs flex items-center gap-1.5 transition" title="Assistir 2º Aulão Completo de revisão deste tema">
+                    <i data-lucide="tv" class="w-3.5 h-3.5 text-red-600"></i>
+                    <span id="active-day-yt-alt-btn-label">2º Aulão Completo</span>
+                  </a>
+                </div>
               </div>
 
               <!-- Checklist de Assuntos do Dia -->
@@ -674,6 +1100,59 @@
       </div>
     </section>
 
+    <!-- ==================== TAB 6: PLAYLIST DE VIDEOAULAS NO YOUTUBE (82 DIAS) ==================== -->
+    <section id="tab-aulas" class="tab-panel hidden space-y-6">
+      <div class="bg-slate-900 text-white rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div class="space-y-1.5 max-w-3xl">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-red-500/20 border border-red-400/30 text-red-300 text-[11px] font-bold uppercase tracking-wider">
+              <i data-lucide="youtube" class="w-3.5 h-3.5"></i>
+              <span>Guia de Videoaulas Gratuitas no YouTube • 82 Dias Mapeados</span>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-white">
+              Playlist Diária de Videoaulas e Revisões por Matéria e Assunto
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Cada um dos 82 dias do seu cronograma conta com uma <strong>videoaula principal direta no YouTube</strong> (Estratégia OAB, Gran Cursos OAB, CEISC, Damásio, Cíntia Brunelli, Direito Desenhado e Supremo) além de <strong>links diretos por subtópico</strong> para aprofundar qualquer artigo específico.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <a href="https://www.youtube.com/playlist?list=PLCOG5PFn8E_fw7LxUWstFDcytru1UhpJ_" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-2 transition shadow-xs">
+              <i data-lucide="list-video" class="w-4 h-4"></i>
+              <span>Playlist Geral 1ª Fase OAB</span>
+            </a>
+            <a href="https://www.youtube.com/playlist?list=PLCOG5PFn8E_fnGB_qja8BqSF4iRkcZJwu" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 text-xs font-bold flex items-center gap-2 transition">
+              <i data-lucide="scale" class="w-4 h-4"></i>
+              <span>Playlist Gabaritando Ética</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Filtros da Playlist -->
+        <div class="mt-5 pt-4 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label for="filter-yt-subject" class="block text-[11px] font-bold uppercase text-slate-400 mb-1">Filtrar Aulas por Disciplina</label>
+            <select id="filter-yt-subject" class="w-full text-xs rounded-lg border border-slate-700 px-3 py-2 bg-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-red-500">
+              <option value="all">Todas as 20 Disciplinas (82 Aulas)</option>
+            </select>
+          </div>
+          <div>
+            <label for="filter-yt-week" class="block text-[11px] font-bold uppercase text-slate-400 mb-1">Filtrar por Semana</label>
+            <select id="filter-yt-week" class="w-full text-xs rounded-lg border border-slate-700 px-3 py-2 bg-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-red-500">
+              <option value="all">Todas as 12 Semanas</option>
+            </select>
+          </div>
+          <div>
+            <label for="filter-yt-search" class="block text-[11px] font-bold uppercase text-slate-400 mb-1">Buscar Aula, Professor ou Tema</label>
+            <input type="text" id="filter-yt-search" placeholder="Ex.: Controle de Constitucionalidade, Licitações, Sucessões..." class="w-full text-xs rounded-lg border border-slate-700 px-3 py-2 bg-slate-800 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500" />
+          </div>
+        </div>
+      </div>
+
+      <div id="youtube-playlist-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      </div>
+    </section>
+
   </main>
 
   <!-- Lateral Menu (Menu Lateral / Slide-out Drawer) -->
@@ -697,6 +1176,24 @@
 
     <!-- Conteúdo do Menu Lateral -->
     <div class="flex-1 overflow-y-auto p-5 space-y-6 custom-scrollbar text-xs">
+      <!-- Bloco 0: Aparência (Modo Escuro / Claro — Exclusivo no Menu & Dados) -->
+      <div class="p-4 rounded-xl bg-slate-800/90 border border-slate-700 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold uppercase tracking-wider text-slate-200 text-[11px] flex items-center gap-1.5">
+            <i id="sidebar-dark-icon" data-lucide="moon" class="w-4 h-4 text-amber-300"></i>
+            <span>Modo Escuro</span>
+          </span>
+          <span id="sidebar-dark-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-700 text-slate-300">Desativado</span>
+        </div>
+        <p class="text-[11px] text-slate-300 leading-relaxed">
+          Ative ou desative o tema escuro com alto contraste em todos os elementos.
+        </p>
+        <button type="button" id="btn-sidebar-dark-mode" class="w-full py-2.5 px-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-white border border-slate-600 font-bold text-xs flex items-center justify-center gap-2 transition shadow-xs">
+          <i data-lucide="moon" class="w-4 h-4 text-amber-300"></i>
+          <span>Ativar Modo Escuro</span>
+        </button>
+      </div>
+
       <!-- Bloco 1: Conectar Nuvem (Supabase / Firebase) -->
       <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-3">
         <div class="flex items-center justify-between">
@@ -987,6 +1484,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
     const RAW_SCHEDULE = [
       {
         day: 1, date: '2026-10-20', week: 1, subjectId: 'etica', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Ética e Estatuto da OAB: Atividade de Advocacia, Mandato e Inscrição (Arts. 1º a 14)", "channel": "Damásio OAB", "duration": "42 min", "views": "61 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=O8ebJrlvii4", "altVideoTitle": "Raio-X OAB: O que estudar em Ética e Estatuto da Advocacia — Aulão Completo", "altChannel": "Gran Cursos OAB (Profa. Maria Christina)", "altDuration": "52 min", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=qEPo_eFzbNM", "topicVideos": [{"title": "Atos Privativos de Advocacia, Postulação e Consultoria (Arts. 1º a 4º EAOAB)", "channel": "Mapear Direito OAB", "duration": "46 min", "url": "https://www.youtube.com/watch?v=xkLgDyNKByU"}, {"title": "Mandato Judicial, Procuração, Renúncia, Revogação e Substabelecimento (Art. 5º EAOAB)", "channel": "Instante Jurídico OAB", "duration": "16 min", "url": "https://www.youtube.com/watch?v=imIaj5aErAA"}, {"title": "Requisitos para Inscrição como Advogado e Estagiário na OAB (Arts. 8º e 9º EAOAB)", "channel": "Direito Desenhado", "duration": "16 min", "url": "https://www.youtube.com/watch?v=XeeEe7isLPs"}, {"title": "Domicílio Profissional, Inscrição Suplementar, Cancelamento e Licenciamento (Arts. 10 a 14 EAOAB)", "channel": "Me Julga — Cíntia Brunelli", "duration": "23 min", "url": "https://www.youtube.com/watch?v=iOP9zotm4o4"}]},
         title: "Atividade de Advocacia, Mandato e Inscrição na OAB",
         legalBasis: "Arts. 1º a 14 do EAOAB (Lei 8.906/94) e Arts. 1º a 31 do Regulamento Geral da OAB",
         topics: [
@@ -998,6 +1496,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 2, date: '2026-10-21', week: 1, subjectId: 'constitucional', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Constitucional 1ª Fase OAB: Teoria da Constituição e Poder Constituinte", "channel": "CEISC OAB", "duration": "2h 53m", "views": "134 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=LLBcDqk3vZg", "altVideoTitle": "Constitucional para OAB: O Que Cai Todo Exame — Aulão com Profa. Flávia Bahia", "altChannel": "Gran Cursos OAB", "altDuration": "1h 01m", "altViews": "13 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=DL4jq5w8DtQ", "topicVideos": [{"title": "Teoria da Constituição: Conceito, Classificação e Elementos das Constituições", "channel": "Me Julga — Cíntia Brunelli", "duration": "21 min", "url": "https://www.youtube.com/watch?v=q8142crepRY"}, {"title": "Aplicabilidade e Eficácia das Normas Constitucionais: Plena, Contida e Limitada", "channel": "Profa. Adriane Fauth", "duration": "34 min", "url": "https://www.youtube.com/watch?v=GTQyAl77t_8"}, {"title": "Poder Constituinte: Originário e Derivado (Reformador, Decorrente e Limites do Art. 60 CF)", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=aGA5cC-EsdQ"}, {"title": "Princípios Fundamentais da República Federativa do Brasil (Arts. 1º a 4º da CF/88)", "channel": "CEISC OAB", "duration": "37 min", "url": "https://www.youtube.com/watch?v=Dj4MxP4ZQnY"}]},
         title: "Teoria da Constituição, Aplicabilidade das Normas e Poder Constituinte",
         legalBasis: "Arts. 1º a 4º e 60 da CF/88 e ADCT (Arts. 1º a 114)",
         topics: [
@@ -1009,6 +1508,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 3, date: '2026-10-22', week: 1, subjectId: 'civil', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Parte Geral do Código Civil e LINDB em Uma Aula — 1ª Fase OAB", "channel": "Estratégia OAB", "duration": "2h 52m", "views": "31 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=rXvgQdfOuEA", "altVideoTitle": "Aulão de Direito Civil: LINDB, Pessoas Naturais, Personalidade e Pessoas Jurídicas", "altChannel": "Damásio OAB", "altDuration": "1h 01m", "altViews": "16 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=hShNp2xJdWk", "topicVideos": [{"title": "LINDB: Vigência, Vacatio Legis, Revogação, Repristinação e Integração da Norma", "channel": "EPM / Direito Civil", "duration": "1h 04m", "url": "https://www.youtube.com/watch?v=M0WsKyvkxl8"}, {"title": "Pessoa Natural: Início da Personalidade, Nascituro, Capacidade, Incapacidade e Emancipação", "channel": "Estratégia OAB", "duration": "2h 52m", "url": "https://www.youtube.com/watch?v=rXvgQdfOuEA"}, {"title": "Direitos da Personalidade no Código Civil (Arts. 11 a 21 CC) e Proteção de Dados", "channel": "Supremo OAB (Prof. Bruno Zampier)", "duration": "57 min", "url": "https://www.youtube.com/watch?v=gdtsO0l-LXI"}, {"title": "Pessoa Jurídica no Código Civil (Arts. 40 a 69), Desconsideração (Art. 50) e Domicílio", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=Cbkt8OH8ygg"}]},
         title: "LINDB, Pessoas Naturais, Direitos da Personalidade, LGPD e Pessoas Jurídicas",
         legalBasis: "Arts. 1º a 6º do DL 4.657/42 (LINDB), Arts. 1º a 78 do Código Civil e Lei 13.709/18 (LGPD)",
         topics: [
@@ -1020,6 +1520,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 4, date: '2026-10-23', week: 1, subjectId: 'proc_civil', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Processo Civil para OAB: Normas Fundamentais, Jurisdição, Ação e Competência", "channel": "Gran Cursos OAB (Profa. Raquel Bueno)", "duration": "1h 03m", "views": "11 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=TdAF737ZBEg", "altVideoTitle": "Aulão CEISC OAB: Estude Direito Processual Civil — Jurisdição, Competência e Processo", "altChannel": "CEISC OAB", "altDuration": "34 min", "altViews": "16 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=tZXKWwyK9Dw", "topicVideos": [{"title": "Normas Fundamentais do Processo Civil, Contraditório, Boa-Fé e Cooperação (Arts. 1º a 15 CPC)", "channel": "Gran Cursos OAB (Profa. Raquel Bueno)", "duration": "1h 03m", "url": "https://www.youtube.com/watch?v=TdAF737ZBEg"}, {"title": "Jurisdição, Ação, Condições da Ação e Mediação/Conciliação no CPC", "channel": "CEISC OAB", "duration": "34 min", "url": "https://www.youtube.com/watch?v=tZXKWwyK9Dw"}, {"title": "Cooperação Jurídica Internacional (Auxílio Direto e Carta Rogatória — Arts. 26 a 41 CPC)", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 00m", "url": "https://www.youtube.com/watch?v=9JKNSguMwbw"}, {"title": "Competência Interna no CPC: Absoluta e Relativa, Conexão, Continência e Foro de Eleição", "channel": "Damásio OAB", "duration": "55 min", "url": "https://www.youtube.com/watch?v=ADwFaOdNCXc"}]},
         title: "Normas Processuais, Jurisdição, Ação, Competência e Cooperação",
         legalBasis: "Arts. 1º a 69 do CPC/2015 e Lei 13.140/15 (Mediação)",
         topics: [
@@ -1031,6 +1532,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 5, date: '2026-10-24', week: 1, subjectId: 'penal', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Penal: Princípios Penais e Aplicação da Lei Penal no Tempo e no Espaço", "channel": "Damásio OAB", "duration": "51 min", "views": "21 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=68y-OFrIyJQ", "altVideoTitle": "Aulão Gran Cursos OAB: Direito Penal para 1ª Fase OAB — Princípios e Lei Penal com Michelle Tonon", "altChannel": "Gran Cursos OAB", "altDuration": "1h 25m", "altViews": "15 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=kw2UfQK4SrA", "topicVideos": [{"title": "Princípios Penais Fundamentais: Legalidade, Anterioridade, Insignificância e Lesividade", "channel": "Me Julga — Cíntia Brunelli", "duration": "10 min", "url": "https://www.youtube.com/watch?v=7lLVBCXumRI"}, {"title": "Lei Penal no Tempo: Abolitio Criminis, Novatio Legis in Mellius e Tempo do Crime (Arts. 2º a 4º CP)", "channel": "Prof. Rafael — Simplificando Direito Penal", "duration": "20 min", "url": "https://www.youtube.com/watch?v=Ikwegi7w4bI"}, {"title": "Aplicação da Lei Penal no Tempo e no Espaço: Territorialidade, Lugar do Crime e Extraterritorialidade", "channel": "Me Julga — Cíntia Brunelli", "duration": "17 min", "url": "https://www.youtube.com/watch?v=hJOE3MXTdcI"}, {"title": "Pena Cumprida no Estrangeiro, Sentença Estrangeira e Contagem de Prazo Penal (Arts. 8º a 12 CP)", "channel": "Monster Concursos & OAB", "duration": "29 min", "url": "https://www.youtube.com/watch?v=UaVCArd3Gtg"}]},
         title: "Princípios Penais, Aplicação da Lei Penal no Tempo e no Espaço",
         legalBasis: "Arts. 1º a 12 do Código Penal (Decreto-Lei 2.848/40)",
         topics: [
@@ -1042,6 +1544,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 6, date: '2026-10-25', week: 1, subjectId: 'administrativo', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Administrativo OAB: Princípios, LINDB e Organização Administrativa (Direta e Indireta)", "channel": "Estratégia OAB", "duration": "3h 42m", "views": "33 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=zeZY1GHpLr4", "altVideoTitle": "Domingão da OAB: Aulão de Direito Administrativo — Princípios e Administração Pública", "altChannel": "Gran Cursos OAB (Prof. Nilton Coutinho)", "altDuration": "32 min", "altViews": "14 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=2LyBzffycLY", "topicVideos": [{"title": "Princípios Constitucionais do Direito Administrativo: LIMPE (Art. 37 CF) e Princípios Implícitos", "channel": "Me Julga — Cíntia Brunelli", "duration": "21 min", "url": "https://www.youtube.com/watch?v=VxCIQozqxxg"}, {"title": "LINDB no Direito Público (Arts. 20 a 30) e Princípios do Processo Administrativo", "channel": "Direito Desenhado", "duration": "24 min", "url": "https://www.youtube.com/watch?v=uTfI2RnsZZc"}, {"title": "Organização da Administração Pública: Desconcentração vs. Descentralização e Terceiro Setor", "channel": "Prof. Diego Pureza", "duration": "14 min", "url": "https://www.youtube.com/watch?v=R2NHZhQ3hFw"}, {"title": "Administração Pública Direta e Indireta: Autarquias, Fundações, Empresas Públicas e SEM", "channel": "Me Julga — Cíntia Brunelli", "duration": "15 min", "url": "https://www.youtube.com/watch?v=1jxlt12qK-k"}]},
         title: "Princípios, LINDB no Direito Público, LAI, LGPD e Organização Administrativa",
         legalBasis: "Art. 37 da CF/88, Arts. 20 a 30 da LINDB (Lei 13.655/18), Lei 12.527/11 e DL 200/67",
         topics: [
@@ -1053,6 +1556,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 7, date: '2026-10-26', week: 2, subjectId: 'trabalho', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão CERS OAB: Direito do Trabalho — Princípios, Fontes e Relação de Emprego (Prof. Felipe Sampaio)", "channel": "CERS OAB", "duration": "1h 01m", "views": "12 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=GP2DXhuuRb4", "altVideoTitle": "Aulão de Direito do Trabalho 1ª Fase OAB: Princípios, Relação de Trabalho e Emprego", "altChannel": "Estratégia OAB", "altDuration": "3h 34m", "altViews": "24 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=lbI8WgePThs", "topicVideos": [{"title": "Princípios do Direito do Trabalho: Proteção, Norma Mais Favorável e Primazia da Realidade", "channel": "Me Julga — Cíntia Brunelli", "duration": "21 min", "url": "https://www.youtube.com/watch?v=rP1siv_duBM"}, {"title": "Fontes do Direito do Trabalho, Hermenêutica, Renúncia e Transação (Arts. 8º e 9º CLT)", "channel": "CERS OAB (Prof. Felipe Sampaio)", "duration": "1h 01m", "url": "https://www.youtube.com/watch?v=GP2DXhuuRb4"}, {"title": "Relação de Trabalho vs. Relação de Emprego: Requisitos dos Arts. 2º e 3º da CLT", "channel": "Me Julga — Cíntia Brunelli", "duration": "21 min", "url": "https://www.youtube.com/watch?v=rP1siv_duBM"}, {"title": "CTPS Digital e Empregado Doméstico (LC 150/2015), Autônomo e Estagiário", "channel": "Estratégia OAB", "duration": "3h 34m", "url": "https://www.youtube.com/watch?v=lbI8WgePThs"}]},
         title: "Princípios, Fontes, Relação de Trabalho e Relação de Emprego",
         legalBasis: "Arts. 1º a 41 da CLT e LC 150/2015 (Empregados Domésticos)",
         topics: [
@@ -1064,6 +1568,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 8, date: '2026-10-27', week: 2, subjectId: 'tributario', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Top Five Tributário OAB: Sistema Tributário Nacional e Princípios Constitucionais Tributários", "channel": "Prof. Pedro Barretto (Portal F3 / OAB)", "duration": "58 min", "views": "22 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=YI0x69P611U", "altVideoTitle": "OAB em Foco: Aulão de Direito Tributário — Limitações ao Poder de Tributar e Princípios", "altChannel": "Gran Cursos OAB", "altDuration": "1h 32m", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=l_IBDsQL3fI", "topicVideos": [{"title": "Sistema Tributário Nacional e Fontes do Direito Tributário (Arts. 96 a 100 CTN)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=eXHTvp4Bpo8"}, {"title": "Princípio da Legalidade Tributária e Exceções Constitucionais (Art. 150, I da CF/88)", "channel": "Prof. Pedro Barretto", "duration": "58 min", "url": "https://www.youtube.com/watch?v=YI0x69P611U"}, {"title": "Princípios da Anterioridade Anual e Nonagesimal (Noventena) e Exceções (Art. 150, III CF)", "channel": "Prof. Pedro Barretto", "duration": "58 min", "url": "https://www.youtube.com/watch?v=YI0x69P611U"}, {"title": "Isonomia, Capacidade Contributiva, Irretroatividade e Vedação ao Confisco (Art. 150 CF)", "channel": "Gran Cursos OAB", "duration": "1h 32m", "url": "https://www.youtube.com/watch?v=l_IBDsQL3fI"}]},
         title: "Sistema Tributário Nacional, Fontes e Princípios Constitucionais Tributários",
         legalBasis: "Arts. 145 a 150 da CF/88 e Arts. 96 a 100 do CTN (Lei 5.172/66)",
         topics: [
@@ -1075,6 +1580,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 9, date: '2026-10-28', week: 2, subjectId: 'proc_penal', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Processo Penal OAB: Sistemas Processuais, Inquérito Policial e Acordo de Não Persecução Penal", "channel": "CEISC OAB", "duration": "31 min", "views": "39 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=Bc-dkix5sCk", "altVideoTitle": "Maratona OAB Processo Penal: Inquérito Policial, Juiz das Garantias e Investigação", "altChannel": "Gran Cursos OAB", "altDuration": "52 min", "altViews": "18 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=MTARPgKQT4o", "topicVideos": [{"title": "Sistemas Processuais Penais, Princípios e Juiz das Garantias (Arts. 1º a 3º-F CPP)", "channel": "AlfaCon / Processo Penal", "duration": "1h 01m", "url": "https://www.youtube.com/watch?v=DccenKtwT7w"}, {"title": "Aplicação da Lei Processual Penal no Tempo (Art. 2º CPP) e no Espaço (Art. 1º CPP)", "channel": "CEISC OAB", "duration": "31 min", "url": "https://www.youtube.com/watch?v=Bc-dkix5sCk"}, {"title": "Procedimento do Inquérito Policial: Características, Prazos, Arquivamento e SV 14 (Arts. 4º a 23 CPP)", "channel": "Direito Desenhado", "duration": "12 min", "url": "https://www.youtube.com/watch?v=AOkFhInQSM0"}, {"title": "Tudo sobre Inquérito Policial e Acordo de Não Persecução Penal — ANPP (Art. 28-A CPP)", "channel": "Me Julga — Cíntia Brunelli", "duration": "11 min", "url": "https://www.youtube.com/watch?v=kCfCgdkAkBo"}]},
         title: "Sistemas Processuais, Inquérito Policial, Investigação e ANPP",
         legalBasis: "Arts. 1º a 28-A do CPP (Decreto-Lei 3.689/41) e Lei 12.830/13",
         topics: [
@@ -1086,6 +1592,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 10, date: '2026-10-29', week: 2, subjectId: 'etica', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Gran Cursos OAB: Ética e Estatuto da OAB — Direitos e Prerrogativas do Advogado (Arts. 6º a 7º-B)", "channel": "Gran Cursos OAB (Profa. Maria Christina)", "duration": "42 min", "views": "12 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=JTuPHtg6OuI", "altVideoTitle": "Aulão Damásio OAB: Estatuto da Advocacia — Prerrogativas, Inviolabilidade e Desagravo", "altChannel": "Damásio OAB", "altDuration": "42 min", "altViews": "61 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=O8ebJrlvii4", "topicVideos": [{"title": "Inviolabilidade do Escritório e Busca e Apreensão na Advocacia (Art. 7º, II e §6º EAOAB)", "channel": "Me Julga — Cíntia Brunelli", "duration": "23 min", "url": "https://www.youtube.com/watch?v=iOP9zotm4o4"}, {"title": "Comunicação com Cliente Preso, Acesso a Autos e Súmula Vinculante 14 (Art. 7º, III e XIV EAOAB)", "channel": "Damásio OAB", "duration": "42 min", "url": "https://www.youtube.com/watch?v=O8ebJrlvii4"}, {"title": "Prisão em Flagrante do Advogado, Sala de Estado-Maior e Desagravo Público (Art. 7º, IV e V EAOAB)", "channel": "Curso Prova da Ordem", "duration": "1h 03m", "url": "https://www.youtube.com/watch?v=lZsb5848EBE"}, {"title": "Direitos da Advogada Gestante/Lactante (Art. 7º-A) e Crime de Violação de Prerrogativas (Art. 7º-B)", "channel": "Gran Cursos OAB", "duration": "52 min", "url": "https://www.youtube.com/watch?v=qEPo_eFzbNM"}]},
         title: "Direitos e Prerrogativas do Advogado e da Advogada",
         legalBasis: "Arts. 6º a 7º-B do EAOAB (Lei 8.906/94 com Leis 13.363/16 e 14.365/22)",
         topics: [
@@ -1097,6 +1604,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 11, date: '2026-10-30', week: 2, subjectId: 'constitucional', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Constitucional OAB: Direitos e Garantias Fundamentais (Arts. 5º a 11 da CF/88)", "channel": "Estratégia OAB", "duration": "3h 22m", "views": "21 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=eDFojBNDbfw", "altVideoTitle": "Aulão CEISC OAB: Direitos Individuais, Coletivos e Sociais na 1ª Fase da OAB", "altChannel": "CEISC OAB", "altDuration": "2h 53m", "altViews": "134 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=LLBcDqk3vZg", "topicVideos": [{"title": "Teoria Geral dos Direitos Fundamentais: Características, Dimensões e Eficácia Horizontal", "channel": "Profa. Adriane Fauth", "duration": "34 min", "url": "https://www.youtube.com/watch?v=GTQyAl77t_8"}, {"title": "Direitos e Deveres Individuais e Coletivos: Art. 5º da Constituição Federal", "channel": "Me Julga — Cíntia Brunelli", "duration": "21 min", "url": "https://www.youtube.com/watch?v=q8142crepRY"}, {"title": "Garantias Processuais Constitucionais no Art. 5º da CF/88 (Devido Processo, Júri, Contraditório)", "channel": "CEISC OAB", "duration": "2h 53m", "url": "https://www.youtube.com/watch?v=LLBcDqk3vZg"}, {"title": "Direitos Sociais dos Trabalhadores e Liberdade Sindical (Arts. 6º a 11 da CF/88)", "channel": "Estratégia OAB", "duration": "3h 22m", "url": "https://www.youtube.com/watch?v=eDFojBNDbfw"}]},
         title: "Direitos e Garantias Fundamentais (Individuais, Coletivos e Sociais)",
         legalBasis: "Arts. 5º a 11 da CF/88",
         topics: [
@@ -1108,6 +1616,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 12, date: '2026-10-31', week: 2, subjectId: 'civil', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Civil OAB: Bens, Negócio Jurídico, Defeitos, Prescrição e Decadência (Arts. 79 a 232 CC)", "channel": "Estratégia OAB", "duration": "1h 38m", "views": "13 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=ZfSRjYtoWvs", "altVideoTitle": "Aulão CEISC OAB: Direito Civil para 1ª Fase — Fatos Jurídicos, Defeitos e Prescrição", "altChannel": "CEISC OAB", "altDuration": "24 min", "altViews": "16 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=ypxjsrzu4Rw", "topicVideos": [{"title": "Classificação dos Bens no Código Civil: Móveis, Imóveis, Fungíveis, Benfeitorias e Bens Públicos", "channel": "Me Julga — Cíntia Brunelli", "duration": "15 min", "url": "https://www.youtube.com/watch?v=uwBo-WsFLfs"}, {"title": "Negócio Jurídico: Conceito, Requisitos, Condição, Termo e Encargo (Arts. 104 a 137 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=Iag-Nc8rtdU"}, {"title": "Defeitos do Negócio Jurídico: Erro, Dolo, Coação, Estado de Perigo, Lesão e Fraude contra Credores", "channel": "Me Julga — Cíntia Brunelli", "duration": "17 min", "url": "https://www.youtube.com/watch?v=ncz8uzPmh94"}, {"title": "Prescrição e Decadência no Código Civil (Arts. 189 a 211 CC) com Profa. Patrícia Dreyer", "channel": "Direção Concursos & OAB", "duration": "2h 24m", "url": "https://www.youtube.com/watch?v=PjyCdFiRcHI"}]},
         title: "Bens, Negócios Jurídicos, Defeitos, Invalidade, Prescrição e Decadência",
         legalBasis: "Arts. 79 a 232 do Código Civil (Lei 10.406/02)",
         topics: [
@@ -1119,6 +1628,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 13, date: '2026-11-01', week: 2, subjectId: 'proc_civil', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão Damásio OAB: Processo Civil — Partes, Litisconsórcio e Intervenção de Terceiros (Arts. 70 a 187 CPC)", "channel": "Damásio OAB", "duration": "55 min", "views": "11 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=ADwFaOdNCXc", "altVideoTitle": "Aulão Supremo OAB: Litisconsórcio e Intervenção de Terceiros no CPC (Prof. Gustavo Faria)", "altChannel": "Supremo OAB", "altDuration": "1h 01m", "altViews": "27 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=1n1s3dnQIwk", "topicVideos": [{"title": "Partes, Procuradores, Despesas, Honorários Sucumbenciais e Gratuidade da Justiça (Arts. 70 a 102 CPC)", "channel": "Damásio OAB", "duration": "55 min", "url": "https://www.youtube.com/watch?v=ADwFaOdNCXc"}, {"title": "Litisconsórcio: Necessário, Facultativo, Unitário e Simples | Processo Civil Desenhado", "channel": "Prof. Ricardo Torques", "duration": "15 min", "url": "https://www.youtube.com/watch?v=J99-nzwGLxQ"}, {"title": "Litisconsórcio e Intervenção de Terceiros (Assistência, Denunciação, Chamamento, IDPJ e Amicus Curiae)", "channel": "Supremo OAB (Prof. Gustavo Faria)", "duration": "1h 01m", "url": "https://www.youtube.com/watch?v=1n1s3dnQIwk"}, {"title": "Poderes do Juiz, Impedimento, Suspeição e Funções Essenciais à Justiça (Arts. 139 a 187 CPC)", "channel": "Curso Pro Labore (Prof. Gustavo Faria)", "duration": "1h 37m", "url": "https://www.youtube.com/watch?v=MGQ35s6sIJQ"}]},
         title: "Partes, Procuradores, Litisconsórcio, Intervenção de Terceiros e Juiz",
         legalBasis: "Arts. 70 a 187 do CPC/2015",
         topics: [
@@ -1130,6 +1640,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 14, date: '2026-11-02', week: 3, subjectId: 'penal', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Penal OAB: Teoria do Crime Descomplicada — Conduta, Nexo, Tipicidade, Dolo e Culpa", "channel": "Estratégia OAB", "duration": "2h 02m", "views": "23 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=faUD6N45ytQ", "altVideoTitle": "Aulão Gran Cursos OAB: Teoria Geral do Delito — Fato Típico, Dolo e Culpa na 1ª Fase", "altChannel": "Gran Cursos OAB", "altDuration": "1h 00m", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=421skzkd3nI", "topicVideos": [{"title": "Fato Típico: Conduta, Crimes Omissivos Próprios e Impróprios (Garantidor — Art. 13, §2º CP)", "channel": "Me Julga — Cíntia Brunelli", "duration": "10 min", "url": "https://www.youtube.com/watch?v=7lLVBCXumRI"}, {"title": "Relação de Causalidade (Conditio Sine Qua Non) e Concausas Independentes (Art. 13 CP)", "channel": "Estratégia OAB", "duration": "2h 02m", "url": "https://www.youtube.com/watch?v=faUD6N45ytQ"}, {"title": "Teoria do Crime: Tipicidade Objetiva, Subjetiva e Imputação Objetiva", "channel": "Estratégia OAB", "duration": "12 min", "url": "https://www.youtube.com/watch?v=2vCObL5PFfI"}, {"title": "Crime Doloso (Dolo Direto e Eventual), Crime Culposo e Preterdoloso (Arts. 18 e 19 CP)", "channel": "Estratégia OAB", "duration": "2h 02m", "url": "https://www.youtube.com/watch?v=faUD6N45ytQ"}]},
         title: "Teoria do Delito I: Conduta, Nexo de Causalidade, Tipicidade, Dolo e Culpa",
         legalBasis: "Arts. 13 a 19 do Código Penal (Decreto-Lei 2.848/40)",
         topics: [
@@ -1141,6 +1652,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 15, date: '2026-11-03', week: 3, subjectId: 'administrativo', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Administrativo: Poderes da Administração, Atos Administrativos e Lei 9.784/99", "channel": "Estratégia OAB (Prof. Herbert Almeida)", "duration": "2h 33m", "views": "43 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=WQMwGFje3NE", "altVideoTitle": "Aulão Gran Cursos OAB: Poderes, Atos Administrativos e Processo Administrativo", "altChannel": "Gran Cursos OAB", "altDuration": "32 min", "altViews": "14 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=2LyBzffycLY", "topicVideos": [{"title": "Poderes da Administração Pública: Vinculado, Discricionário, Hierárquico, Regulamentar e de Polícia", "channel": "Prof. Diego Pureza", "duration": "11 min", "url": "https://www.youtube.com/watch?v=kG_Ldb07Dq8"}, {"title": "Uso e Abuso de Poder (Excesso e Desvio) e Atos Administrativos", "channel": "Profa. Gabriela Xavier", "duration": "11 min", "url": "https://www.youtube.com/watch?v=5CJt0C1OKi4"}, {"title": "Atos Administrativos: Requisitos (Competência, Finalidade, Forma, Motivo, Objeto) e Atributos", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=L2lXiq54qno"}, {"title": "Extinção dos Atos (Anulação e Revogação) e Processo Administrativo Federal (Lei 9.784/99)", "channel": "Direito Desenhado", "duration": "24 min", "url": "https://www.youtube.com/watch?v=uTfI2RnsZZc"}]},
         title: "Poderes Administrativos, Atos Administrativos e Processo Administrativo Federal",
         legalBasis: "Lei 9.784/99 (Processo Administrativo) e Lei 8.112/90",
         topics: [
@@ -1152,6 +1664,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 16, date: '2026-11-04', week: 3, subjectId: 'proc_trabalho', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão CEISC OAB: Direito Processual do Trabalho — Competência (Art. 114 CF), Partes e Honorários", "channel": "CEISC OAB", "duration": "1h 24m", "views": "81 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=SNyUpwg7HmM", "altVideoTitle": "Aulão Completo de Processo do Trabalho: Organização, Competência, Jus Postulandi e Gratuidade", "altChannel": "Prof. Bruno Klippel", "altDuration": "1h 21m", "altViews": "122 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=6Av7lOoVAOc", "topicVideos": [{"title": "Organização da Justiça do Trabalho (Varas, TRTs e TST — Arts. 111 a 116 CF e CLT)", "channel": "Prof. Bruno Klippel", "duration": "1h 21m", "url": "https://www.youtube.com/watch?v=6Av7lOoVAOc"}, {"title": "Competência Material (Art. 114 da CF/88) e Territorial (Art. 651 da CLT) da Justiça do Trabalho", "channel": "Prof. Bruno Klippel", "duration": "1h 21m", "url": "https://www.youtube.com/watch?v=6Av7lOoVAOc"}, {"title": "Partes, Procuradores e Jus Postulandi na Justiça do Trabalho (Art. 791 CLT e Súmula 425 TST)", "channel": "CEISC OAB", "duration": "1h 24m", "url": "https://www.youtube.com/watch?v=SNyUpwg7HmM"}, {"title": "Justiça Gratuita, Honorários Periciais e Honorários Sucumbenciais (Art. 791-A CLT e ADI 5766)", "channel": "CEISC OAB", "duration": "1h 24m", "url": "https://www.youtube.com/watch?v=SNyUpwg7HmM"}]},
         title: "Organização, Competência da Justiça do Trabalho, Partes e Gratuidade",
         legalBasis: "Arts. 111 a 116 da CF/88 e Arts. 643 a 793-D da CLT",
         topics: [
@@ -1163,6 +1676,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 17, date: '2026-11-05', week: 3, subjectId: 'empresarial', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão CERS OAB: Revisão de Direito Empresarial — Teoria da Empresa, Empresário e Estabelecimento", "channel": "CERS OAB", "duration": "2h 15m", "views": "15 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=7nz_C_nuka0", "altVideoTitle": "Aulão de Direito Empresarial OAB: Teoria Geral da Empresa, Registro e Nome Empresarial", "altChannel": "Estratégia OAB", "altDuration": "3h 38m", "altViews": "14 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=u64QTQJMVsM", "topicVideos": [{"title": "Teoria da Empresa e Conceito de Empresário (Art. 966 e Parágrafo Único do CC)", "channel": "Direito Desenhado", "duration": "13 min", "url": "https://www.youtube.com/watch?v=m2mx9db_t4s"}, {"title": "Capacidade Empresarial, Impedimentos e Empresário Casado (Arts. 972 a 980 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=h0tMCdeYAeM"}, {"title": "Estabelecimento Empresarial: Trespasse, Aviamento, Clientela e Sucessão (Arts. 1.142 a 1.149 CC)", "channel": "Direito Desenhado", "duration": "13 min", "url": "https://www.youtube.com/watch?v=m2mx9db_t4s"}, {"title": "Nome Empresarial (Firma e Denominação), Registro de Empresas e Escrituração", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=h0tMCdeYAeM"}]},
         title: "Teoria da Empresa, Empresário Individual, Estabelecimento e Registro",
         legalBasis: "Arts. 966 a 980 e 1.142 a 1.195 do Código Civil e LC 123/2006",
         topics: [
@@ -1174,6 +1688,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 18, date: '2026-11-06', week: 3, subjectId: 'humanos', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão CEISC OAB: Direitos Humanos — Teoria Geral, Sistema Global (ONU) e Tratados (Art. 5º, §3º CF)", "channel": "CEISC OAB", "duration": "23 min", "views": "18 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=ajSMocUPYx8", "altVideoTitle": "Aulão de Direitos Humanos para 1ª Fase OAB: DUDH, Pactos de 1966 e Incorporação de Tratados", "altChannel": "Estratégia OAB", "altDuration": "3h 53m", "altViews": "16 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=P-sO_XuOCPk", "topicVideos": [{"title": "Teoria Geral dos Direitos Humanos: Conceito, Características e Gerações/Dimensões", "channel": "CEISC OAB", "duration": "23 min", "url": "https://www.youtube.com/watch?v=ajSMocUPYx8"}, {"title": "Declaração Universal dos Direitos Humanos (DUDH de 1948) e Sistema Global da ONU", "channel": "CEISC OAB", "duration": "23 min", "url": "https://www.youtube.com/watch?v=ajSMocUPYx8"}, {"title": "Pactos Internacionais de Direitos Humanos de 1966 (PIDCP e PIDESC)", "channel": "Estratégia OAB", "duration": "3h 53m", "url": "https://www.youtube.com/watch?v=P-sO_XuOCPk"}, {"title": "Incorporação dos Tratados de Direitos Humanos no Brasil (Art. 5º, §3º da CF e Supralegalidade)", "channel": "Estratégia OAB", "duration": "3h 58m", "url": "https://www.youtube.com/watch?v=1rwxJ_XfWTk"}]},
         title: "Teoria Geral dos Direitos Humanos e Sistema Global de Proteção (ONU)",
         legalBasis: "Declaração Universal de 1948, Pactos de 1966 e Art. 5º, §§ 2º e 3º da CF/88",
         topics: [
@@ -1185,6 +1700,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 19, date: '2026-11-07', week: 3, subjectId: 'constitucional', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Constitucional OAB: Remédios Constitucionais, Nacionalidade e Direitos Políticos", "channel": "Profa. Adriane Fauth", "duration": "37 min", "views": "78 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=8flvEDhORUs", "altVideoTitle": "Aulão Gran Cursos OAB: Remédios Constitucionais (HC, MS, MI, HD, Ação Popular) e Nacionalidade", "altChannel": "Gran Cursos OAB (Profa. Flávia Bahia)", "altDuration": "42 min", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=VB8PxywmAp0", "topicVideos": [{"title": "Remédios Constitucionais: Habeas Corpus e Habeas Data (Art. 5º, LXVIII e LXXII da CF)", "channel": "Me Julga — Cíntia Brunelli", "duration": "13 min", "url": "https://www.youtube.com/watch?v=Xzn5YmXlz2c"}, {"title": "Mandado de Segurança Individual/Coletivo (Lei 12.016/09) e Mandado de Injunção (Lei 13.300/16)", "channel": "Prof. Antonio Kozikoski", "duration": "30 min", "url": "https://www.youtube.com/watch?v=hvewXbNvxS4"}, {"title": "Ação Popular (Lei 4.717/65), Ação Civil Pública e Remédios Constitucionais na OAB", "channel": "Profa. Adriane Fauth", "duration": "37 min", "url": "https://www.youtube.com/watch?v=8flvEDhORUs"}, {"title": "Direitos Políticos e Nacionalidade na Constituição Federal (Arts. 12 a 17 da CF/88)", "channel": "Me Julga — Cíntia Brunelli", "duration": "16 min", "url": "https://www.youtube.com/watch?v=f164jXrkT7o"}]},
         title: "Remédios Constitucionais, Nacionalidade e Direitos Políticos",
         legalBasis: "Arts. 5º (LXVIII a LXXIII) e 12 a 17 da CF/88 e Leis 12.016/09, 13.300/16, 9.507/97 e 4.717/65",
         topics: [
@@ -1196,6 +1712,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 20, date: '2026-11-08', week: 3, subjectId: 'etica', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão Verbo OAB: Maratonando Ética — Sociedade de Advogados, Advogado Empregado e Honorários", "channel": "Verbo OAB (Prof. Rafael Novais)", "duration": "30 min", "views": "16 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=7lG1CBv-vs8", "altVideoTitle": "Aulão Gran Cursos OAB: Sociedade de Advogados e Honorários Advocatícios (Arts. 15 a 26 EAOAB)", "altChannel": "Gran Cursos OAB", "altDuration": "57 min", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=PaqSJYEl9eI", "topicVideos": [{"title": "Sociedade de Advogados e Sociedade Unipessoal de Advocacia (Arts. 15 a 17 EAOAB)", "channel": "Verbo OAB (Prof. Rafael Novais)", "duration": "30 min", "url": "https://www.youtube.com/watch?v=7lG1CBv-vs8"}, {"title": "Advogado Empregado: Jornada, Horas Extras, Adicional Noturno e Sucumbência (Arts. 18 a 21 EAOAB)", "channel": "Verbo OAB (Prof. Rafael Novais)", "duration": "30 min", "url": "https://www.youtube.com/watch?v=7lG1CBv-vs8"}, {"title": "Honorários Advocatícios: Convencionados, Arbitrados, Sucumbenciais e Prescrição (Arts. 22 a 26 EAOAB)", "channel": "Damásio OAB", "duration": "42 min", "url": "https://www.youtube.com/watch?v=O8ebJrlvii4"}, {"title": "Contrato de Honorários, Quota Litis e Regras do Código de Ética (Arts. 48 a 54 CED)", "channel": "Me Julga — Cíntia Brunelli", "duration": "23 min", "url": "https://www.youtube.com/watch?v=iOP9zotm4o4"}]},
         title: "Sociedade de Advogados, Advogado Empregado e Honorários Advocatícios",
         legalBasis: "Arts. 15 a 26 do EAOAB (Lei 8.906/94) e Arts. 35 a 54 do Código de Ética e Disciplina",
         topics: [
@@ -1207,6 +1724,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 21, date: '2026-11-09', week: 4, subjectId: 'civil', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Civil OAB: Teoria Geral das Obrigações — Modalidades, Transmissão e Pagamento", "channel": "Estratégia OAB", "duration": "3h 33m", "views": "55 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=zVar5-_knZg", "altVideoTitle": "Aulão Damásio OAB: Direito das Obrigações (Dar, Fazer, Solidariedade, Pagamento e Inadimplemento)", "altChannel": "Damásio OAB", "altDuration": "1h 01m", "altViews": "16 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=hShNp2xJdWk", "topicVideos": [{"title": "Modalidades de Obrigações: Dar Coisa Certa/Incerta, Fazer, Não Fazer e Alternativas", "channel": "Direito Desenhado", "duration": "15 min", "url": "https://www.youtube.com/watch?v=OSrFnwZJ_zI"}, {"title": "Obrigações Solidárias: Solidariedade Ativa e Passiva no Código Civil (Arts. 264 a 285 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "16 min", "url": "https://www.youtube.com/watch?v=poSR554Exps"}, {"title": "Transmissão das Obrigações: Cessão de Crédito e Assunção de Dívida (Arts. 286 a 303 CC)", "channel": "Direito Desenhado", "duration": "15 min", "url": "https://www.youtube.com/watch?v=OSrFnwZJ_zI"}, {"title": "Adimplemento, Pagamento e Inadimplemento das Obrigações (Mora, Cláusula Penal e Arras)", "channel": "Me Julga — Cíntia Brunelli", "duration": "16 min", "url": "https://www.youtube.com/watch?v=poSR554Exps"}]},
         title: "Teoria Geral das Obrigações: Modalidades, Transmissão e Pagamento",
         legalBasis: "Arts. 233 a 420 do Código Civil (Lei 10.406/02)",
         topics: [
@@ -1218,6 +1736,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 22, date: '2026-11-10', week: 4, subjectId: 'proc_civil', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Processo Civil OAB: Como Gabaritar Tutela Provisória (Urgência e Evidência), Atos e Prazos", "channel": "Estratégia OAB", "duration": "1h 42m", "views": "12 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=Q110ldyGVsA", "altVideoTitle": "Aulão CERS OAB: Revisão de Processo Civil — Atos Processuais, Citação e Tutelas Provisórias", "altChannel": "CERS OAB", "altDuration": "2h 05m", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=y9agcZ5bhrw", "topicVideos": [{"title": "Atos Processuais, Negócios Jurídicos Processuais e Calendário Processual (Arts. 188 a 211 CPC)", "channel": "Estratégia OAB", "duration": "1h 42m", "url": "https://www.youtube.com/watch?v=Q110ldyGVsA"}, {"title": "Prazos Processuais, Contagem em Dias Úteis e Preclusão no CPC (Arts. 212 a 235)", "channel": "CEISC OAB", "duration": "34 min", "url": "https://www.youtube.com/watch?v=tZXKWwyK9Dw"}, {"title": "Citação, Intimações e Nulidades Processuais no CPC (Arts. 236 a 283)", "channel": "Damásio OAB", "duration": "55 min", "url": "https://www.youtube.com/watch?v=ADwFaOdNCXc"}, {"title": "Tutela Provisória: Tutela de Urgência (Antecipada e Cautelar) e Tutela da Evidência (Arts. 294 a 311 CPC)", "channel": "Direito Desenhado", "duration": "18 min", "url": "https://www.youtube.com/watch?v=6YvvvJczRFc"}]},
         title: "Atos Processuais, Prazos, Citação, Nulidades e Tutela Provisória",
         legalBasis: "Arts. 188 a 317 do CPC/2015",
         topics: [
@@ -1229,6 +1748,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 23, date: '2026-11-11', week: 4, subjectId: 'penal', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Penal OAB: Excludentes de Ilicitude, Culpabilidade, Iter Criminis e Concurso de Pessoas", "channel": "Estratégia OAB", "duration": "3h 59m", "views": "44 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=I0l7Nbber6Q", "altVideoTitle": "Aulão Damásio OAB: Teoria do Crime II — Legítima Defesa, Culpabilidade, Tentativa e Erro", "altChannel": "Damásio OAB", "altDuration": "51 min", "altViews": "21 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=68y-OFrIyJQ", "topicVideos": [{"title": "Ilicitude e Excludentes de Ilicitude: Estado de Necessidade e Legítima Defesa (Arts. 23 a 25 CP)", "channel": "Estratégia OAB", "duration": "12 min", "url": "https://www.youtube.com/watch?v=2vCObL5PFfI"}, {"title": "Culpabilidade: Imputabilidade, Potencial Consciência da Ilicitude e Exigibilidade (Arts. 26 a 28 CP)", "channel": "Me Julga — Cíntia Brunelli", "duration": "17 min", "url": "https://www.youtube.com/watch?v=iNI7SfO15_U"}, {"title": "Iter Criminis, Tentativa, Desistência Voluntária, Arrependimento Eficaz e Posterior (Arts. 14 a 17 CP)", "channel": "Me Julga — Cíntia Brunelli", "duration": "10 min", "url": "https://www.youtube.com/watch?v=7lLVBCXumRI"}, {"title": "Concurso de Pessoas: Autoria, Coautoria e Participação no Direito Penal (Arts. 29 a 31 CP)", "channel": "Direito Desenhado", "duration": "18 min", "url": "https://www.youtube.com/watch?v=BQDpWytGZ3o"}]},
         title: "Ilicitude, Culpabilidade, Iter Criminis, Erro e Concurso de Pessoas",
         legalBasis: "Arts. 20 a 31 do Código Penal (Decreto-Lei 2.848/40)",
         topics: [
@@ -1240,6 +1760,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 24, date: '2026-11-12', week: 4, subjectId: 'proc_penal', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Processo Penal OAB: Ação Penal Pública e Privada, Ação Civil ex delicto e Competência", "channel": "Damásio OAB", "duration": "58 min", "views": "24 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=A_87yVhs6LI", "altVideoTitle": "Aulão CEISC OAB: Ação Penal e Competência Criminal no CPP (Arts. 24 a 91)", "altChannel": "CEISC OAB", "altDuration": "31 min", "altViews": "39 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=Bc-dkix5sCk", "topicVideos": [{"title": "Ação Penal Pública Incondicionada e Condicionada à Representação (Arts. 24 a 28 CPP)", "channel": "Instante Jurídico OAB", "duration": "10 min", "url": "https://www.youtube.com/watch?v=pLDL9Gn2SXQ"}, {"title": "Ação Penal Privada: Exclusiva, Personalíssima, Subsidiária, Renúncia, Perdão e Perempção", "channel": "AlfaCon / Processo Penal", "duration": "1h 01m", "url": "https://www.youtube.com/watch?v=DccenKtwT7w"}, {"title": "Ação Civil ex delicto e Efeitos da Condenação Penal (Arts. 63 a 68 do CPP)", "channel": "Damásio OAB", "duration": "58 min", "url": "https://www.youtube.com/watch?v=A_87yVhs6LI"}, {"title": "Competência Criminal no Processo Penal: Lugar da Infração, Conexão e Continência (Arts. 69 a 91 CPP)", "channel": "CEISC OAB", "duration": "31 min", "url": "https://www.youtube.com/watch?v=Bc-dkix5sCk"}]},
         title: "Ação Penal, Ação Civil ex delicto e Competência Criminal",
         legalBasis: "Arts. 24 a 91 do CPP (Decreto-Lei 3.689/41)",
         topics: [
@@ -1251,6 +1772,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 25, date: '2026-11-13', week: 4, subjectId: 'trabalho', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito do Trabalho OAB: Empregador, Grupo Econômico, Sucessão, Terceirização e Contrato", "channel": "Estratégia OAB", "duration": "3h 34m", "views": "24 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=lbI8WgePThs", "altVideoTitle": "Aulão CERS OAB: Contrato de Trabalho, Sucessão Trabalhista e Terceirização na 1ª Fase", "altChannel": "CERS OAB", "altDuration": "1h 01m", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=GP2DXhuuRb4", "topicVideos": [{"title": "Empregador e Grupo Econômico Trabalhista: Responsabilidade Solidária (Art. 2º, §2º CLT)", "channel": "Me Julga — Cíntia Brunelli", "duration": "21 min", "url": "https://www.youtube.com/watch?v=rP1siv_duBM"}, {"title": "Sucessão Trabalhista de Empregadores e Sócio Retirante (Arts. 10, 10-A e 448-A CLT)", "channel": "Estratégia OAB", "duration": "3h 34m", "url": "https://www.youtube.com/watch?v=lbI8WgePThs"}, {"title": "Terceirização Trabalhista (Lei 6.019/74) e Responsabilidade Subsidiária (Súmula 331 TST)", "channel": "CERS OAB (Prof. Felipe Sampaio)", "duration": "1h 01m", "url": "https://www.youtube.com/watch?v=GP2DXhuuRb4"}, {"title": "Contrato de Trabalho por Prazo Determinado, Intermitente e Dano Extrapatrimonial (Arts. 223-A a 452-A CLT)", "channel": "Estratégia OAB", "duration": "3h 34m", "url": "https://www.youtube.com/watch?v=lbI8WgePThs"}]},
         title: "Empregador, Grupo Econômico, Sucessão, Terceirização e Contrato de Trabalho",
         legalBasis: "Arts. 2º, 10, 10-A, 442 a 456-A da CLT e Lei 6.019/74",
         topics: [
@@ -1262,6 +1784,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 26, date: '2026-11-14', week: 4, subjectId: 'tributario', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Tributário OAB: Imunidades Tributárias, Espécies de Tributos e Repartição de Receitas", "channel": "Prof. Pedro Barretto (Portal F3 / OAB)", "duration": "58 min", "views": "22 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=YI0x69P611U", "altVideoTitle": "Aulão Estratégia OAB: Imunidades (Art. 150, VI CF), Impostos, Taxas e Contribuições", "altChannel": "Estratégia OAB", "altDuration": "3h 57m", "altViews": "18 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=wYDrSXz3yGY", "topicVideos": [{"title": "Imunidades Tributárias: Recíproca, Templos, Partidos, Entidades, Livros e Fonogramas (Art. 150, VI CF)", "channel": "Prof. Pedro Barretto", "duration": "58 min", "url": "https://www.youtube.com/watch?v=YI0x69P611U"}, {"title": "Conceito de Tributo e Espécies Tributárias: Impostos, Taxas e Contribuições de Melhoria", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=eXHTvp4Bpo8"}, {"title": "Empréstimos Compulsórios (Art. 148 CF), Contribuições Especiais (Art. 149 CF) e COSIP (Art. 149-A)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=eXHTvp4Bpo8"}, {"title": "Competência Tributária Residual (Art. 154, I CF) e Repartição de Receitas Tributárias (Arts. 157 a 162 CF)", "channel": "Estratégia OAB", "duration": "3h 57m", "url": "https://www.youtube.com/watch?v=wYDrSXz3yGY"}]},
         title: "Imunidades Tributárias, Espécies de Tributos e Repartição de Receitas",
         legalBasis: "Arts. 145 a 162 da CF/88 e Arts. 3º a 18 do CTN",
         topics: [
@@ -1273,6 +1796,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 27, date: '2026-11-15', week: 4, subjectId: 'administrativo', suggestedQ: 30,
+        youtube: {"videoTitle": "Maratona Gran Cursos OAB: Direito Administrativo — Nova Lei de Licitações e Contratos (Lei 14.133/21)", "channel": "Gran Cursos OAB", "duration": "54 min", "views": "33 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=0-U2d1nIQDs", "altVideoTitle": "Aulão Estratégia OAB: Licitações (Modalidades, Dispensa e Inexigibilidade) e Contratos Administrativos", "altChannel": "Estratégia OAB", "altDuration": "3h 42m", "altViews": "33 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=zeZY1GHpLr4", "topicVideos": [{"title": "Nova Lei de Licitações (Lei 14.133/2021): Princípios, Agentes de Contratação e Fase Preparatória", "channel": "Gran Cursos OAB", "duration": "54 min", "url": "https://www.youtube.com/watch?v=0-U2d1nIQDs"}, {"title": "Modalidades de Licitação: Pregão, Concorrência, Concurso, Leilão e Diálogo Competitivo (Art. 28)", "channel": "Gran Cursos OAB", "duration": "54 min", "url": "https://www.youtube.com/watch?v=0-U2d1nIQDs"}, {"title": "Contratação Direta: Inexigibilidade (Art. 74) e Dispensa de Licitação (Art. 75 da Lei 14.133/21)", "channel": "Estratégia OAB", "duration": "3h 42m", "url": "https://www.youtube.com/watch?v=zeZY1GHpLr4"}, {"title": "Contratos Administrativos: Cláusulas Exorbitantes, Duração, Alteração e Extinção (Arts. 89 a 154)", "channel": "Estratégia OAB", "duration": "3h 37m", "url": "https://www.youtube.com/watch?v=Ln2-DR5g2to"}]},
         title: "Licitações e Contratos Administrativos (Nova Lei 14.133/2021)",
         legalBasis: "Arts. 1º a 154 da Lei 14.133/2021 (Nova Lei de Licitações)",
         topics: [
@@ -1284,6 +1808,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 28, date: '2026-11-16', week: 5, subjectId: 'constitucional', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão CEISC OAB: Organização do Estado, Repartição de Competências e Intervenção Federal (Arts. 18 a 36 CF)", "channel": "CEISC OAB", "duration": "37 min", "views": "30 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=Dj4MxP4ZQnY", "altVideoTitle": "Aulão Gran Cursos OAB: Repartição de Competências Constitucionais e Federação", "altChannel": "Gran Cursos OAB (Profa. Flávia Bahia)", "altDuration": "1h 01m", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=DL4jq5w8DtQ", "topicVideos": [{"title": "Organização do Estado: Federação, Autonomia e Bens da União e dos Estados (Arts. 18 a 26 CF)", "channel": "Direito Desenhado", "duration": "15 min", "url": "https://www.youtube.com/watch?v=8HDmbYeUuaY"}, {"title": "Repartição de Competências: Exclusivas (Art. 21 CF) e Privativas da União (Art. 22 CF)", "channel": "Profa. Adriane Fauth", "duration": "26 min", "url": "https://www.youtube.com/watch?v=pg9SorCGwGI"}, {"title": "Competências Comuns (Art. 23 CF), Concorrentes (Art. 24 CF) e dos Municípios (Art. 30 CF)", "channel": "Profa. Adriane Fauth", "duration": "26 min", "url": "https://www.youtube.com/watch?v=pg9SorCGwGI"}, {"title": "Intervenção Federal nos Estados e Intervenção Estadual nos Municípios (Arts. 34 a 36 CF)", "channel": "Direito Desenhado", "duration": "15 min", "url": "https://www.youtube.com/watch?v=8HDmbYeUuaY"}]},
         title: "Organização do Estado, Repartição de Competências e Intervenção Federal",
         legalBasis: "Arts. 18 a 36 da CF/88",
         topics: [
@@ -1295,6 +1820,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 29, date: '2026-11-17', week: 5, subjectId: 'civil', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Damásio OAB: Direito Civil — Teoria Geral dos Contratos, Vícios Redibitórios, Evicção e Contratos em Espécie", "channel": "Damásio OAB", "duration": "1h 01m", "views": "16 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=hShNp2xJdWk", "altVideoTitle": "Aulão Estratégia OAB: Contratos no Código Civil (Compra e Venda, Doação, Locação, Mandato e Fiança)", "altChannel": "Estratégia OAB", "altDuration": "3h 37m", "altViews": "39 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=cDBjrSRj4Io", "topicVideos": [{"title": "Teoria Geral dos Contratos: Princípios Contratuais (Boa-Fé Objetiva e Função Social — Art. 421 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "17 min", "url": "https://www.youtube.com/watch?v=VupVxNhh5yI"}, {"title": "Vícios Redibitórios (Arts. 441 a 446 CC), Evicção (Arts. 447 a 457 CC) e Extinção dos Contratos", "channel": "Me Julga — Cíntia Brunelli", "duration": "17 min", "url": "https://www.youtube.com/watch?v=VupVxNhh5yI"}, {"title": "Contratos em Espécie: Compra e Venda (Arts. 481 a 532 CC) e Doação (Arts. 538 a 564 CC)", "channel": "Damásio OAB", "duration": "1h 01m", "url": "https://www.youtube.com/watch?v=hShNp2xJdWk"}, {"title": "Locação, Comodato, Mútuo, Prestação de Serviços, Empreitada, Mandato e Fiança no CC", "channel": "Estratégia OAB", "duration": "3h 33m", "url": "https://www.youtube.com/watch?v=zVar5-_knZg"}]},
         title: "Teoria Geral dos Contratos e Contratos em Espécie",
         legalBasis: "Arts. 421 a 853 do Código Civil (Lei 10.406/02)",
         topics: [
@@ -1306,6 +1832,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 30, date: '2026-11-18', week: 5, subjectId: 'proc_civil', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão CEISC OAB: Processo Civil — Procedimento Comum, Petição Inicial, Contestação, Reconvenção e Revelia", "channel": "CEISC OAB", "duration": "34 min", "views": "16 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=tZXKWwyK9Dw", "altVideoTitle": "Aulão Gran Cursos OAB: Procedimento Comum no CPC (Arts. 318 a 368) com Profa. Raquel Bueno", "altChannel": "Gran Cursos OAB", "altDuration": "1h 03m", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=TdAF737ZBEg", "topicVideos": [{"title": "Petição Inicial (Processo Civil — Arts. 319 a 331 CPC): Requisitos, Emenda e Indeferimento", "channel": "Direito Desenhado", "duration": "14 min", "url": "https://www.youtube.com/watch?v=mALHO0oDdGU"}, {"title": "Improcedência Liminar do Pedido (Art. 332 CPC) e Audiência de Conciliação/Mediação (Art. 334 CPC)", "channel": "Prof. Ricardo Torques", "duration": "11 min", "url": "https://www.youtube.com/watch?v=VVEzrn18fB0"}, {"title": "Contestação, Reconvenção e Revelia no Processo Civil (Arts. 335 a 346 CPC)", "channel": "Prof. Ricardo Torques", "duration": "12 min", "url": "https://www.youtube.com/watch?v=CDsxcUjNPHM"}, {"title": "Julgamento Conforme o Estado do Processo e Saneamento (Arts. 354 a 357 do CPC)", "channel": "CEISC OAB", "duration": "34 min", "url": "https://www.youtube.com/watch?v=tZXKWwyK9Dw"}]},
         title: "Procedimento Comum I: Petição Inicial, Respostas do Réu e Saneamento",
         legalBasis: "Arts. 318 a 368 do CPC/2015",
         topics: [
@@ -1317,6 +1844,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 31, date: '2026-11-19', week: 5, subjectId: 'etica', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Gran Cursos OAB: Ética e Estatuto | Incompatibilidades, Impedimentos, Sigilo e Publicidade", "channel": "Gran Cursos OAB (Profa. Maria Christina)", "duration": "42 min", "views": "12 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=JTuPHtg6OuI", "altVideoTitle": "Aulão Gran Cursos OAB: Ética em 8 Dias — Revisão de Incompatibilidade e Impedimento (Arts. 27 a 30)", "altChannel": "Gran Cursos OAB", "altDuration": "57 min", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=PaqSJYEl9eI", "topicVideos": [{"title": "Incompatibilidade para a Advocacia: Proibição Total do Exercício (Art. 28 do EAOAB)", "channel": "Gran Cursos OAB (Profa. Maria Christina)", "duration": "42 min", "url": "https://www.youtube.com/watch?v=JTuPHtg6OuI"}, {"title": "Impedimento para a Advocacia: Proibição Parcial do Exercício (Art. 30 do EAOAB)", "channel": "Gran Cursos OAB", "duration": "57 min", "url": "https://www.youtube.com/watch?v=PaqSJYEl9eI"}, {"title": "Sigilo Profissional do Advogado e Hipóteses de Quebra (Arts. 35 a 38 do CED)", "channel": "Me Julga — Cíntia Brunelli", "duration": "23 min", "url": "https://www.youtube.com/watch?v=iOP9zotm4o4"}, {"title": "Publicidade Profissional e Marketing Jurídico (Arts. 39 a 47 do CED e Provimento 205/2021)", "channel": "Damásio OAB", "duration": "42 min", "url": "https://www.youtube.com/watch?v=O8ebJrlvii4"}]},
         title: "Incompatibilidades, Impedimentos, Sigilo e Publicidade na Advocacia",
         legalBasis: "Arts. 27 a 33 do EAOAB, Arts. 35 a 47 do CED e Provimento 205/2021 do CFOAB",
         topics: [
@@ -1328,6 +1856,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 32, date: '2026-11-20', week: 5, subjectId: 'consumidor', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito do Consumidor OAB: Relação de Consumo, Direitos Básicos e Responsabilidade pelo Fato e Vício", "channel": "Estratégia OAB", "duration": "1h 33m", "views": "15 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=6frVmA32CK4", "altVideoTitle": "Aulão CERS OAB: Revisão de Direito do Consumidor — Fato e Vício do Produto e Serviço (Arts. 12 a 28 CDC)", "altChannel": "CERS OAB", "altDuration": "2h 05m", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=y9agcZ5bhrw", "topicVideos": [{"title": "Relação de Consumo: Conceito de Consumidor, Equiparado, Fornecedor, Produto e Serviço (Arts. 2º e 3º CDC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "16 min", "url": "https://www.youtube.com/watch?v=BWm6dozFwZc"}, {"title": "Direitos Básicos do Consumidor e Inversão do Ônus da Prova (Art. 6º, VIII do CDC)", "channel": "Prof. Elielton — Direito Fácil", "duration": "57 min", "url": "https://www.youtube.com/watch?v=aehiyj4t6O0"}, {"title": "Responsabilidade pelo Fato do Produto e do Serviço (Acidente de Consumo — Arts. 12 a 17 CDC)", "channel": "Estratégia OAB", "duration": "1h 33m", "url": "https://www.youtube.com/watch?v=6frVmA32CK4"}, {"title": "Responsabilidade por Vício do Produto e Serviço (Arts. 18 a 26 CDC) e Desconsideração (Art. 28 CDC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "16 min", "url": "https://www.youtube.com/watch?v=BWm6dozFwZc"}]},
         title: "Relação de Consumo, Direitos Básicos e Responsabilidade pelo Fato e Vício",
         legalBasis: "Arts. 1º a 28 da Lei 8.078/90 (Código de Defesa do Consumidor)",
         topics: [
@@ -1339,6 +1868,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 33, date: '2026-11-21', week: 5, subjectId: 'filosofia', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Supremo OAB: Filosofia do Direito — Aristóteles, Contratualismo (Hobbes, Locke, Rousseau), Kant e Utilitarismo", "channel": "Supremo OAB (Prof. Bernardo Nogueira)", "duration": "1h 00m", "views": "10 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=JTjqPObgQaU", "altVideoTitle": "Aulão Gran Cursos OAB: Filosofia para Gabaritar na OAB com Prof. Odair José", "altChannel": "Gran Cursos OAB", "altDuration": "55 min", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=Ca2KNG33k10", "topicVideos": [{"title": "Filosofia Clássica: Sócrates, Platão e Aristóteles (Justiça Distributiva, Corretiva e Equidade)", "channel": "Supremo OAB (Prof. Bernardo Nogueira)", "duration": "1h 00m", "url": "https://www.youtube.com/watch?v=JTjqPObgQaU"}, {"title": "Contratualismo Moderno: Thomas Hobbes, John Locke e Jean-Jacques Rousseau", "channel": "Supremo OAB (Prof. Bernardo Nogueira)", "duration": "1h 00m", "url": "https://www.youtube.com/watch?v=JTjqPObgQaU"}, {"title": "Immanuel Kant: Imperativo Categórico, Autonomia da Vontade e Distinção entre Direito e Moral", "channel": "Gran Cursos OAB (Prof. Odair José)", "duration": "55 min", "url": "https://www.youtube.com/watch?v=Ca2KNG33k10"}, {"title": "Utilitarismo Jurídico: Jeremy Bentham e John Stuart Mill na Prova da OAB", "channel": "Estratégia OAB", "duration": "3h 50m", "url": "https://www.youtube.com/watch?v=BXy8i85jpLM"}]},
         title: "Filosofia do Direito I: Antiguidade Clássica, Contratualismo, Iluminismo e Utilitarismo",
         legalBasis: "Teorias Clássicas da Justiça, Moral e Direito no Pensamento Filosófico",
         topics: [
@@ -1350,6 +1880,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 34, date: '2026-11-22', week: 5, subjectId: 'penal', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Penal OAB: Teoria da Pena, Regimes, Dosimetria, Concurso de Crimes e Prescrição Penal", "channel": "Estratégia OAB", "duration": "3h 41m", "views": "28 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=UiwYW2y7AWs", "altVideoTitle": "Aulão Gran Cursos OAB: Teoria da Pena e Extinção da Punibilidade (Arts. 32 a 120 CP)", "altChannel": "Gran Cursos OAB (Profa. Michelle Tonon)", "altDuration": "1h 25m", "altViews": "15 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=kw2UfQK4SrA", "topicVideos": [{"title": "Teoria da Pena: Penas Privativas de Liberdade, Regimes de Cumprimento e Penas Restritivas (Arts. 32 a 52 CP)", "channel": "Estratégia OAB", "duration": "12 min", "url": "https://www.youtube.com/watch?v=veMt5n4aoB4"}, {"title": "Dosimetria da Pena: Sistema Trifásico (Circunstâncias Judiciais, Agravantes/Atenuantes e Causas — Art. 68 CP)", "channel": "Estratégia OAB", "duration": "12 min", "url": "https://www.youtube.com/watch?v=veMt5n4aoB4"}, {"title": "Concurso de Crimes: Material (Art. 69), Formal (Art. 70) e Crime Continuado (Art. 71 CP)", "channel": "Estratégia OAB", "duration": "3h 41m", "url": "https://www.youtube.com/watch?v=UiwYW2y7AWs"}, {"title": "Extinção da Punibilidade (Art. 107 CP) e Prescrição Penal (PPP e PPE — Arts. 109 a 119 CP)", "channel": "Damásio OAB", "duration": "51 min", "url": "https://www.youtube.com/watch?v=68y-OFrIyJQ"}]},
         title: "Teoria da Pena, Dosimetria, Concurso de Crimes e Extinção da Punibilidade",
         legalBasis: "Arts. 32 a 120 do Código Penal (Decreto-Lei 2.848/40)",
         topics: [
@@ -1361,6 +1892,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 35, date: '2026-11-23', week: 6, subjectId: 'trabalho', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito do Trabalho OAB: Jornada de Trabalho, Horas Extras, Intervalos, Teletrabalho, Férias e Remuneração", "channel": "Estratégia OAB", "duration": "3h 37m", "views": "49 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=EgwXexEGq1k", "altVideoTitle": "Aulão CERS OAB: Jornada, Intervalos, Férias e Parcelas Salariais vs. Indenizatórias na CLT", "altChannel": "CERS OAB", "altDuration": "1h 01m", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=GP2DXhuuRb4", "topicVideos": [{"title": "Jornada de Trabalho, Horas Extras, Banco de Horas e Regime 12x36 (Arts. 58 a 62 CLT)", "channel": "Direito Desenhado", "duration": "37 min", "url": "https://www.youtube.com/watch?v=UFwpOgGOv64"}, {"title": "Intervalos Intrajornada e Interjornada (Arts. 66 a 72 CLT) e Teletrabalho (Arts. 75-A a 75-E CLT)", "channel": "Direito Desenhado", "duration": "37 min", "url": "https://www.youtube.com/watch?v=UFwpOgGOv64"}, {"title": "Férias Anuais Remuneradas: Aquisição, Concessão, Fracionamento em 3 Períodos e Abono (Arts. 129 a 153 CLT)", "channel": "Estratégia OAB", "duration": "3h 37m", "url": "https://www.youtube.com/watch?v=EgwXexEGq1k"}, {"title": "Remuneração e Salário (Art. 457 CLT), Equiparação Salarial (Art. 461) e Adicionais de Insalubridade/Periculosidade", "channel": "Estratégia OAB", "duration": "3h 34m", "url": "https://www.youtube.com/watch?v=lbI8WgePThs"}]},
         title: "Jornada de Trabalho, Intervalos, Teletrabalho, Férias e Remuneração",
         legalBasis: "Arts. 57 a 153 e 457 a 467 da CLT (Decreto-Lei 5.452/43)",
         topics: [
@@ -1372,6 +1904,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 36, date: '2026-11-24', week: 6, subjectId: 'proc_trabalho', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão CEISC OAB: Processo do Trabalho — Rito Sumaríssimo, Petição Inicial, Audiência, Revelia e Provas", "channel": "CEISC OAB", "duration": "1h 24m", "views": "81 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=SNyUpwg7HmM", "altVideoTitle": "Aulão Gran Cursos OAB: Processo do Trabalho em Mapas Mentais — Procedimentos e Audiência", "altChannel": "Gran Cursos OAB (Prof. Leandro Alencar)", "altDuration": "1h 00m", "altViews": "15 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=a_GvMOxDu9U", "topicVideos": [{"title": "Rito Sumaríssimo, Ordinário e Sumário no Processo do Trabalho (Arts. 852-A a 852-I CLT)", "channel": "CEISC OAB", "duration": "1h 24m", "url": "https://www.youtube.com/watch?v=SNyUpwg7HmM"}, {"title": "Petição Inicial Trabalhista Líquida e Pedidos Certos e Determinados (Art. 840, §1º CLT)", "channel": "Prof. Bruno Klippel", "duration": "1h 21m", "url": "https://www.youtube.com/watch?v=6Av7lOoVAOc"}, {"title": "Audiência Trabalhista, Arquivamento, Revelia e Exceções à Revelia (Art. 844 CLT)", "channel": "CEISC OAB", "duration": "1h 24m", "url": "https://www.youtube.com/watch?v=SNyUpwg7HmM"}, {"title": "Contestação, Exceção de Incompetência Territorial (Art. 800 CLT) e Ônus da Prova (Art. 818 CLT)", "channel": "Prof. Bruno Klippel", "duration": "1h 21m", "url": "https://www.youtube.com/watch?v=6Av7lOoVAOc"}]},
         title: "Procedimentos Trabalhistas, Petição Inicial, Audiência, Respostas e Provas",
         legalBasis: "Arts. 794 a 852-I da CLT (Decreto-Lei 5.452/43)",
         topics: [
@@ -1383,6 +1916,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 37, date: '2026-11-25', week: 6, subjectId: 'tributario', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Tributário OAB: Vigência, Interpretação, Obrigação Tributária e Responsabilidade (Arts. 96 a 138 CTN)", "channel": "Revisão Animada OAB", "duration": "50 min", "views": "130 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=rr3imTxnWIg", "altVideoTitle": "Aulão Gran Cursos OAB: Obrigação Tributária e Responsabilidade de Sócios (Art. 135 CTN)", "altChannel": "Gran Cursos OAB", "altDuration": "1h 32m", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=l_IBDsQL3fI", "topicVideos": [{"title": "Vigência e Aplicação da Legislação Tributária no Tempo (Arts. 101 a 106 CTN)", "channel": "Revisão Animada", "duration": "50 min", "url": "https://www.youtube.com/watch?v=rr3imTxnWIg"}, {"title": "Interpretação Literal (Art. 111 CTN) e Integração da Legislação Tributária (Art. 108 CTN)", "channel": "Revisão Animada", "duration": "50 min", "url": "https://www.youtube.com/watch?v=rr3imTxnWIg"}, {"title": "Obrigação Tributária Principal e Acessória, Fato Gerador e Sujeito Passivo (Arts. 113 a 127 CTN)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=Qa71ZzzXMjU"}, {"title": "Responsabilidade Tributária dos Sucessores, de Terceiros, de Sócios (Art. 135 CTN) e Denúncia Espontânea (Art. 138)", "channel": "Revisão Animada", "duration": "50 min", "url": "https://www.youtube.com/watch?v=rr3imTxnWIg"}]},
         title: "Vigência, Interpretação, Obrigação Tributária e Responsabilidade Tributária",
         legalBasis: "Arts. 96 a 138 do CTN (Lei 5.172/66)",
         topics: [
@@ -1394,6 +1928,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 38, date: '2026-11-26', week: 6, subjectId: 'proc_penal', suggestedQ: 25,
+        youtube: {"videoTitle": "Maratona Gran Cursos OAB: Processo Penal — Provas, Cadeia de Custódia, Prisão em Flagrante, Preventiva e Temporária", "channel": "Gran Cursos OAB", "duration": "52 min", "views": "18 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=MTARPgKQT4o", "altVideoTitle": "Aulão Supremo OAB: Prisão, Medidas Cautelares e Liberdade Provisória no CPP", "altChannel": "Supremo OAB (Profa. Carolina Máximo)", "altDuration": "32 min", "altViews": "98 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=Jx-ll2bIdJY", "topicVideos": [{"title": "Teoria Geral das Provas e Provas Ilícitas no Processo Penal (Arts. 155 a 157 CPP)", "channel": "Gran Cursos OAB", "duration": "52 min", "url": "https://www.youtube.com/watch?v=MTARPgKQT4o"}, {"title": "Cadeia de Custódia da Prova Pericial (Arts. 158-A a 158-F do CPP)", "channel": "Gran Cursos OAB", "duration": "52 min", "url": "https://www.youtube.com/watch?v=MTARPgKQT4o"}, {"title": "Prisão em Flagrante (Arts. 301 a 310 CPP) e Audiência de Custódia — Teoria + Questões", "channel": "FZ Concursos & OAB", "duration": "31 min", "url": "https://www.youtube.com/watch?v=yNZz6hVPYG0"}, {"title": "Prisão Preventiva (após Pacote Anticrime), Temporária, Domiciliar e Medidas Cautelares (Arts. 311 a 350 CPP)", "channel": "Me Julga — Cíntia Brunelli", "duration": "13 min", "url": "https://www.youtube.com/watch?v=pSLwiiOID5A"}]},
         title: "Direito Probatório, Cadeia de Custódia e Prisões Processuais",
         legalBasis: "Arts. 155 a 350 do CPP e Lei 7.960/89 (Prisão Temporária)",
         topics: [
@@ -1405,6 +1940,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 39, date: '2026-11-27', week: 6, subjectId: 'empresarial', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão CERS OAB: Direito Empresarial — Direito Societário, Sociedade Limitada e Sociedade Anônima (Lei 6.404/76)", "channel": "CERS OAB", "duration": "2h 15m", "views": "15 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=7nz_C_nuka0", "altVideoTitle": "Aulão Estratégia OAB: Sociedades Personificadas e Não Personificadas, Limitada e S/A", "altChannel": "Estratégia OAB", "altDuration": "3h 39m", "altViews": "14 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=tLpdHb9feGM", "topicVideos": [{"title": "Sociedades Não Personificadas: Sociedade em Comum e em Conta de Participação (Arts. 986 a 996 CC)", "channel": "Estratégia OAB", "duration": "3h 39m", "url": "https://www.youtube.com/watch?v=tLpdHb9feGM"}, {"title": "Sociedade Limitada (Arts. 1.052 a 1.087 CC): Quotas, Responsabilidade Solidária pela Integralização e SLU", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=h0tMCdeYAeM"}, {"title": "Sociedade Anônima (Lei 6.404/76): Ações, Debêntures e Órgãos Sociais", "channel": "CERS OAB", "duration": "2h 15m", "url": "https://www.youtube.com/watch?v=7nz_C_nuka0"}, {"title": "Dissolução Societária, Apuração de Haveres e Transformação, Incorporação, Fusão e Cisão", "channel": "Estratégia OAB", "duration": "3h 39m", "url": "https://www.youtube.com/watch?v=tLpdHb9feGM"}]},
         title: "Direito Societário: Sociedades Não Personificadas, Limitada e Sociedade Anônima",
         legalBasis: "Arts. 981 a 1.141 do Código Civil e Lei 6.404/76 (Lei das S/A)",
         topics: [
@@ -1416,6 +1952,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 40, date: '2026-11-28', week: 6, subjectId: 'administrativo', suggestedQ: 30,
+        youtube: {"videoTitle": "Domingão Gran Cursos OAB: Serviços Públicos (Lei 8.987/95), Concessões, PPPs (Lei 11.079/04) e Agentes Públicos", "channel": "Gran Cursos OAB (Prof. Nilton Coutinho)", "duration": "32 min", "views": "14 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=2LyBzffycLY", "altVideoTitle": "Aulão de Direito Administrativo OAB: Serviços Públicos e Regime dos Servidores Públicos (Lei 8.112/90)", "altChannel": "Estratégia OAB", "altDuration": "3h 37m", "altViews": "25 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=Ln2-DR5g2to", "topicVideos": [{"title": "Serviços Públicos: Princípios, Concessão e Permissão (Lei 8.987/95)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=SvRxUbv8vw8"}, {"title": "Permissão, Concessão, Autorização e Parcerias Público-Privadas — PPPs (Lei 11.079/04)", "channel": "TecConcursos & OAB", "duration": "18 min", "url": "https://www.youtube.com/watch?v=sy-pQtv_ZPw"}, {"title": "Agentes Públicos: Conceito, Classificação, Concurso Público e Estabilidade (Arts. 37 a 41 CF)", "channel": "Prof. Thallius Moraes", "duration": "30 min", "url": "https://www.youtube.com/watch?v=frozQg4VGBA"}, {"title": "Regime Jurídico dos Servidores Públicos (Lei 8.112/90): Provimento, Vacância, Acumulação e PAD", "channel": "Gran Cursos OAB (Prof. Nilton Coutinho)", "duration": "32 min", "url": "https://www.youtube.com/watch?v=2LyBzffycLY"}]},
         title: "Serviços Públicos, Concessões, Parcerias Público-Privadas e Agentes Públicos",
         legalBasis: "Arts. 37 a 41 da CF/88, Lei 8.987/95, Lei 11.079/04 e Lei 8.112/90",
         topics: [
@@ -1427,6 +1964,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 41, date: '2026-11-29', week: 6, subjectId: 'constitucional', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Constitucional OAB: Organização dos Poderes — Legislativo, Processo Legislativo, Executivo e Judiciário", "channel": "Estratégia OAB", "duration": "1h 43m", "views": "21 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=ZAh59KcWzvg", "altVideoTitle": "Aulão CEISC OAB: Poder Legislativo (CPI, Imunidades), Processo Legislativo (Art. 59 a 69) e STF/STJ", "altChannel": "CEISC OAB", "altDuration": "2h 53m", "altViews": "134 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=LLBcDqk3vZg", "topicVideos": [{"title": "Separação dos Poderes e Poder Legislativo: Câmara, Senado, Imunidades Parlamentares (Art. 53) e CPI", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=hWT3rLE9r3Y"}, {"title": "Processo Legislativo Constitucional (Arts. 59 a 69 CF): Iniciativa, Quórum, Veto, Medidas Provisórias e PEC", "channel": "Direito Desenhado", "duration": "18 min", "url": "https://www.youtube.com/watch?v=5a9N_Z3Y4_A"}, {"title": "Poder Executivo na Constituição Federal: Atribuições do Presidente e Crime de Responsabilidade (Arts. 84 a 86 CF)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=DqtseTCSiN4"}, {"title": "Poder Judiciário na Constituição Federal: Garantias (Art. 95), CNJ, STF e STJ (Arts. 92 a 126 CF)", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=xSFGp-UtZ-E"}]},
         title: "Organização dos Poderes: Legislativo, Processo Legislativo, Executivo e Judiciário",
         legalBasis: "Arts. 44 a 135 da CF/88",
         topics: [
@@ -1438,6 +1976,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 42, date: '2026-11-30', week: 7, subjectId: 'civil', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Supremo OAB: Direitos Reais, Posse, Propriedade, Usucapião e Responsabilidade Civil (Profa. Reyvani Jabour)", "channel": "Supremo OAB", "duration": "33 min", "views": "13 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=KYPuieFrYz0", "altVideoTitle": "Aulão Estratégia OAB: Responsabilidade Civil (Arts. 927 a 954 CC), Posse e Direitos Reais", "altChannel": "Estratégia OAB", "altDuration": "3h 33m", "altViews": "55 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=zVar5-_knZg", "topicVideos": [{"title": "Responsabilidade Civil Objetiva e Subjetiva, Ato de Terceiro e Indenização (Arts. 927 a 954 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=0_mSeMsw62A"}, {"title": "Direito das Coisas: Posse (Classificação, Efeitos, Benfeitorias) e Direitos Reais (Arts. 1.196 a 1.224 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=7YZZEnLI2rI"}, {"title": "Propriedade, Modalidades de Usucapião (Extraordinária, Ordinária, Urbana, Rural) e Vizinhança", "channel": "TV CRECI / Direito Imobiliário", "duration": "27 min", "url": "https://www.youtube.com/watch?v=IGOcptbTotE"}, {"title": "Direitos Reais sobre Coisas Alheias: Usufruto, Superfície, Servidão, Penhor e Hipoteca", "channel": "Supremo OAB (Profa. Reyvani Jabour)", "duration": "33 min", "url": "https://www.youtube.com/watch?v=KYPuieFrYz0"}]},
         title: "Responsabilidade Civil, Posse, Propriedade e Direitos Reais sobre Coisas Alheias",
         legalBasis: "Arts. 927 a 954 e 1.196 a 1.510-E do Código Civil (Lei 10.406/02)",
         topics: [
@@ -1449,6 +1988,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 43, date: '2026-12-01', week: 7, subjectId: 'proc_civil', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Processo Civil OAB: Provas, Sentença, Coisa Julgada, Precedentes, IRDR e Ação Rescisória", "channel": "Estratégia OAB", "duration": "3h 32m", "views": "23 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=ktd_xHscM7E", "altVideoTitle": "Aulão Damásio OAB: Direito Probatório, Sentença (Art. 489 CPC), Remessa Necessária e Coisa Julgada", "altChannel": "Damásio OAB", "altDuration": "55 min", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=ADwFaOdNCXc", "topicVideos": [{"title": "Teoria Geral da Prova e Distribuição Dinâmica do Ônus da Prova no CPC (Arts. 369 a 380)", "channel": "Estratégia OAB", "duration": "3h 32m", "url": "https://www.youtube.com/watch?v=ktd_xHscM7E"}, {"title": "Provas em Espécie no CPC: Ata Notarial, Depoimento Pessoal, Confissão, Testemunhal e Pericial", "channel": "Damásio OAB", "duration": "55 min", "url": "https://www.youtube.com/watch?v=ADwFaOdNCXc"}, {"title": "Sentença (Art. 489 CPC), Remessa Necessária (Art. 496) e Coisa Julgada | Processo Civil Desenhado", "channel": "Prof. Ricardo Torques", "duration": "15 min", "url": "https://www.youtube.com/watch?v=7npLYeFVIY0"}, {"title": "Precedentes Judiciais (Art. 927), IRDR (Arts. 976 a 987) e Ação Rescisória (Art. 966 CPC)", "channel": "Estratégia OAB", "duration": "3h 32m", "url": "https://www.youtube.com/watch?v=ktd_xHscM7E"}]},
         title: "Direito Probatório, Sentença, Coisa Julgada e Sistema de Precedentes",
         legalBasis: "Arts. 369 a 512 e 926 a 988 do CPC/2015",
         topics: [
@@ -1460,6 +2000,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 44, date: '2026-12-02', week: 7, subjectId: 'eca', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de ECA para 1ª Fase da OAB: Direitos Fundamentais, Família Substituta, Guarda, Tutela, Adoção e Viagens", "channel": "Estratégia OAB", "duration": "2h 03m", "views": "16 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=rRCbvzNNr18", "altVideoTitle": "Aulão Damásio OAB: Estatuto da Criança e do Adolescente (Lei 8.069/90) — Tudo que Cai na OAB", "altChannel": "Damásio OAB", "altDuration": "32 min", "altViews": "18 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=DXyepDGnrAM", "topicVideos": [{"title": "ECA Atualizado: Proteção Integral, Prioridade Absoluta e Direitos Fundamentais (Arts. 1º a 18-B)", "channel": "Me Julga — Cíntia Brunelli", "duration": "15 min", "url": "https://www.youtube.com/watch?v=OYYk-DhaoD0"}, {"title": "Família Natural e Colocação em Família Substituta no ECA (Arts. 19 a 32 da Lei 8.069/90)", "channel": "Prof. Joel Oliveira", "duration": "1h 04m", "url": "https://www.youtube.com/watch?v=oQmr7Ymh008"}, {"title": "Guarda, Tutela e Adoção no ECA: Requisitos, Diferença de 16 Anos e Irrevogabilidade (Arts. 33 a 52)", "channel": "Estratégia OAB", "duration": "2h 03m", "url": "https://www.youtube.com/watch?v=rRCbvzNNr18"}, {"title": "Trabalho do Adolescente (Arts. 60 a 69) e Autorização para Viagem Nacional e Internacional (Arts. 83 a 85 ECA)", "channel": "Me Julga — Cíntia Brunelli", "duration": "15 min", "url": "https://www.youtube.com/watch?v=OYYk-DhaoD0"}]},
         title: "ECA I: Direitos Fundamentais, Família Substituta, Guarda, Tutela, Adoção e Viagens",
         legalBasis: "Arts. 1º a 85 da Lei 8.069/1990 (Estatuto da Criança e do Adolescente)",
         topics: [
@@ -1471,6 +2012,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 45, date: '2026-12-03', week: 7, subjectId: 'ambiental', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Ambiental OAB: Princípios, Competências (LC 140/11), SISNAMA e Licenciamento Ambiental", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 05m", "views": "13 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=ifFx_gZPoCs", "altVideoTitle": "Aulão Damásio OAB: Descomplicando Direito Ambiental na 1ª Fase da OAB", "altChannel": "Damásio OAB", "altDuration": "32 min", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=YCjkIXqv3_Q", "topicVideos": [{"title": "Princípios do Direito Ambiental: Prevenção, Precaução, Poluidor-Pagador e Art. 225 CF", "channel": "Me Julga — Cíntia Brunelli", "duration": "22 min", "url": "https://www.youtube.com/watch?v=ad25jRbK4OU"}, {"title": "Repartição de Competências Ambientais: Lei Complementar 140/2011", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 05m", "url": "https://www.youtube.com/watch?v=ifFx_gZPoCs"}, {"title": "Política Nacional do Meio Ambiente (Lei 6.938/81), SISNAMA e CONAMA", "channel": "Damásio OAB", "duration": "32 min", "url": "https://www.youtube.com/watch?v=YCjkIXqv3_Q"}, {"title": "Licenciamento Ambiental (LP, LI e LO) e Estudo Prévio de Impacto Ambiental (EIA/RIMA)", "channel": "Me Julga — Cíntia Brunelli", "duration": "22 min", "url": "https://www.youtube.com/watch?v=ad25jRbK4OU"}]},
         title: "Direito Ambiental I: Princípios, Competências Ambientais, SISNAMA e Licenciamento",
         legalBasis: "Art. 225 da CF/88, Lei Complementar 140/2011 e Lei 6.938/1981 (PNMA)",
         topics: [
@@ -1482,6 +2024,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 46, date: '2026-12-04', week: 7, subjectId: 'etica', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Ética OAB: Infrações e Sanções Disciplinares (Censura, Suspensão, Exclusão), Prescrição e Processo no TED", "channel": "O Prof. Renato — Ética OAB", "duration": "50 min", "views": "15 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=MGL1jwMtfiA", "altVideoTitle": "Aulão Gran Cursos OAB: Sanções Disciplinares e Processo Disciplinar na OAB (Arts. 34 a 43 e 68 a 77)", "altChannel": "Gran Cursos OAB", "altDuration": "52 min", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=qEPo_eFzbNM", "topicVideos": [{"title": "Infrações Disciplinares e Sanção de Censura e Advertência na OAB (Arts. 34 a 36 EAOAB)", "channel": "O Prof. Renato — Ética OAB", "duration": "50 min", "url": "https://www.youtube.com/watch?v=MGL1jwMtfiA"}, {"title": "Sanções de Suspensão, Exclusão e Multa Disciplinar na OAB (Arts. 37 a 39 EAOAB)", "channel": "O Prof. Renato — Ética OAB", "duration": "50 min", "url": "https://www.youtube.com/watch?v=MGL1jwMtfiA"}, {"title": "Reabilitação e Prescrição da Pretensão Punitiva Disciplinar (5 Anos e Intercorrente de 3 Anos — Art. 43 EAOAB)", "channel": "Me Julga — Cíntia Brunelli", "duration": "23 min", "url": "https://www.youtube.com/watch?v=iOP9zotm4o4"}, {"title": "Processo Disciplinar no TED e Recursos aos Conselhos da OAB (Arts. 68 a 77 EAOAB)", "channel": "Curso Prova da Ordem", "duration": "1h 03m", "url": "https://www.youtube.com/watch?v=lZsb5848EBE"}]},
         title: "Infrações e Sanções Disciplinares, Prescrição e Processo Disciplinar na OAB",
         legalBasis: "Arts. 34 a 43 e 68 a 77 do EAOAB (Lei 8.906/94) e Código de Ética e Disciplina",
         topics: [
@@ -1493,6 +2036,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 47, date: '2026-12-05', week: 7, subjectId: 'constitucional', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Constitucional OAB: Controle de Constitucionalidade Difuso e Concentrado (ADI, ADC, ADO, ADPF e SV)", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 15m", "views": "12 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=Qri9GBjMDaM", "altVideoTitle": "Aulão Gran Cursos OAB: Controle de Constitucionalidade na 1ª Fase com Profa. Flávia Bahia", "altChannel": "Gran Cursos OAB", "altDuration": "1h 01m", "altViews": "13 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=DL4jq5w8DtQ", "topicVideos": [{"title": "Controle Difuso de Constitucionalidade e Cláusula de Reserva de Plenário (Art. 97 CF e SV 10)", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=lvqxN7jKOCk"}, {"title": "Controle Concentrado: ADI e ADC — Legitimados (Art. 103 CF), Cautelar e Efeitos (Lei 9.868/99)", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=lvqxN7jKOCk"}, {"title": "Arguição de Descumprimento de Preceito Fundamental — ADPF (Subsidiariedade — Lei 9.882/99)", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 15m", "url": "https://www.youtube.com/watch?v=Qri9GBjMDaM"}, {"title": "ADO, Reclamação Constitucional e Súmula Vinculante (Art. 103-A da CF e Lei 11.417/06)", "channel": "Estratégia OAB", "duration": "3h 44m", "url": "https://www.youtube.com/watch?v=4K7zGwiV3Ak"}]},
         title: "Controle de Constitucionalidade: Difuso, Concentrado, ADI, ADC, ADO, ADPF e Súmula Vinculante",
         legalBasis: "Arts. 97, 102 e 103 da CF/88, Leis 9.868/99, 9.882/99, 12.063/09 e 11.417/06",
         topics: [
@@ -1504,6 +2048,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 48, date: '2026-12-06', week: 7, subjectId: 'penal', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão Gran Cursos OAB: Direito Penal Parte Especial — Crimes contra a Pessoa e contra o Patrimônio (Prof. Érico Palazzo)", "channel": "Gran Cursos OAB", "duration": "56 min", "views": "12 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=a7YwMp0R0jE", "altVideoTitle": "Aulão Estratégia OAB: Crimes contra a Vida, Honra, Patrimônio e Dignidade Sexual (Arts. 121 a 234 CP)", "altChannel": "Estratégia OAB", "altDuration": "3h 59m", "altViews": "44 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=I0l7Nbber6Q", "topicVideos": [{"title": "Crimes contra a Pessoa e contra a Vida: Homicídio, Feminicídio, Induzimento e Aborto (Arts. 121 a 128 CP)", "channel": "Monster Concursos & OAB", "duration": "1h 08m", "url": "https://www.youtube.com/watch?v=VmaL6vPGlVk"}, {"title": "Lesões Corporais (Art. 129 CP) e Crimes contra a Honra: Calúnia, Difamação e Injúria (Arts. 138 a 145 CP)", "channel": "Gran Cursos OAB (Prof. Érico Palazzo)", "duration": "56 min", "url": "https://www.youtube.com/watch?v=a7YwMp0R0jE"}, {"title": "Crimes contra o Patrimônio: Furto, Roubo, Extorsão, Estelionato e Receptação (Arts. 155 a 183 CP)", "channel": "Me Julga — Cíntia Brunelli", "duration": "13 min", "url": "https://www.youtube.com/watch?v=rteGhLqudIs"}, {"title": "Roubo (Art. 157 CP), Furto Qualificado (Art. 155) e Crimes contra a Dignidade Sexual (Arts. 213 a 234 CP)", "channel": "Prof. Diego Pureza", "duration": "41 min", "url": "https://www.youtube.com/watch?v=lPV7JYl9L_4"}]},
         title: "Crimes contra a Pessoa, Crimes contra o Patrimônio e Crimes Sexuais",
         legalBasis: "Arts. 121 a 183 e 213 a 234-B do Código Penal (Decreto-Lei 2.848/40)",
         topics: [
@@ -1515,6 +2060,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 49, date: '2026-12-07', week: 8, subjectId: 'trabalho', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito do Trabalho OAB: Alteração (Art. 468), Suspensão, Interrupção, Rescisão, Justa Causa e Estabilidades", "channel": "Estratégia OAB", "duration": "3h 37m", "views": "49 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=EgwXexEGq1k", "altVideoTitle": "Aulão Supremo OAB: Suspensão, Interrupção e Extinção do Contrato de Trabalho", "altChannel": "Supremo OAB (Profa. Haydée Priscilla)", "altDuration": "25 min", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=WzgbpyRuKuE", "topicVideos": [{"title": "Alteração do Contrato de Trabalho: Jus Variandi, Inalterabilidade Lesiva e Transferência (Arts. 468 a 470 CLT)", "channel": "Estratégia OAB", "duration": "3h 37m", "url": "https://www.youtube.com/watch?v=EgwXexEGq1k"}, {"title": "Interrupção e Suspensão do Contrato de Trabalho (Arts. 471 a 476-A da CLT)", "channel": "Profa. Marina Marques", "duration": "20 min", "url": "https://www.youtube.com/watch?v=hx2wKDTC6Dk"}, {"title": "Modalidades de Extinção do Contrato de Trabalho: Justa Causa (Art. 482), Rescisão Indireta (Art. 483), Distrato e Aviso Prévio", "channel": "Prof. Tiago Blauth", "duration": "25 min", "url": "https://www.youtube.com/watch?v=mBn0CXFX9Ao"}, {"title": "Estabilidades Provisórias no Emprego (Gestante, CIPA, Sindical e Acidentado) e FGTS", "channel": "Supremo OAB (Profa. Haydée Priscilla)", "duration": "25 min", "url": "https://www.youtube.com/watch?v=WzgbpyRuKuE"}]},
         title: "Alteração, Suspensão, Interrupção e Extinção do Contrato de Trabalho e Estabilidades",
         legalBasis: "Arts. 468 a 504 da CLT (Decreto-Lei 5.452/43) e Lei 8.036/90 (FGTS)",
         topics: [
@@ -1526,6 +2072,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 50, date: '2026-12-08', week: 8, subjectId: 'proc_trabalho', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Processo do Trabalho OAB: Sistema Recursal Trabalhista — RO, RR, Agravo de Petição, Agravo de Instrumento e Preparo", "channel": "Estratégia OAB", "duration": "1h 46m", "views": "43 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=OJzUhl6NOXs", "altVideoTitle": "Aulão CEISC OAB: Recursos no Processo do Trabalho (Arts. 893 a 902 da CLT)", "altChannel": "CEISC OAB", "altDuration": "1h 24m", "altViews": "81 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=SNyUpwg7HmM", "topicVideos": [{"title": "Teoria Geral dos Recursos Trabalhistas e Irrecorribilidade das Interlocutórias (Súmula 214 TST)", "channel": "Estratégia OAB", "duration": "1h 46m", "url": "https://www.youtube.com/watch?v=OJzUhl6NOXs"}, {"title": "Pressupostos Recursais, Custas e Depósito Recursal Trabalhista (Isenções e Redução de 50% — Art. 899 CLT)", "channel": "Estratégia OAB", "duration": "1h 46m", "url": "https://www.youtube.com/watch?v=OJzUhl6NOXs"}, {"title": "Recurso Ordinário (Art. 895 CLT) e Embargos de Declaração no Processo do Trabalho (Art. 897-A CLT)", "channel": "CEISC OAB", "duration": "1h 24m", "url": "https://www.youtube.com/watch?v=SNyUpwg7HmM"}, {"title": "Recurso de Revista (Art. 896 CLT), Agravo de Instrumento e Agravo de Petição (Art. 897 CLT)", "channel": "Estratégia OAB", "duration": "1h 46m", "url": "https://www.youtube.com/watch?v=OJzUhl6NOXs"}]},
         title: "Sistema Recursal Trabalhista: RO, RR, Agravos, Embargos e Pressupostos",
         legalBasis: "Arts. 893 a 902 da CLT (Decreto-Lei 5.452/43)",
         topics: [
@@ -1537,6 +2084,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 51, date: '2026-12-09', week: 8, subjectId: 'tributario', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Tributário OAB: Crédito Tributário, Lançamento, Suspensão (Art. 151), Extinção (Art. 156) e Exclusão", "channel": "Revisão Animada OAB", "duration": "51 min", "views": "121 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=WybF_Kz4sqI", "altVideoTitle": "Aulão Estratégia OAB: Lançamento, Suspensão, Prescrição, Decadência, Isenção e Anistia no CTN", "altChannel": "Estratégia OAB", "altDuration": "3h 57m", "altViews": "18 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=wYDrSXz3yGY", "topicVideos": [{"title": "Crédito Tributário e Modalidades de Lançamento: Ofício, Declaração e Homologação (Arts. 142 a 150 CTN)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=Qa71ZzzXMjU"}, {"title": "Suspensão da Exigibilidade do Crédito Tributário (Moratória, Depósito, Recursos, Liminar e Parcelamento — Art. 151 CTN)", "channel": "Revisão Animada", "duration": "51 min", "url": "https://www.youtube.com/watch?v=WybF_Kz4sqI"}, {"title": "Extinção do Crédito Tributário (Art. 156), Prescrição (Art. 174) e Decadência Tributária (Arts. 150, §4º e 173 CTN)", "channel": "Revisão Animada", "duration": "51 min", "url": "https://www.youtube.com/watch?v=WybF_Kz4sqI"}, {"title": "Exclusão do Crédito Tributário (Isenção e Anistia — Arts. 175 a 182 CTN) e Garantias/Privilégios (Arts. 183 a 193 CTN)", "channel": "Revisão Animada", "duration": "51 min", "url": "https://www.youtube.com/watch?v=WybF_Kz4sqI"}]},
         title: "Crédito Tributário: Lançamento, Suspensão, Extinção, Prescrição e Decadência",
         legalBasis: "Arts. 139 a 193 do CTN (Lei 5.172/66)",
         topics: [
@@ -1548,6 +2096,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 52, date: '2026-12-10', week: 8, subjectId: 'proc_penal', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Damásio OAB: Processo Penal — Procedimento Comum, Tribunal do Júri, Sentença, Nulidades e Recursos (Apelação e RESE)", "channel": "Damásio OAB", "duration": "58 min", "views": "24 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=A_87yVhs6LI", "altVideoTitle": "Aulão Estratégia OAB: Procedimentos, Júri, Nulidades e Recursos no Processo Penal", "altChannel": "Estratégia OAB", "altDuration": "3h 18m", "altViews": "32 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=5FuBn4gLVts", "topicVideos": [{"title": "Procedimento Comum Ordinário, Sumário e Juizados Especiais Criminais — JECRIM (Lei 9.099/95)", "channel": "Damásio OAB", "duration": "58 min", "url": "https://www.youtube.com/watch?v=A_87yVhs6LI"}, {"title": "Procedimento Especial do Tribunal do Júri: Pronúncia, Impronúncia, Absolvição Sumária e Desclassificação", "channel": "Damásio OAB", "duration": "58 min", "url": "https://www.youtube.com/watch?v=A_87yVhs6LI"}, {"title": "Sentença Penal (Emendatio e Mutatio Libelli — Arts. 383 e 384) e Nulidades no Processo Penal (Arts. 563 a 573 CPP)", "channel": "CEISC OAB", "duration": "31 min", "url": "https://www.youtube.com/watch?v=Bc-dkix5sCk"}, {"title": "Recursos no Processo Penal: Apelação (Art. 593), RESE (Art. 581), Embargos Infringentes e Revisão Criminal", "channel": "Estratégia OAB", "duration": "3h 18m", "url": "https://www.youtube.com/watch?v=5FuBn4gLVts"}]},
         title: "Procedimentos Comum e do Júri, Sentença Penal, Nulidades e Recursos",
         legalBasis: "Arts. 394 a 667 do CPP (Decreto-Lei 3.689/41) e Lei 9.099/95 (JECRIM)",
         topics: [
@@ -1559,6 +2108,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 53, date: '2026-12-11', week: 8, subjectId: 'empresarial', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão CERS OAB: Direito Empresarial — Títulos de Crédito (Endosso, Aval, Letra de Câmbio, Nota Promissória, Cheque e Duplicata)", "channel": "CERS OAB", "duration": "2h 15m", "views": "15 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=7nz_C_nuka0", "altVideoTitle": "Aulão Gran Cursos OAB: Direito Empresarial — Títulos de Crédito com Prof. Eugênio Brügger", "altChannel": "Gran Cursos OAB", "altDuration": "1h 08m", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=IyBmRgEVoDE", "topicVideos": [{"title": "Títulos de Crédito: Princípios da Cartularidade, Literalidade e Autonomia (Arts. 887 a 903 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "15 min", "url": "https://www.youtube.com/watch?v=qwBEBNp8Cso"}, {"title": "Atos Cambiários: Saque, Aceite, Endosso (em Branco, em Preto, Mandato) e Aval vs. Fiança", "channel": "Me Julga — Cíntia Brunelli", "duration": "15 min", "url": "https://www.youtube.com/watch?v=qwBEBNp8Cso"}, {"title": "Letra de Câmbio e Nota Promissória na Lei Uniforme de Genebra (LUG)", "channel": "Gran Cursos OAB (Prof. Eugênio Brügger)", "duration": "1h 08m", "url": "https://www.youtube.com/watch?v=IyBmRgEVoDE"}, {"title": "Cheque (Lei 7.357/85) e Duplicata Mercantil (Lei 5.474/68) na Prova da OAB", "channel": "CERS OAB", "duration": "2h 15m", "url": "https://www.youtube.com/watch?v=7nz_C_nuka0"}]},
         title: "Títulos de Crédito: Teoria Geral, Letra de Câmbio, Nota Promissória, Cheque e Duplicata",
         legalBasis: "Arts. 887 a 926 do Código Civil, LUG (Dec. 57.663/66), Lei 7.357/85 e Lei 5.474/68",
         topics: [
@@ -1570,6 +2120,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 54, date: '2026-12-12', week: 8, subjectId: 'civil', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão Gran Cursos OAB: Direito Civil — Direito de Família (Casamento, União Estável, Regimes de Bens e Alimentos)", "channel": "Gran Cursos OAB", "duration": "45 min", "views": "15 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=RbuzZGLYEM4", "altVideoTitle": "Aulão Estratégia OAB: Direito de Família no Código Civil (Arts. 1.511 a 1.783-A)", "altChannel": "Estratégia OAB", "altDuration": "3h 37m", "altViews": "39 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=cDBjrSRj4Io", "topicVideos": [{"title": "Direito de Família: Casamento Civil, Impedimentos, Causas Suspensivas e Divórcio (Arts. 1.511 a 1.582 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=0fBgj3JB48Q"}, {"title": "União Estável (Arts. 1.723 a 1.727 CC) e Princípios do Direito de Família", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=Z25MiW3btw0"}, {"title": "Regimes de Bens no Casamento: Comunhão Parcial, Universal, Separação Obrigatória (Art. 1.641 CC) e Pacto Antenupcial", "channel": "Gran Cursos OAB", "duration": "45 min", "url": "https://www.youtube.com/watch?v=RbuzZGLYEM4"}, {"title": "Parentesco, Filiação, Poder Familiar e Pensão Alimentícia / Alimentos (Arts. 1.694 a 1.710 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=jylWfiJ1KxM"}]},
         title: "Direito de Família: Casamento, União Estável, Regimes de Bens e Alimentos",
         legalBasis: "Arts. 1.511 a 1.783-A do Código Civil (Lei 10.406/02) e Lei 5.478/68 (Alimentos)",
         topics: [
@@ -1581,6 +2132,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 55, date: '2026-12-13', week: 8, subjectId: 'proc_civil', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Processo Civil: Teoria Geral dos Recursos e Recursos em Espécie (Apelação, Agravo de Instrumento, Embargos, REsp e RE)", "channel": "Prof. Ricardo Torques (Estratégia OAB)", "duration": "35 min", "views": "226 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=9k5ETWUFX2Y", "altVideoTitle": "Aulão CERS OAB: Revisão de Recursos no Processo Civil (Arts. 994 a 1.044 do CPC)", "altChannel": "CERS OAB", "altDuration": "2h 05m", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=y9agcZ5bhrw", "topicVideos": [{"title": "Teoria Geral dos Recursos: Conceito, Requisitos de Admissibilidade, Preparo e Efeitos | Processo Civil", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=Fe1NA_BZwoU"}, {"title": "Recurso de Apelação e Teoria da Causa Madura no CPC (Arts. 1.009 a 1.014)", "channel": "Prof. Ricardo Torques", "duration": "35 min", "url": "https://www.youtube.com/watch?v=9k5ETWUFX2Y"}, {"title": "Agravo de Instrumento (Art. 1.015 CPC e Taxatividade Mitigada do STJ)", "channel": "Prof. Ricardo Torques", "duration": "35 min", "url": "https://www.youtube.com/watch?v=9k5ETWUFX2Y"}, {"title": "Embargos de Declaração, Agravo Interno, Recurso Especial (REsp) e Recurso Extraordinário (RE)", "channel": "Estratégia OAB", "duration": "4h 20m", "url": "https://www.youtube.com/watch?v=xHaNSWpp3tc"}]},
         title: "Teoria Geral dos Recursos e Recursos Cíveis em Espécie",
         legalBasis: "Arts. 994 a 1.044 do CPC/2015",
         topics: [
@@ -1592,6 +2144,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 56, date: '2026-12-14', week: 9, subjectId: 'administrativo', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Administrativo OAB: Nova Lei de Improbidade (Lei 14.230/21) e Responsabilidade Civil do Estado (Art. 37, §6º CF)", "channel": "Estratégia OAB", "duration": "3h 37m", "views": "25 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=Ln2-DR5g2to", "altVideoTitle": "Aulão Esquematizado: Nova Lei de Improbidade Administrativa (Lei 8.429/92 Atualizada)", "altChannel": "Profa. Deyse Ferreira", "altDuration": "47 min", "altViews": "54 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=TXbkWC5Es7E", "topicVideos": [{"title": "Nova Lei de Improbidade Administrativa (Lei 8.429/92 atualizada pela Lei 14.230/21): Dolo Específico", "channel": "Me Julga — Cíntia Brunelli", "duration": "17 min", "url": "https://www.youtube.com/watch?v=zHeWj-GwiWc"}, {"title": "Atos de Improbidade: Enriquecimento Ilícito (Art. 9º), Prejuízo ao Erário (Art. 10) e Princípios (Art. 11)", "channel": "Profa. Nathy Bueno", "duration": "23 min", "url": "https://www.youtube.com/watch?v=PXFfF_cVUUk"}, {"title": "Sanções por Improbidade Administrativa, Acordo de Não Persecução Civil e Prescrição de 8 Anos", "channel": "Profa. Deyse Ferreira", "duration": "47 min", "url": "https://www.youtube.com/watch?v=TXbkWC5Es7E"}, {"title": "Responsabilidade Civil do Estado: Teoria do Risco Administrativo (Art. 37, §6º da CF/88) e Regresso", "channel": "Prof. Diego Pureza", "duration": "10 min", "url": "https://www.youtube.com/watch?v=ePO96xqAWkQ"}]},
         title: "Improbidade Administrativa, Responsabilidade Civil do Estado e Controle",
         legalBasis: "Lei 8.429/92 (com alterações da Lei 14.230/21) e Art. 37, § 6º da CF/88",
         topics: [
@@ -1603,6 +2156,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 57, date: '2026-12-15', week: 9, subjectId: 'penal', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Damásio OAB: Direito Penal — Crimes contra a Fé Pública, Administração Pública e Legislação Penal Especial", "channel": "Damásio OAB", "duration": "25 min", "views": "12 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=DK5bdWIgiic", "altVideoTitle": "Aulão Gran Cursos OAB: Crimes contra a Administração Pública, Lei de Drogas e Crimes Hediondos", "altChannel": "Gran Cursos OAB (Profa. Michelle Tonon)", "altDuration": "1h 25m", "altViews": "15 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=kw2UfQK4SrA", "topicVideos": [{"title": "Crimes contra a Fé Pública: Moeda Falsa e Falsidades Documentais (Arts. 289 a 311 CP)", "channel": "Damásio OAB", "duration": "25 min", "url": "https://www.youtube.com/watch?v=DK5bdWIgiic"}, {"title": "Crimes Praticados por Funcionário Público contra a Administração: Peculato, Concussão e Corrupção Passiva", "channel": "Damásio OAB", "duration": "25 min", "url": "https://www.youtube.com/watch?v=DK5bdWIgiic"}, {"title": "Crimes Praticados por Particular contra a Administração: Corrupção Ativa e Desacato (Arts. 328 a 337 CP)", "channel": "Estratégia OAB", "duration": "3h 59m", "url": "https://www.youtube.com/watch?v=I0l7Nbber6Q"}, {"title": "Legislação Penal Especial: Lei de Drogas (Lei 11.343/06), Crimes Hediondos (Lei 8.072/90) e Armas", "channel": "Gran Cursos OAB (Profa. Michelle Tonon)", "duration": "1h 25m", "url": "https://www.youtube.com/watch?v=kw2UfQK4SrA"}]},
         title: "Crimes contra a Fé Pública, Administração Pública e Legislação Penal Especial",
         legalBasis: "Arts. 289 a 359-R do CP, Leis 11.343/06 (Drogas) e 8.072/90 (Hediondos)",
         topics: [
@@ -1614,6 +2168,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 58, date: '2026-12-16', week: 9, subjectId: 'internacional', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito Internacional Público OAB: Tratados, Imunidade Diplomática e Lei de Migração (Deportação, Expulsão e Extradição)", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 16m", "views": "13 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=odtzHfFbUe4", "altVideoTitle": "Aulão Estratégia OAB: Direito Internacional Público e Lei 13.445/17 para 1ª Fase da OAB", "altChannel": "Estratégia OAB", "altDuration": "3h 50m", "altViews": "13 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=BXy8i85jpLM", "topicVideos": [{"title": "Direito Internacional Público: Fontes, Sujeitos e Organizações Internacionais", "channel": "Me Julga — Cíntia Brunelli", "duration": "16 min", "url": "https://www.youtube.com/watch?v=oD1zJRwsFkw"}, {"title": "Tratados Internacionais: Negociação, Aprovação Congressual, Ratificação e Promulgação", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 16m", "url": "https://www.youtube.com/watch?v=odtzHfFbUe4"}, {"title": "Imunidade de Jurisdição e de Execução de Estado Estrangeiro e Relações Diplomáticas", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 16m", "url": "https://www.youtube.com/watch?v=odtzHfFbUe4"}, {"title": "Condição Jurídica do Estrangeiro e Lei de Migração (Lei 13.445/17): Deportação, Expulsão e Extradição", "channel": "Prof. Mateus Silveira — OAB", "duration": "56 min", "url": "https://www.youtube.com/watch?v=j6vYNUcgyTw"}]},
         title: "Direito Internacional Público: Tratados, Imunidade Diplomática e Lei de Migração",
         legalBasis: "Convenção de Viena de 1969 sobre Direito dos Tratados e Lei 13.445/2017 (Migração)",
         topics: [
@@ -1625,6 +2180,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 59, date: '2026-12-17', week: 9, subjectId: 'humanos', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direitos Humanos OAB: Sistema Interamericano (Pacto de San José da Costa Rica, CIDH e Corte IDH) e Estatuto da PCD", "channel": "Estratégia OAB", "duration": "3h 46m", "views": "16 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=iMSi07eQOt4", "altVideoTitle": "Aulão CEISC OAB: Convenção Americana de Direitos Humanos e Grupos Vulneráveis", "altChannel": "CEISC OAB", "altDuration": "23 min", "altViews": "18 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=ajSMocUPYx8", "topicVideos": [{"title": "Sistema Interamericano de Direitos Humanos: Convenção Americana (Pacto de San José da Costa Rica)", "channel": "Estratégia OAB", "duration": "3h 46m", "url": "https://www.youtube.com/watch?v=iMSi07eQOt4"}, {"title": "Comissão Interamericana de Direitos Humanos (CIDH): Petições Individuais e Requisitos", "channel": "Estratégia OAB", "duration": "3h 46m", "url": "https://www.youtube.com/watch?v=iMSi07eQOt4"}, {"title": "Corte Interamericana de Direitos Humanos (Corte IDH): Competência Contenciosa e Consultiva", "channel": "CEISC OAB", "duration": "23 min", "url": "https://www.youtube.com/watch?v=ajSMocUPYx8"}, {"title": "Estatuto da Pessoa com Deficiência (Lei 13.146/15) e Estatuto da Igualdade Racial", "channel": "Estratégia OAB", "duration": "3h 53m", "url": "https://www.youtube.com/watch?v=P-sO_XuOCPk"}]},
         title: "Sistema Interamericano de Direitos Humanos e Grupos Vulneráveis",
         legalBasis: "Pacto de San José da Costa Rica de 1969, Lei 13.146/15 e Lei 12.288/10",
         topics: [
@@ -1636,6 +2192,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 60, date: '2026-12-18', week: 9, subjectId: 'consumidor', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito do Consumidor OAB: Práticas Comerciais, Cláusulas Abusivas, Arrependimento (Art. 49) e Superendividamento", "channel": "Estratégia OAB", "duration": "1h 34m", "views": "14 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=b2VisJjK_1g", "altVideoTitle": "Aulão CERS OAB: Revisão de Direito do Consumidor — Práticas Abusivas, Contratos e Tutela Coletiva", "altChannel": "CERS OAB", "altDuration": "2h 05m", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=y9agcZ5bhrw", "topicVideos": [{"title": "Práticas Comerciais no CDC: Oferta Vinculante, Publicidade Enganosa/Abusiva e Práticas Abusivas (Arts. 30 a 39)", "channel": "Estratégia OAB", "duration": "1h 34m", "url": "https://www.youtube.com/watch?v=b2VisJjK_1g"}, {"title": "Cobrança de Dívidas, Repetição em Dobro (Art. 42 CDC) e Cadastros de Crédito (Art. 43 CDC)", "channel": "Prof. Elielton — Direito Fácil", "duration": "57 min", "url": "https://www.youtube.com/watch?v=aehiyj4t6O0"}, {"title": "Proteção Contratual, Cláusulas Abusivas (Art. 51), Direito de Arrependimento (Art. 49) e Superendividamento", "channel": "Me Julga — Cíntia Brunelli", "duration": "16 min", "url": "https://www.youtube.com/watch?v=BWm6dozFwZc"}, {"title": "Defesa do Consumidor em Juízo: Direitos Difusos, Coletivos e Individuais Homogêneos (Arts. 81 a 104 CDC)", "channel": "Estratégia OAB", "duration": "1h 34m", "url": "https://www.youtube.com/watch?v=b2VisJjK_1g"}]},
         title: "Práticas Comerciais, Proteção Contratual, Superendividamento e Defesa Coletiva",
         legalBasis: "Arts. 29 a 104 da Lei 8.078/90 (CDC) com a Lei 14.181/2021",
         topics: [
@@ -1647,6 +2204,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 61, date: '2026-12-19', week: 9, subjectId: 'etica', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão Damásio OAB: Ética e Estatuto da OAB — Estrutura, Órgãos da OAB (Conselho Federal, Seccionais, Subseções, CAA) e Eleições", "channel": "Damásio OAB", "duration": "42 min", "views": "61 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=O8ebJrlvii4", "altVideoTitle": "Aulão Gran Cursos OAB: Órgãos da OAB e Eleições (Arts. 44 a 67 do EAOAB)", "altChannel": "Gran Cursos OAB", "altDuration": "52 min", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=qEPo_eFzbNM", "topicVideos": [{"title": "Natureza Jurídica da OAB, Imunidade Tributária e Patrimônio (Arts. 44 a 50 EAOAB)", "channel": "Damásio OAB", "duration": "42 min", "url": "https://www.youtube.com/watch?v=O8ebJrlvii4"}, {"title": "Conselho Federal da OAB: Composição e Competências (Arts. 51 a 55 EAOAB)", "channel": "Damásio OAB", "duration": "42 min", "url": "https://www.youtube.com/watch?v=O8ebJrlvii4"}, {"title": "Conselhos Seccionais, Subseções e Caixas de Assistência dos Advogados — CAA (Arts. 56 a 62 EAOAB)", "channel": "Curso Prova da Ordem", "duration": "1h 03m", "url": "https://www.youtube.com/watch?v=lZsb5848EBE"}, {"title": "Eleições na OAB: Mandato, Voto Obrigatório, Cotas e Inelegibilidades (Arts. 63 a 67 EAOAB)", "channel": "Me Julga — Cíntia Brunelli", "duration": "23 min", "url": "https://www.youtube.com/watch?v=iOP9zotm4o4"}]},
         title: "Estrutura e Órgãos da OAB, Eleições e Regulamentação Profissional",
         legalBasis: "Arts. 44 a 67 do EAOAB (Lei 8.906/94) e Regulamento Geral da OAB",
         topics: [
@@ -1658,6 +2216,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 62, date: '2026-12-20', week: 9, subjectId: 'civil', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão Gran Cursos OAB: Direito das Sucessões — Sucessão Legítima (Art. 1.829 CC), Testamentária, Inventário e Partilha", "channel": "Gran Cursos OAB", "duration": "45 min", "views": "15 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=RbuzZGLYEM4", "altVideoTitle": "Aulão Estratégia OAB: Direito das Sucessões Completo para 1ª Fase OAB (Arts. 1.784 a 2.027 CC)", "altChannel": "Estratégia OAB", "altDuration": "3h 37m", "altViews": "39 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=cDBjrSRj4Io", "topicVideos": [{"title": "Direito das Sucessões: Saisine, Aceitação, Renúncia, Indignidade e Deserdação (Arts. 1.784 a 1.818 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=hEIlWsOtEps"}, {"title": "Sucessão Legítima e Ordem de Vocação Hereditária: Concorrência do Cônjuge/Companheiro (Art. 1.829 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=hEIlWsOtEps"}, {"title": "Sucessão Testamentária: Testamento Público, Cerrado, Particular e Legados (Arts. 1.857 a 1.990 CC)", "channel": "Gran Cursos OAB", "duration": "45 min", "url": "https://www.youtube.com/watch?v=RbuzZGLYEM4"}, {"title": "Inventário Judicial e Extrajudicial, Sonegados, Colação e Partilha (Arts. 1.991 a 2.027 CC)", "channel": "Gran Cursos OAB", "duration": "45 min", "url": "https://www.youtube.com/watch?v=RbuzZGLYEM4"}]},
         title: "Direito das Sucessões: Sucessão Legítima, Testamentária, Inventário e Partilha",
         legalBasis: "Arts. 1.784 a 2.027 do Código Civil (Lei 10.406/02)",
         topics: [
@@ -1669,6 +2228,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 63, date: '2026-12-21', week: 10, subjectId: 'proc_civil', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Processo Civil OAB: Cumprimento de Sentença (Art. 523), Execução de Título Extrajudicial e Ações Possessórias", "channel": "Estratégia OAB", "duration": "4h 20m", "views": "23 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=xHaNSWpp3tc", "altVideoTitle": "Aulão CERS OAB: Cumprimento de Sentença, Execução, Embargos e Procedimentos Especiais no CPC", "altChannel": "CERS OAB", "altDuration": "2h 05m", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=y9agcZ5bhrw", "topicVideos": [{"title": "Cumprimento de Sentença (Processo Civil — Art. 523 CPC): Multa de 10%, Honorários e Impugnação", "channel": "Direito Desenhado", "duration": "15 min", "url": "https://www.youtube.com/watch?v=4gKmedYtrIc"}, {"title": "Cumprimento de Sentença de Alimentos (Prisão Civil — Art. 528) e contra a Fazenda Pública (Art. 535 CPC)", "channel": "Direito Desenhado", "duration": "15 min", "url": "https://www.youtube.com/watch?v=4gKmedYtrIc"}, {"title": "Execução de Título Extrajudicial, Impenhorabilidade (Art. 833 CPC) e Embargos à Execução (Art. 914 CPC)", "channel": "Estratégia OAB", "duration": "4h 20m", "url": "https://www.youtube.com/watch?v=xHaNSWpp3tc"}, {"title": "Ações Possessórias no CPC (Arts. 554 a 568), Monitória e Embargos de Terceiro", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=hQs_YKBhXGM"}]},
         title: "Cumprimento de Sentença, Execução de Título Extrajudicial e Ações Possessórias",
         legalBasis: "Arts. 513 a 538, 554 a 568 e 771 a 925 do CPC/2015",
         topics: [
@@ -1680,6 +2240,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 64, date: '2026-12-22', week: 10, subjectId: 'trabalho', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão de Direito do Trabalho OAB: Direito Coletivo, Sindicatos, Negociado sobre Legislado (Art. 611-A/B) e Greve", "channel": "Estratégia OAB", "duration": "3h 37m", "views": "49 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=EgwXexEGq1k", "altVideoTitle": "Aulão CERS OAB: Direito Coletivo do Trabalho, Convenção, Acordo Coletivo e Lei de Greve", "altChannel": "CERS OAB", "altDuration": "1h 01m", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=GP2DXhuuRb4", "topicVideos": [{"title": "Organização Sindical, Unicidade Sindical e Estabilidade do Dirigente Sindical (Art. 8º CF e Art. 543 CLT)", "channel": "Me Julga — Cíntia Brunelli", "duration": "11 min", "url": "https://www.youtube.com/watch?v=FA8yFt80DXA"}, {"title": "Convenção Coletiva (CCT) e Acordo Coletivo de Trabalho (ACT) e Prevalência do ACT (Art. 620 CLT)", "channel": "Me Julga — Cíntia Brunelli", "duration": "11 min", "url": "https://www.youtube.com/watch?v=FA8yFt80DXA"}, {"title": "Negociado sobre o Legislado: Art. 611-A vs. Art. 611-B da CLT", "channel": "Estratégia OAB", "duration": "3h 37m", "url": "https://www.youtube.com/watch?v=EgwXexEGq1k"}, {"title": "Direito de Greve nos Serviços Essenciais e Vedação ao Lockout (Lei 7.783/89)", "channel": "Me Julga — Cíntia Brunelli", "duration": "11 min", "url": "https://www.youtube.com/watch?v=FA8yFt80DXA"}]},
         title: "Direito Coletivo do Trabalho, Negociação Coletiva, Greve e Normas Especiais",
         legalBasis: "Arts. 511 a 625 da CLT e Lei 7.783/89 (Lei de Greve)",
         topics: [
@@ -1691,6 +2252,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 65, date: '2026-12-23', week: 10, subjectId: 'proc_trabalho', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Gran Cursos OAB: Processo do Trabalho — Liquidação, Execução Trabalhista, Embargos e Inquérito p/ Apuração de Falta Grave", "channel": "Gran Cursos OAB (Prof. Leandro Alencar)", "duration": "1h 00m", "views": "15 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=a_GvMOxDu9U", "altVideoTitle": "Aulão CEISC OAB: Execução Trabalhista (Arts. 876 a 892 CLT) e Procedimentos Especiais", "altChannel": "CEISC OAB", "altDuration": "1h 24m", "altViews": "81 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=SNyUpwg7HmM", "topicVideos": [{"title": "Liquidação de Sentença e Execução Trabalhista (Início Mediante Provocação — Art. 878 CLT)", "channel": "Gran Cursos OAB (Prof. Leandro Alencar)", "duration": "1h 00m", "url": "https://www.youtube.com/watch?v=a_GvMOxDu9U"}, {"title": "Citação em 48 Horas (Art. 880 CLT), Penhora e IDPJ na Justiça do Trabalho (Art. 855-A CLT)", "channel": "Gran Cursos OAB (Prof. Leandro Alencar)", "duration": "1h 00m", "url": "https://www.youtube.com/watch?v=a_GvMOxDu9U"}, {"title": "Embargos à Execução Trabalhista (Prazo de 5 Dias — Art. 884 CLT) e Exceção de Pré-Executividade", "channel": "Prof. Bruno Klippel", "duration": "1h 21m", "url": "https://www.youtube.com/watch?v=6Av7lOoVAOc"}, {"title": "Inquérito para Apuração de Falta Grave (Arts. 853 a 855 CLT) e Ação Rescisória Trabalhista", "channel": "CEISC OAB", "duration": "1h 24m", "url": "https://www.youtube.com/watch?v=SNyUpwg7HmM"}]},
         title: "Execução Trabalhista, Liquidação, Embargos e Procedimentos Especiais",
         legalBasis: "Arts. 853 a 892 da CLT (Decreto-Lei 5.452/43)",
         topics: [
@@ -1702,6 +2264,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 66, date: '2026-12-24', week: 10, subjectId: 'eca', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Damásio OAB: ECA II — Conselho Tutelar, Ato Infracional, Medidas Socioeducativas (Internação Art. 122) e Crimes", "channel": "Damásio OAB", "duration": "32 min", "views": "18 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=DXyepDGnrAM", "altVideoTitle": "Aulão Estratégia OAB: Revisão Completa do ECA (Conselho Tutelar e Ato Infracional)", "altChannel": "Estratégia OAB", "altDuration": "2h 03m", "altViews": "16 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=rRCbvzNNr18", "topicVideos": [{"title": "Conselho Tutelar no ECA: Natureza, Composição por 5 Membros, Mandato de 4 Anos e Atribuições (Arts. 131 a 140)", "channel": "Damásio OAB", "duration": "32 min", "url": "https://www.youtube.com/watch?v=DXyepDGnrAM"}, {"title": "Prática de Ato Infracional (Art. 103 ECA): Criança (Medidas Protetivas) vs. Adolescente (Socioeducativas)", "channel": "Me Julga — Cíntia Brunelli", "duration": "15 min", "url": "https://www.youtube.com/watch?v=OYYk-DhaoD0"}, {"title": "Medidas Socioeducativas e Hipóteses Taxativas de Internação (Art. 122 do ECA)", "channel": "Prof. Joel Oliveira", "duration": "1h 04m", "url": "https://www.youtube.com/watch?v=oQmr7Ymh008"}, {"title": "Remissão Ministerial e Judicial (Arts. 126 a 128) e Crimes em Espécie no ECA (Arts. 225 a 244-B)", "channel": "Damásio OAB", "duration": "32 min", "url": "https://www.youtube.com/watch?v=DXyepDGnrAM"}]},
         title: "ECA II: Conselho Tutelar, Prática de Ato Infracional, Medidas Socioeducativas e Crimes",
         legalBasis: "Arts. 86 a 267 da Lei 8.069/1990 (ECA) e Lei 12.594/12 (SINASE)",
         topics: [
@@ -1713,6 +2276,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 67, date: '2026-12-25', week: 10, subjectId: 'filosofia', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Gran Cursos OAB: Filosofia do Direito II — Positivismo (Kelsen, Hart, Bobbio) e Pós-Positivismo (Dworkin e Alexy)", "channel": "Gran Cursos OAB (Prof. Odair José)", "duration": "55 min", "views": "12 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=Ca2KNG33k10", "altVideoTitle": "Aulão Supremo OAB: Filosofia do Direito — Teoria Pura do Direito, Hart, Dworkin e Alexy", "altChannel": "Supremo OAB (Prof. Bernardo Nogueira)", "altDuration": "1h 00m", "altViews": "10 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=JTjqPObgQaU", "topicVideos": [{"title": "Positivismo Jurídico de Hans Kelsen: Teoria Pura do Direito, Norma Hipotética Fundamental e Pirâmide Normativa", "channel": "Gran Cursos OAB (Prof. Odair José)", "duration": "55 min", "url": "https://www.youtube.com/watch?v=Ca2KNG33k10"}, {"title": "Herbert Hart (O Conceito de Direito): Regras Primárias e Secundárias e Textura Aberta do Direito", "channel": "Gran Cursos OAB (Prof. Odair José)", "duration": "55 min", "url": "https://www.youtube.com/watch?v=Ca2KNG33k10"}, {"title": "Norberto Bobbio: Teoria da Norma e Teoria do Ordenamento Jurídico (Unidade, Coerência e Antinomias)", "channel": "Supremo OAB (Prof. Bernardo Nogueira)", "duration": "1h 00m", "url": "https://www.youtube.com/watch?v=JTjqPObgQaU"}, {"title": "Pós-Positivismo: Ronald Dworkin (Regras vs. Princípios), Robert Alexy (Ponderação) e John Rawls", "channel": "Gran Cursos OAB (Prof. Odair José)", "duration": "55 min", "url": "https://www.youtube.com/watch?v=Ca2KNG33k10"}]},
         title: "Filosofia do Direito II: Positivismo Jurídico e Pós-Positivismo Contemporâneo",
         legalBasis: "Teorias Contemporâneas da Validade, Interpretação e Argumentação Jurídica",
         topics: [
@@ -1724,6 +2288,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 68, date: '2026-12-26', week: 10, subjectId: 'tributario', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão CEISC: Administração Tributária, Certidão de Dívida Ativa (CDA) e Lei de Execução Fiscal (Lei 6.830/80)", "channel": "CEISC OAB & Concursos", "duration": "2h 30m", "views": "33 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=HW9tyXEvVjk", "altVideoTitle": "Aulão Estratégia OAB: Dívida Ativa, Execução Fiscal (LEF) e Ações Tributárias (Repetição de Indébito)", "altChannel": "Estratégia OAB", "altDuration": "3h 57m", "altViews": "18 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=wYDrSXz3yGY", "topicVideos": [{"title": "Administração Tributária: Fiscalização, Sigilo Fiscal e Certidões Negativas (Arts. 194 a 208 CTN)", "channel": "GEN Jurídico — Tributário Esquematizado", "duration": "50 min", "url": "https://www.youtube.com/watch?v=elx6HY293-Q"}, {"title": "Dívida Ativa e Execução Fiscal: Inscrição, CDA e Cobrança (Arts. 201 a 204 CTN)", "channel": "Me Julga — Cíntia Brunelli", "duration": "22 min", "url": "https://www.youtube.com/watch?v=H5h55ZFG1C0"}, {"title": "Execução Fiscal (Lei 6.830/80 — LEF): Citação em 5 Dias, Penhora, Embargos (30 Dias) e Súmula 393 STJ", "channel": "Direito Desenhado", "duration": "14 min", "url": "https://www.youtube.com/watch?v=DqXbSmt5tDA"}, {"title": "Ações Tributárias do Contribuinte: Declaratória, Anulatória, Consignação e Repetição de Indébito (Art. 165 CTN)", "channel": "Estratégia OAB", "duration": "3h 57m", "url": "https://www.youtube.com/watch?v=wYDrSXz3yGY"}]},
         title: "Administração Tributária, Dívida Ativa, Execução Fiscal e Ações Tributárias",
         legalBasis: "Arts. 194 a 208 do CTN, Lei 6.830/80 (LEF) e Código de Processo Civil",
         topics: [
@@ -1735,6 +2300,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 69, date: '2026-12-27', week: 10, subjectId: 'empresarial', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão Supremo OAB: Falência, Recuperação Judicial (Lei 11.101/05) e Propriedade Industrial (Lei 9.279/96)", "channel": "Supremo OAB (Prof. José Humberto Jr.)", "duration": "1h 00m", "views": "25 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=5Z5j41Xubcw", "altVideoTitle": "Aulão CERS OAB: Recuperação Judicial, Falência, Patentes e Marcas na 1ª Fase OAB", "altChannel": "CERS OAB", "altDuration": "2h 15m", "altViews": "15 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=7nz_C_nuka0", "topicVideos": [{"title": "Recuperação Judicial e Extrajudicial (Lei 11.101/2005): Legitimidade, Stay Period e Plano", "channel": "Supremo OAB (Prof. José Humberto Jr.)", "duration": "29 min", "url": "https://www.youtube.com/watch?v=Fb1tX880atc"}, {"title": "Falência vs. Recuperação Judicial: Hipóteses de Decretação (Art. 94) e Ordem de Créditos (Art. 83)", "channel": "Me Julga — Cíntia Brunelli", "duration": "10 min", "url": "https://www.youtube.com/watch?v=ezXXFDXp8V0"}, {"title": "Ação Revocatória (Art. 130), Ineficácia Objetiva (Art. 129) e Pedido de Restituição na Falência", "channel": "Supremo OAB (Prof. José Humberto Jr.)", "duration": "1h 00m", "url": "https://www.youtube.com/watch?v=5Z5j41Xubcw"}, {"title": "Propriedade Industrial (Lei 9.279/96 — LPI): Patentes de Invenção, Modelo de Utilidade e Registro de Marcas", "channel": "Supremo OAB (Prof. Juan Vazquez)", "duration": "30 min", "url": "https://www.youtube.com/watch?v=D7dVzDPyyjQ"}]},
         title: "Recuperação Judicial, Extrajudicial, Falência e Propriedade Industrial",
         legalBasis: "Lei 11.101/2005 (com reformas da Lei 14.112/20) e Lei 9.279/1996 (LPI)",
         topics: [
@@ -1746,6 +2312,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 70, date: '2026-12-28', week: 11, subjectId: 'ambiental', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Estratégia OAB: Direito Ambiental — SNUC (Lei 9.985/00), Código Florestal (APP e Reserva Legal) e Responsabilidade", "channel": "Estratégia OAB", "duration": "1h 42m", "views": "13 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=GS0tUmk1Vio", "altVideoTitle": "Aulão Prof. Mateus Silveira: Unidades de Conservação, APP, Reserva Legal e Responsabilidade Tríplice", "altChannel": "Prof. Mateus Silveira — OAB", "altDuration": "1h 05m", "altViews": "13 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=ifFx_gZPoCs", "topicVideos": [{"title": "Sistema Nacional de Unidades de Conservação — SNUC (Lei 9.985/00): Proteção Integral vs. Uso Sustentável", "channel": "Estratégia OAB", "duration": "1h 42m", "url": "https://www.youtube.com/watch?v=GS0tUmk1Vio"}, {"title": "Código Florestal (Lei 12.651/12): Área de Preservação Permanente (APP) e Reserva Legal", "channel": "Estratégia OAB", "duration": "1h 42m", "url": "https://www.youtube.com/watch?v=GS0tUmk1Vio"}, {"title": "Política Nacional de Recursos Hídricos (Lei 9.433/97) e Resíduos Sólidos (Lei 12.305/10)", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 05m", "url": "https://www.youtube.com/watch?v=ifFx_gZPoCs"}, {"title": "Responsabilidade Civil Ambiental (Risco Integral e Imprescritibilidade) e Penal da Pessoa Jurídica (Lei 9.605/98)", "channel": "Me Julga — Cíntia Brunelli", "duration": "22 min", "url": "https://www.youtube.com/watch?v=ad25jRbK4OU"}]},
         title: "SNUC, Código Florestal, Recursos Hídricos e Responsabilidade Ambiental",
         legalBasis: "Lei 9.985/00 (SNUC), Lei 12.651/12 (Código Florestal) e Lei 9.605/98 (Crimes)",
         topics: [
@@ -1757,6 +2324,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 71, date: '2026-12-29', week: 11, subjectId: 'internacional', suggestedQ: 25,
+        youtube: {"videoTitle": "Aulão Estratégia OAB: Direito Internacional Privado — Elementos de Conexão (LINDB Arts. 7º a 19) e Homologação no STJ", "channel": "Estratégia OAB", "duration": "1h 36m", "views": "13 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=OLAQ5KUCdGE", "altVideoTitle": "Aulão Prof. Mateus Silveira: LINDB, Competência Internacional (Arts. 21 a 23 CPC) e Sentença Estrangeira", "altChannel": "Prof. Mateus Silveira — OAB", "altDuration": "1h 00m", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=9JKNSguMwbw", "topicVideos": [{"title": "Direito Internacional Privado: Elementos de Conexão da LINDB (Lex Domicilii — Arts. 7º a 10)", "channel": "Me Julga — Cíntia Brunelli", "duration": "16 min", "url": "https://www.youtube.com/watch?v=oD1zJRwsFkw"}, {"title": "Regime dos Bens e das Obrigações Internacionais e Ordem Pública na LINDB (Arts. 8º, 9º e 17)", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 00m", "url": "https://www.youtube.com/watch?v=9JKNSguMwbw"}, {"title": "Competência Internacional Concorrente e Exclusiva no CPC (Arts. 21 a 25 do CPC)", "channel": "Estratégia OAB", "duration": "1h 36m", "url": "https://www.youtube.com/watch?v=OLAQ5KUCdGE"}, {"title": "Homologação de Sentença Estrangeira e Carta Rogatória perante o STJ (Art. 105, I, 'i' CF e Art. 960 CPC)", "channel": "Prof. Mateus Silveira — OAB", "duration": "1h 00m", "url": "https://www.youtube.com/watch?v=9JKNSguMwbw"}]},
         title: "Direito Internacional Privado: Elementos de Conexão e Cooperação Judiciária",
         legalBasis: "Arts. 7º a 19 da LINDB (DL 4.657/42), Arts. 21 a 41 e 960 a 965 do CPC/2015",
         topics: [
@@ -1768,6 +2336,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 72, date: '2026-12-30', week: 11, subjectId: 'financeiro', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Financeiro OAB: Orçamento Público (PPA, LDO e LOA), Despesa, Receita, Precatórios e LRF (LC 101/00)", "channel": "Estratégia OAB", "duration": "2h 13m", "views": "15 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=HVuaf-sT3a0", "altVideoTitle": "Aulão de Revisão Final: Direito Financeiro na 1ª Fase da OAB (Arts. 163 a 169 CF e LRF)", "altChannel": "Estratégia OAB", "altDuration": "4h 04m", "altViews": "10 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=O3XwxmblNSI", "topicVideos": [{"title": "Orçamento Público: PPA, LDO, LOA e Princípios Orçamentários (Art. 165 da CF/88)", "channel": "Me Julga — Cíntia Brunelli", "duration": "10 min", "url": "https://www.youtube.com/watch?v=qypPax2d4ug"}, {"title": "Resumo de PPA, LDO, LOA e Estágios da Despesa Pública (Empenho, Liquidação e Pagamento)", "channel": "Prof. Diego Jacques — Orçamento Público", "duration": "46 min", "url": "https://www.youtube.com/watch?v=vwPTiFKKN5A"}, {"title": "Regime Constitucional dos Precatórios e Requisições de Pequeno Valor — RPV (Art. 100 da CF/88)", "channel": "Prof. Rodrigo Kanayama", "duration": "16 min", "url": "https://www.youtube.com/watch?v=5SltA5tNVyQ"}, {"title": "Lei de Responsabilidade Fiscal — LRF (LC 101/2000): Receita, Despesa com Pessoal e Regra de Ouro", "channel": "Prof. Diego Jacques — Finanças Públicas", "duration": "45 min", "url": "https://www.youtube.com/watch?v=f9q7yTBLDWY"}]},
         title: "Direito Financeiro: Leis Orçamentárias, Despesa, Receita, Precatórios e LRF",
         legalBasis: "Arts. 100 e 163 a 169 da CF/88, Lei 4.320/64 e LC 101/2000 (Lei de Responsabilidade Fiscal)",
         topics: [
@@ -1779,6 +2348,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 73, date: '2026-12-31', week: 11, subjectId: 'previdenciario', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Previdenciário OAB: Seguridade Social, Segurados do RGPS, Período de Graça, Carência e Benefícios (Lei 8.213/91)", "channel": "Estratégia OAB", "duration": "2h 16m", "views": "19 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=rNqyP3qKbyA", "altVideoTitle": "Aulão Damásio OAB: Direito Previdenciário na 1ª Fase da OAB — Segurados e Benefícios", "altChannel": "Damásio OAB", "altDuration": "36 min", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=RFdk9o1xz_Q", "topicVideos": [{"title": "Direito Previdenciário do Zero: Seguridade Social e Princípios Constitucionais (Arts. 194 e 195 CF)", "channel": "Me Julga — Cíntia Brunelli", "duration": "10 min", "url": "https://www.youtube.com/watch?v=Nxr_QsmJ7hU"}, {"title": "Tipos de Segurados do RGPS: Obrigatórios (Empregado, Doméstico, Contribuinte Individual, Avulso e Especial) e Facultativo", "channel": "Prof. Eduardo Tanaka", "duration": "17 min", "url": "https://www.youtube.com/watch?v=xzZtgoroPYM"}, {"title": "Regime Geral de Previdência Social (RGPS), Período de Graça (Art. 15), Dependentes e Carência (Lei 8.213/91)", "channel": "Prof. Eduardo Tanaka", "duration": "21 min", "url": "https://www.youtube.com/watch?v=QnpE7I07ODE"}, {"title": "Benefícios Previdenciários do RGPS (Aposentadorias, Auxílio por Incapacidade, Pensão por Morte e Salário-Maternidade)", "channel": "Estratégia OAB", "duration": "2h 16m", "url": "https://www.youtube.com/watch?v=rNqyP3qKbyA"}]},
         title: "Direito Previdenciário: Seguridade Social, Segurados do RGPS e Benefícios Previdenciários",
         legalBasis: "Arts. 194 a 204 da CF/88, Lei 8.212/91 (Custeio) e Lei 8.213/91 (Benefícios RGPS)",
         topics: [
@@ -1790,6 +2360,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 74, date: '2027-01-01', week: 11, subjectId: 'eleitoral', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Eleitoral OAB: Condições de Elegibilidade, Inelegibilidades (LC 64/90), Partidos e Ações Eleitorais", "channel": "Estratégia OAB", "duration": "3h 33m", "views": "17 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=otGE1gSLeuE", "altVideoTitle": "Aulão OAB por Questões: Direito Eleitoral — Elegibilidade, Ficha Limpa, AIRC, AIJE e AIME", "altChannel": "Estratégia OAB", "altDuration": "1h 29m", "altViews": "12 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=hEB8zYrDv-Q", "topicVideos": [{"title": "Direito Eleitoral: Conceito, Fontes, Princípios e Direitos Políticos (Art. 14 da CF/88)", "channel": "Me Julga — Cíntia Brunelli", "duration": "13 min", "url": "https://www.youtube.com/watch?v=lXMI_NUdadM"}, {"title": "Condições de Elegibilidade e Inelegibilidades (CF/88 e Lei da Ficha Limpa — LC 64/90)", "channel": "TecConcursos & OAB (Prof. Alexandre Rollo)", "duration": "34 min", "url": "https://www.youtube.com/watch?v=XO8xJvYGJnE"}, {"title": "Partidos Políticos, Federações Partidárias (Lei 9.096/95) e Registro de Candidaturas (Cota de Gênero)", "channel": "Me Julga — Cíntia Brunelli", "duration": "16 min", "url": "https://www.youtube.com/watch?v=f164jXrkT7o"}, {"title": "Propaganda Eleitoral e Ações Eleitorais: AIRC, AIJE (Art. 22 LC 64/90), AIME e RCED", "channel": "Estratégia OAB", "duration": "1h 29m", "url": "https://www.youtube.com/watch?v=hEB8zYrDv-Q"}]},
         title: "Direito Eleitoral: Elegibilidade, Inelegibilidades, Partidos, Campanhas e Ações",
         legalBasis: "Arts. 14 a 17 da CF/88, Lei 9.504/97 (Eleições), Lei 9.096/95 (Partidos) e LC 64/90",
         topics: [
@@ -1801,6 +2372,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 75, date: '2027-01-02', week: 11, subjectId: 'administrativo', suggestedQ: 30,
+        youtube: {"videoTitle": "Aulão de Direito Administrativo OAB: Bens Públicos, Intervenção do Estado na Propriedade (Tombamento, Servidão) e Desapropriação", "channel": "Estratégia OAB", "duration": "3h 42m", "views": "33 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=zeZY1GHpLr4", "altVideoTitle": "Aulão Supremo OAB: Intervenção do Estado na Propriedade e Desapropriação (Profa. Flávia Campos)", "altChannel": "Supremo OAB", "altDuration": "31 min", "altViews": "11 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=bk58jVoXHrs", "topicVideos": [{"title": "Bens Públicos: Conceito, Classificação (Uso Comum, Especial e Dominicais) e Atributos (Arts. 98 a 103 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "13 min", "url": "https://www.youtube.com/watch?v=oY8mPHtbnV4"}, {"title": "Intervenção do Estado na Propriedade: Servidão, Requisição, Ocupação Temporária, Limitação e Tombamento", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=IyWJuJL3Jcc"}, {"title": "Desapropriação no Direito Administrativo: Utilidade Pública, Interesse Social e Procedimento (DL 3.365/41)", "channel": "TecConcursos & OAB", "duration": "34 min", "url": "https://www.youtube.com/watch?v=u0bSGl2_Mbw"}, {"title": "Desapropriação Urbanística Sancionatória (Art. 182, §4º CF) e Confiscatória (Art. 243 CF)", "channel": "Supremo OAB (Profa. Flávia Campos)", "duration": "31 min", "url": "https://www.youtube.com/watch?v=bk58jVoXHrs"}]},
         title: "Bens Públicos, Intervenção do Estado na Propriedade e Desapropriação",
         legalBasis: "Arts. 98 a 103 do CC, Decreto-Lei 3.365/41 e Lei 10.257/2001 (Estatuto da Cidade)",
         topics: [
@@ -1812,6 +2384,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 76, date: '2027-01-03', week: 11, subjectId: 'etica', suggestedQ: 40,
+        youtube: {"videoTitle": "Aulão de Revisão de Ética — Gabarita OAB 1ª Fase (Prof. Alysson Rachid — Curso Prova da Ordem)", "channel": "Curso Prova da Ordem", "duration": "1h 03m", "views": "31 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=lZsb5848EBE", "altVideoTitle": "Aulão Damásio OAB: Revisão Geral de Ética e Estatuto da Advocacia (8 Questões)", "altChannel": "Damásio OAB", "altDuration": "42 min", "altViews": "61 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=O8ebJrlvii4", "topicVideos": [{"title": "Revisão de Atos Privativos, Mandato e Prerrogativas dos Advogados (Arts. 1º a 7º-B EAOAB)", "channel": "Me Julga — Cíntia Brunelli", "duration": "23 min", "url": "https://www.youtube.com/watch?v=iOP9zotm4o4"}, {"title": "Revisão de Sociedade de Advogados, Advogado Empregado e Honorários Advocatícios (Arts. 15 a 26 EAOAB)", "channel": "Verbo OAB (Prof. Rafael Novais)", "duration": "30 min", "url": "https://www.youtube.com/watch?v=7lG1CBv-vs8"}, {"title": "Revisão de Incompatibilidades e Impedimentos (Arts. 27 a 30 EAOAB) e Publicidade Profissional", "channel": "Gran Cursos OAB (Profa. Maria Christina)", "duration": "42 min", "url": "https://www.youtube.com/watch?v=JTuPHtg6OuI"}, {"title": "Revisão de Infrações, Sanções Disciplinares, Prescrição e Processo Disciplinar (Arts. 34 a 43 EAOAB)", "channel": "O Prof. Renato — Ética OAB", "duration": "50 min", "url": "https://www.youtube.com/watch?v=MGL1jwMtfiA"}]},
         title: "Revisão Intensiva de Ética e Estatuto da Advocacia (Meta: 8/8 Pontos)",
         legalBasis: "Lei 8.906/94 (EAOAB), Regulamento Geral e Código de Ética e Disciplina da OAB",
         topics: [
@@ -1823,6 +2396,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 77, date: '2027-01-04', week: 12, subjectId: 'constitucional', suggestedQ: 35,
+        youtube: {"videoTitle": "Aulão de Revisão Final de Direito Constitucional OAB: Defesa do Estado, Ordem Social e Controle de Constitucionalidade", "channel": "Estratégia OAB", "duration": "3h 44m", "views": "41 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=4K7zGwiV3Ak", "altVideoTitle": "Aulão Gran Cursos OAB: 300 Questões e Revisão Geral de Direito Constitucional com Flávia Bahia", "altChannel": "Gran Cursos OAB", "altDuration": "1h 01m", "altViews": "13 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=DL4jq5w8DtQ", "topicVideos": [{"title": "Defesa do Estado e das Instituições Democráticas: Estado de Defesa e Estado de Sítio (Arts. 136 a 144 CF)", "channel": "Estratégia OAB", "duration": "3h 44m", "url": "https://www.youtube.com/watch?v=4K7zGwiV3Ak"}, {"title": "Ordem Econômica e Financeira (Arts. 170 a 192 CF) e Ordem Social (Arts. 193 a 232 CF)", "channel": "CEISC OAB", "duration": "2h 53m", "url": "https://www.youtube.com/watch?v=LLBcDqk3vZg"}, {"title": "Revisão de Controle de Constitucionalidade e Súmulas Vinculantes do STF", "channel": "Me Julga — Cíntia Brunelli", "duration": "14 min", "url": "https://www.youtube.com/watch?v=lvqxN7jKOCk"}, {"title": "Raio-X Final de Direito Constitucional para a 1ª Fase do Exame de Ordem", "channel": "Gran Cursos OAB (Profa. Flávia Bahia)", "duration": "42 min", "url": "https://www.youtube.com/watch?v=VB8PxywmAp0"}]},
         title: "Reta Final da Prova: Ordem Econômica, Social, Súmulas Vinculantes e Controle de Constitucionalidade",
         legalBasis: "Arts. 136 a 232 da CF/88 e Súmulas Vinculantes do STF (Hoje sai o local de prova!)",
         topics: [
@@ -1834,6 +2408,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 78, date: '2027-01-05', week: 12, subjectId: 'civil', suggestedQ: 35,
+        youtube: {"videoTitle": "Aulão de Revisão Final de Direito Civil — 1ª Fase da OAB (Parte Geral, Obrigações, Contratos, Reais, Família e Sucessões)", "channel": "Estratégia OAB", "duration": "3h 37m", "views": "39 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=cDBjrSRj4Io", "altVideoTitle": "Aulão Damásio OAB: Revisão Geral de Direito Civil e Súmulas do STJ", "altChannel": "Damásio OAB", "altDuration": "1h 01m", "altViews": "16 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=hShNp2xJdWk", "topicVideos": [{"title": "Revisão de Parte Geral (Defeitos do Negócio e Prescrição) e Direito das Obrigações", "channel": "Me Julga — Cíntia Brunelli", "duration": "16 min", "url": "https://www.youtube.com/watch?v=poSR554Exps"}, {"title": "Revisão de Teoria Geral dos Contratos, Contratos em Espécie e Responsabilidade Civil", "channel": "Me Julga — Cíntia Brunelli", "duration": "17 min", "url": "https://www.youtube.com/watch?v=VupVxNhh5yI"}, {"title": "Revisão de Direitos Reais, Direito de Família e Sucessões (Art. 1.829 CC)", "channel": "Me Julga — Cíntia Brunelli", "duration": "12 min", "url": "https://www.youtube.com/watch?v=hEIlWsOtEps"}, {"title": "Revisão Geral de Direito Civil e Súmulas do STJ para a 1ª Fase OAB", "channel": "Estratégia OAB", "duration": "3h 37m", "url": "https://www.youtube.com/watch?v=cDBjrSRj4Io"}]},
         title: "Reta Final da Prova: Revisão Integrada de Direito Civil e Súmulas do STJ",
         legalBasis: "Arts. 1º a 2.027 do Código Civil e Súmulas Qualificadas do STJ em Direito Privado",
         topics: [
@@ -1845,6 +2420,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 79, date: '2027-01-06', week: 12, subjectId: 'proc_civil', suggestedQ: 35,
+        youtube: {"videoTitle": "Aulão de Revisão Final de Processo Civil — Procedimento Comum, Tutelas Provisórias, Recursos e Execução", "channel": "Estratégia OAB", "duration": "4h 20m", "views": "23 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=xHaNSWpp3tc", "altVideoTitle": "Aulão CEISC OAB: Revisão Geral de Processo Civil para a 1ª Fase da OAB", "altChannel": "CEISC OAB", "altDuration": "34 min", "altViews": "16 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=tZXKWwyK9Dw", "topicVideos": [{"title": "Revisão de Competência, Intervenção de Terceiros e Tutela Provisória (Urgência e Evidência — Arts. 294 a 311 CPC)", "channel": "Direito Desenhado", "duration": "18 min", "url": "https://www.youtube.com/watch?v=6YvvvJczRFc"}, {"title": "Revisão de Petição Inicial, Audiência (Art. 334), Contestação e Revelia no Procedimento Comum", "channel": "Direito Desenhado", "duration": "14 min", "url": "https://www.youtube.com/watch?v=mALHO0oDdGU"}, {"title": "Revisão de Recursos no Processo Civil: Apelação, Agravo de Instrumento, Embargos, REsp e RE", "channel": "Prof. Ricardo Torques", "duration": "35 min", "url": "https://www.youtube.com/watch?v=9k5ETWUFX2Y"}, {"title": "Revisão de Cumprimento de Sentença (Art. 523 CPC) e Execução de Título Extrajudicial", "channel": "Direito Desenhado", "duration": "15 min", "url": "https://www.youtube.com/watch?v=4gKmedYtrIc"}]},
         title: "Reta Final da Prova: Revisão de Procedimento Comum, Tutelas Provisórias e Recursos no CPC",
         legalBasis: "Arts. 1º a 1.044 do CPC/2015 e Súmulas Vinculantes",
         topics: [
@@ -1856,6 +2432,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 80, date: '2027-01-07', week: 12, subjectId: 'penal', suggestedQ: 35,
+        youtube: {"videoTitle": "Aulão de Revisão Final Integrada: Direito Penal e Processo Penal para a 1ª Fase da OAB", "channel": "Estratégia OAB", "duration": "3h 41m", "views": "28 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=UiwYW2y7AWs", "altVideoTitle": "Aulão Gran Cursos OAB: Retrospectiva e Revisão de Direito Penal e Processo Penal", "altChannel": "Gran Cursos OAB", "altDuration": "1h 25m", "altViews": "15 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=kw2UfQK4SrA", "topicVideos": [{"title": "Revisão de Direito Penal Parte Geral: Princípios, Teoria do Crime e Prescrição Penal", "channel": "Me Julga — Cíntia Brunelli", "duration": "10 min", "url": "https://www.youtube.com/watch?v=7lLVBCXumRI"}, {"title": "Revisão de Direito Penal Parte Especial: Crimes contra a Vida, Patrimônio e Administração Pública", "channel": "Gran Cursos OAB (Prof. Érico Palazzo)", "duration": "56 min", "url": "https://www.youtube.com/watch?v=a7YwMp0R0jE"}, {"title": "Revisão de Processo Penal: Inquérito Policial, ANPP, Ação Penal e Prisões Cautelares", "channel": "Direito Desenhado", "duration": "12 min", "url": "https://www.youtube.com/watch?v=AOkFhInQSM0"}, {"title": "Revisão de Tribunal do Júri, Nulidades e Recursos no Processo Penal (Apelação e RESE)", "channel": "Damásio OAB", "duration": "58 min", "url": "https://www.youtube.com/watch?v=A_87yVhs6LI"}]},
         title: "Reta Final da Prova: Revisão Integrada de Direito Penal e Processo Penal",
         legalBasis: "Arts. 1º a 359-R do CP, Arts. 1º a 667 do CPP e Súmulas Criminais do STF/STJ",
         topics: [
@@ -1867,6 +2444,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 81, date: '2027-01-08', week: 12, subjectId: 'trabalho', suggestedQ: 35,
+        youtube: {"videoTitle": "Aulão de Revisão Final: Direito do Trabalho, Processo do Trabalho e Direito Tributário — OAB 1ª Fase", "channel": "Estratégia OAB", "duration": "4h 08m", "views": "23 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=D7WxtaAnSoA", "altVideoTitle": "Aulão CEISC OAB: Revisão Integrada de Processo e Direito do Trabalho", "altChannel": "CEISC OAB", "altDuration": "1h 24m", "altViews": "81 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=SNyUpwg7HmM", "topicVideos": [{"title": "Revisão de Direito do Trabalho: Jornada, Salário, Alteração, Justa Causa e Estabilidades", "channel": "Direito Desenhado", "duration": "37 min", "url": "https://www.youtube.com/watch?v=UFwpOgGOv64"}, {"title": "Revisão de Processo do Trabalho: Competência, Audiência, Revelia, Recursos (RO/RR) e Execução", "channel": "CEISC OAB", "duration": "1h 24m", "url": "https://www.youtube.com/watch?v=SNyUpwg7HmM"}, {"title": "Revisão de Direito Tributário: Limitações ao Poder de Tributar, Responsabilidade e Crédito Tributário", "channel": "Revisão Animada", "duration": "51 min", "url": "https://www.youtube.com/watch?v=WybF_Kz4sqI"}, {"title": "Revisão Final de Trabalho, Processo do Trabalho e Súmulas do TST para a 1ª Fase OAB", "channel": "Estratégia OAB", "duration": "4h 08m", "url": "https://www.youtube.com/watch?v=D7WxtaAnSoA"}]},
         title: "Reta Final da Prova: Revisão Integrada de Direito do Trabalho, Processo do Trabalho e Tributário",
         legalBasis: "CLT (com Lei 13.467/17), CTN (Lei 5.172/66) e Súmulas/OJs do TST e STJ",
         topics: [
@@ -1878,6 +2456,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       },
       {
         day: 82, date: '2027-01-09', week: 12, subjectId: 'etica', suggestedQ: 25,
+        youtube: {"videoTitle": "Megaaulão de Revisão de Véspera para a 1ª Fase do Exame OAB — Todas as Disciplinas", "channel": "Gran Cursos OAB", "duration": "10h 58m", "views": "35 mil visualizações", "videoUrl": "https://www.youtube.com/watch?v=KG3W4mETH64", "altVideoTitle": "Revisão de Véspera OAB: Ética Profissional, Direitos Humanos e Filosofia do Direito", "altChannel": "Estratégia OAB", "altDuration": "3h 05m", "altViews": "39 mil visualizações", "altVideoUrl": "https://www.youtube.com/watch?v=DJWcfQIqhVo", "topicVideos": [{"title": "Revisão de Véspera — Estatuto da OAB: Prerrogativas, Incompatibilidades e Infrações Disciplinares", "channel": "Me Julga — Cíntia Brunelli", "duration": "23 min", "url": "https://www.youtube.com/watch?v=iOP9zotm4o4"}, {"title": "Revisão de Véspera — Honorários Advocatícios, Sociedade de Advogados e Publicidade na OAB", "channel": "Damásio OAB", "duration": "42 min", "url": "https://www.youtube.com/watch?v=O8ebJrlvii4"}, {"title": "Revisão de Véspera — Direitos Humanos e Filosofia do Direito (15% da Prova)", "channel": "Estratégia OAB", "duration": "3h 05m", "url": "https://www.youtube.com/watch?v=DJWcfQIqhVo"}, {"title": "Megaaulão de Revisão de Véspera 1ª Fase OAB — Todas as 20 Disciplinas", "channel": "Gran Cursos OAB", "duration": "10h 58m", "url": "https://www.youtube.com/watch?v=KG3W4mETH64"}]},
         title: "Véspera da Prova (Sábado — Último Dia do Cronograma): Revisão Final de Ética OAB, Filosofia, Direitos Humanos e Checklist de Prova",
         legalBasis: "Arts. 1º a 43 do EAOAB, Código de Ética e Item 3.6 do Edital do 48º EOU (Prova amanhã, 10/01/2027, das 13h às 18h • Fechamento dos portões: 12h30)",
         topics: [
@@ -2639,6 +3218,29 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       document.querySelector('#active-day-legal-basis span').textContent = `Base Legal / Edital: ${item.legalBasis}`;
       document.getElementById('active-day-suggested-q').textContent = `${item.suggestedQ} questões`;
 
+      // Populate YouTube Video Lecture Box for Active Day (Featured Aulão + 2nd Aulão)
+      if (item.youtube) {
+        document.getElementById('active-day-yt-title').textContent = item.youtube.videoTitle;
+        document.getElementById('active-day-yt-channel').textContent = item.youtube.channel;
+        document.getElementById('active-day-yt-duration').textContent = `⏱ ${item.youtube.duration}`;
+        const viewsEl = document.getElementById('active-day-yt-views');
+        if (viewsEl) viewsEl.textContent = `🔥 ${item.youtube.views || 'Aulão OAB'}`;
+        document.getElementById('active-day-yt-watch').href = item.youtube.videoUrl;
+        const altBtn = document.getElementById('active-day-yt-search');
+        if (altBtn) {
+          altBtn.href = item.youtube.altVideoUrl || item.youtube.videoUrl;
+          altBtn.title = `Assistir 2º Aulão (${item.youtube.altDuration || 'Completo'}): ${item.youtube.altVideoTitle || ''} (${item.youtube.altChannel || ''})`;
+        }
+        const altLabel = document.getElementById('active-day-yt-alt-btn-label');
+        if (altLabel) {
+          altLabel.textContent = `2º Aulão (${item.youtube.altDuration || 'Completo'})`;
+        }
+        const altDesc = document.getElementById('active-day-yt-alt-desc');
+        if (altDesc && item.youtube.altVideoTitle) {
+          altDesc.innerHTML = `2º Aulão Recomendado (${item.youtube.altDuration}): <strong>${item.youtube.altVideoTitle}</strong> — <em>${item.youtube.altChannel}</em>`;
+        }
+      }
+
       // Toggle Day Completed Button
       const btnDone = document.getElementById('btn-toggle-active-day-done');
       if (st.completed) {
@@ -2657,9 +3259,27 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         const isChecked = Boolean(st.completedTopics[idx]);
         const row = document.createElement('div');
         row.className = `p-3 rounded-xl border transition flex items-start gap-3 cursor-pointer ${isChecked ? 'bg-emerald-50/60 border-emerald-200 text-emerald-950' : 'bg-slate-50/70 hover:bg-slate-100/80 border-slate-200 text-slate-800'}`;
+        const tvObj = (item.youtube && item.youtube.topicVideos && item.youtube.topicVideos[idx])
+          ? item.youtube.topicVideos[idx]
+          : { url: item.youtube ? item.youtube.videoUrl : '#', title: item.title, channel: item.youtube ? item.youtube.channel : 'OAB', duration: item.youtube ? item.youtube.duration : 'Aula' };
         row.innerHTML = `
-          <input type="checkbox" ${isChecked ? 'checked' : ''} class="mt-0.5 w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 pointer-events-none" />
-          <span class="text-xs sm:text-sm font-medium leading-snug ${isChecked ? 'line-through text-slate-500' : ''}">${tText}</span>
+          <input type="checkbox" ${isChecked ? 'checked' : ''} class="mt-1 w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 pointer-events-none shrink-0" />
+          <div class="flex-1 min-w-0 space-y-1">
+            <span class="block text-xs sm:text-sm font-medium leading-snug ${isChecked ? 'line-through text-slate-500' : ''}">${tText}</span>
+            <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
+              <span class="inline-flex items-center gap-1 font-semibold text-red-700">
+                <span>▶ Vídeo específico do assunto:</span>
+              </span>
+              <a href="${tvObj.url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="font-bold text-slate-800 hover:text-red-600 hover:underline truncate max-w-full">
+                ${tvObj.title}
+              </a>
+              <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-200/80 text-slate-700 font-semibold">${tvObj.channel} • ⏱ ${tvObj.duration}</span>
+            </div>
+          </div>
+          <a href="${tvObj.url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="px-2.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold flex items-center gap-1 shrink-0 transition shadow-2xs self-center" title="Assistir aula específica: ${tvObj.title} (${tvObj.channel} • ${tvObj.duration})">
+            <i data-lucide="play-circle" class="w-3.5 h-3.5"></i>
+            <span>Aula (${tvObj.duration})</span>
+          </a>
         `;
         row.addEventListener('click', () => {
           st.completedTopics[idx] = !st.completedTopics[idx];
@@ -2809,6 +3429,26 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         });
       }
 
+      const ytSubjSel = document.getElementById('filter-yt-subject');
+      if (ytSubjSel && ytSubjSel.options.length <= 1) {
+        SUBJECTS.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s.id;
+          opt.textContent = `${s.name} (${s.examQuestions} questões)`;
+          ytSubjSel.appendChild(opt);
+        });
+      }
+
+      const ytWeekSel = document.getElementById('filter-yt-week');
+      if (ytWeekSel && ytWeekSel.options.length <= 1) {
+        for (let w = 1; w <= 12; w++) {
+          const opt = document.createElement('option');
+          opt.value = String(w);
+          opt.textContent = `Semana ${w}`;
+          ytWeekSel.appendChild(opt);
+        }
+      }
+
       const quickDaySel = document.getElementById('quick-log-day');
       if (quickDaySel.options.length === 0) {
         RAW_SCHEDULE.forEach(r => {
@@ -2897,10 +3537,17 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
 
           const topicsHtml = item.topics.map((t, idx) => {
             const done = st.completedTopics[idx];
+            const tv = (item.youtube && item.youtube.topicVideos && item.youtube.topicVideos[idx]) ? item.youtube.topicVideos[idx] : null;
             return `
-              <li class="flex items-start gap-2 text-xs cursor-pointer py-0.5" data-card-topic="${item.day}:${idx}">
-                <input type="checkbox" ${done ? 'checked' : ''} class="mt-0.5 rounded text-emerald-600 pointer-events-none" />
-                <span class="${done ? 'line-through text-slate-400' : 'text-slate-700'}">${t}</span>
+              <li class="flex items-start justify-between gap-2 text-xs cursor-pointer py-1 border-b border-slate-100/70 last:border-b-0" data-card-topic="${item.day}:${idx}">
+                <div class="flex items-start gap-2 flex-1 min-w-0">
+                  <input type="checkbox" ${done ? 'checked' : ''} class="mt-0.5 rounded text-emerald-600 pointer-events-none shrink-0" />
+                  <div class="min-w-0">
+                    <span class="block ${done ? 'line-through text-slate-400' : 'text-slate-700'}">${t}</span>
+                    ${tv ? `<span class="block text-[10px] text-slate-500 truncate mt-0.5">▶ Aula do assunto: <strong>${tv.title}</strong> (${tv.channel} • ${tv.duration})</span>` : ''}
+                  </div>
+                </div>
+                ${tv ? `<a href="${tv.url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="px-1.5 py-0.5 rounded bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-[10px] font-bold shrink-0 transition" title="${tv.title} (${tv.duration})">▶ ${tv.duration}</a>` : ''}
               </li>
             `;
           }).join('');
@@ -2917,6 +3564,21 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
                   </div>
                   <h4 class="text-sm font-bold text-slate-900 mt-1.5">${item.title}</h4>
                   <p class="text-[11px] text-slate-500 mt-0.5">${item.legalBasis}</p>
+                  ${item.youtube ? `
+                  <div class="mt-2 p-2 rounded-xl bg-red-50/70 border border-red-200/80 flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2 min-w-0">
+                      <span class="w-6 h-6 rounded-lg bg-red-600 text-white flex items-center justify-center shrink-0 text-[10px] font-bold">▶</span>
+                      <div class="min-w-0">
+                        <p class="text-[11px] font-bold text-slate-900 truncate">${item.youtube.videoTitle}</p>
+                        <p class="text-[10px] text-slate-600 truncate">${item.youtube.channel} • ${item.youtube.duration}</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">
+                      <a href="${item.youtube.videoUrl}" target="_blank" rel="noopener noreferrer" class="px-2 py-1 rounded bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold transition" title="Assistir Aulão em Destaque (${item.youtube.duration})">Aulão (${item.youtube.duration})</a>
+                      <a href="${item.youtube.altVideoUrl || item.youtube.videoUrl}" target="_blank" rel="noopener noreferrer" class="px-1.5 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-semibold transition" title="2º Aulão: ${item.youtube.altVideoTitle || ''} (${item.youtube.altChannel || ''})">2º Aulão</a>
+                    </div>
+                  </div>
+                  ` : ''}
                 </div>
                 <button type="button" data-card-done="${item.day}" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold shrink-0 transition ${st.completed ? 'bg-emerald-600 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'}">
                   ${st.completed ? '✓ Concluído' : 'Concluir Dia'}
@@ -2943,9 +3605,15 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
                 </span>
               </div>
 
-              <button type="button" data-card-open="${item.day}" class="text-[11px] font-bold text-blue-600 hover:text-blue-800">
-                Abrir no Painel do Dia →
-              </button>
+              <div class="flex items-center gap-2">
+                <a href="${item.youtube ? item.youtube.videoUrl : '#'}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[11px] font-bold flex items-center gap-1 transition shadow-2xs" title="${item.youtube ? item.youtube.videoTitle + ' (' + item.youtube.channel + ')' : 'Assistir Videoaula no YouTube'}">
+                  <i data-lucide="play" class="w-3 h-3 fill-current"></i>
+                  <span>Videoaula YouTube</span>
+                </a>
+                <button type="button" data-card-open="${item.day}" class="text-[11px] font-bold text-blue-600 hover:text-blue-800">
+                  Abrir Dia →
+                </button>
+              </div>
             </div>
           `;
 
@@ -3225,6 +3893,113 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       });
     }
 
+    function renderYoutubePlaylistTab() {
+      const container = document.getElementById('youtube-playlist-container');
+      if (!container) return;
+      const subjFilter = document.getElementById('filter-yt-subject') ? document.getElementById('filter-yt-subject').value : 'all';
+      const weekFilter = document.getElementById('filter-yt-week') ? document.getElementById('filter-yt-week').value : 'all';
+      const searchFilter = document.getElementById('filter-yt-search') ? document.getElementById('filter-yt-search').value.trim().toLowerCase() : '';
+
+      const filtered = RAW_SCHEDULE.filter(item => {
+        const subj = SUBJECT_MAP[item.subjectId];
+        if (subjFilter !== 'all' && item.subjectId !== subjFilter) return false;
+        if (weekFilter !== 'all' && String(item.week) !== weekFilter) return false;
+        if (searchFilter) {
+          const hay = `${item.title} ${item.legalBasis} ${subj.name} ${item.youtube ? item.youtube.videoTitle + ' ' + item.youtube.channel : ''} ${item.topics.join(' ')}`.toLowerCase();
+          if (!hay.includes(searchFilter)) return false;
+        }
+        return true;
+      });
+
+      container.innerHTML = '';
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="col-span-2 bg-white rounded-2xl border border-slate-200 p-8 text-center text-xs text-slate-500">Nenhuma videoaula encontrada para este filtro.</div>`;
+        return;
+      }
+
+      const todayISO = getDeviceTodayInfo().todayISO;
+
+      filtered.forEach(item => {
+        const st = appState.days[item.day];
+        const subj = SUBJECT_MAP[item.subjectId];
+        const dInfo = parseDateInfo(item.date);
+        const yt = item.youtube || {};
+        const topicVideosHtml = (yt.topicVideos || []).map((tv, idx) => `
+          <a href="${tv.url}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-2 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200/80 transition text-left">
+            <div class="min-w-0 flex-1">
+              <p class="text-[11px] font-bold text-slate-800 truncate">${idx + 1}. ${tv.title}</p>
+              <p class="text-[10px] text-slate-500 truncate">${tv.channel}</p>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-red-100 text-red-800 text-[10px] font-bold shrink-0">▶ ${tv.duration}</span>
+          </a>
+        `).join('');
+
+        const card = document.createElement('div');
+        card.className = `bg-white rounded-2xl border transition p-4 flex flex-col justify-between gap-3 shadow-2xs ${st.completed ? 'border-emerald-300 bg-emerald-50/15' : 'border-slate-200 hover:border-red-300'}`;
+        card.innerHTML = `
+          <div class="space-y-2.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-slate-900 text-white">DIA ${item.day}</span>
+                <span class="text-xs font-bold text-slate-600">${dInfo.shortFormatted} (Sem. ${item.week})</span>
+                ${item.date === todayISO ? '<span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-emerald-400 text-slate-950">HOJE</span>' : ''}
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${subj.badgeBg}">${subj.name}</span>
+              </div>
+              <span class="text-[11px] font-semibold ${st.completed ? 'text-emerald-700' : 'text-slate-400'}">${st.completed ? '✓ Estudado' : 'Pendente'}</span>
+            </div>
+
+            <div>
+              <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Tema do Dia (${item.legalBasis}):</p>
+              <h4 class="text-sm font-bold text-slate-900">${item.title}</h4>
+            </div>
+
+            <div class="p-3 rounded-xl bg-red-50/70 border border-red-200/80 space-y-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-1.5">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-red-700 flex items-center gap-1">
+                  <span>▶ Aulão em Destaque (Gran / CERS / CEISC / Estratégia)</span>
+                </span>
+                <span class="text-[10px] font-semibold text-slate-700 bg-white px-2 py-0.5 rounded border border-red-100">⏱ ${yt.duration || 'Aulão'}</span>
+              </div>
+              <p class="text-xs sm:text-sm font-extrabold text-slate-900 leading-snug">${yt.videoTitle || item.title}</p>
+              <p class="text-[11px] text-slate-600 font-medium">Curso / Canal: <strong>${yt.channel || 'OAB'}</strong> • ${yt.views || ''}</p>
+            </div>
+
+            <div class="space-y-1.5 pt-1">
+              <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Aulas Específicas por Assunto do Dia (≥ 10 min):</p>
+              <div class="grid grid-cols-1 gap-1.5">
+                ${topicVideosHtml}
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <a href="${yt.videoUrl}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-2xs">
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                <span>Assistir Aulão (${yt.duration})</span>
+              </a>
+              <a href="${yt.altVideoUrl || yt.videoUrl}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1 transition" title="Assistir 2º Aulão: ${yt.altVideoTitle || ''} (${yt.altChannel || ''})">
+                <i data-lucide="tv" class="w-3.5 h-3.5 text-red-600"></i>
+                <span>2º Aulão (${yt.altDuration || 'Completo'})</span>
+              </a>
+            </div>
+            <button type="button" data-yt-open-day="${item.day}" class="text-[11px] font-bold text-blue-600 hover:text-blue-800">
+              Ir para o Dia ${item.day} →
+            </button>
+          </div>
+        `;
+
+        card.querySelector(`[data-yt-open-day="${item.day}"]`).addEventListener('click', () => {
+          appState.activeDay = item.day;
+          saveState();
+          switchTab('hoje');
+          refreshAll();
+        });
+
+        container.appendChild(card);
+      });
+    }
+
     function switchTab(tabId) {
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
       const target = document.getElementById(`tab-${tabId}`);
@@ -3252,6 +4027,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       renderPerformanceTab(metrics);
       renderEditalVerticalTab();
       renderSimuladosTab();
+      renderYoutubePlaylistTab();
       if (typeof lucide !== 'undefined') {
         lucide.createIcons();
       }
@@ -3264,6 +4040,53 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       loadState();
       loadCloudConfig();
       populateFilterSelects();
+
+      // Inicialização e alternância do Modo Escuro (Exclusivo no Menu & Dados)
+      function syncDarkModeUI() {
+        const isDark = document.documentElement.classList.contains('dark');
+        const sbBtn = document.getElementById('btn-sidebar-dark-mode');
+        const sbBadge = document.getElementById('sidebar-dark-badge');
+        const sbIcon = document.getElementById('sidebar-dark-icon');
+        if (sbBadge) {
+          sbBadge.textContent = isDark ? 'Ativado' : 'Desativado';
+          sbBadge.className = isDark
+            ? 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+            : 'px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-700 text-slate-300';
+        }
+        if (sbIcon) {
+          sbIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+        }
+        if (sbBtn) {
+          sbBtn.className = isDark
+            ? 'w-full py-2.5 px-3 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 transition shadow-xs'
+            : 'w-full py-2.5 px-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-white border border-slate-600 font-bold text-xs flex items-center justify-center gap-2 transition shadow-xs';
+          sbBtn.innerHTML = isDark
+            ? '<i data-lucide="sun" class="w-4 h-4"></i><span>Desativar Modo Escuro (Voltar ao Claro)</span>'
+            : '<i data-lucide="moon" class="w-4 h-4 text-amber-300"></i><span>Ativar Modo Escuro</span>';
+        }
+        if (typeof Chart !== 'undefined') {
+          Chart.defaults.color = isDark ? '#e2e8f0' : '#475569';
+          Chart.defaults.borderColor = isDark ? '#334155' : '#e2e8f0';
+          if (chartAccuracyInstance) chartAccuracyInstance.update();
+          if (chartVolumeInstance) chartVolumeInstance.update();
+        }
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      }
+
+      function toggleDarkMode() {
+        const isDark = document.documentElement.classList.toggle('dark');
+        try {
+          localStorage.setItem('oab48_theme_mode', isDark ? 'dark' : 'light');
+        } catch (e) {}
+        syncDarkModeUI();
+        showToast(isDark ? 'Modo Escuro ativado!' : 'Modo Claro ativado!');
+      }
+
+      const btnSbDark = document.getElementById('btn-sidebar-dark-mode');
+      if (btnSbDark) btnSbDark.addEventListener('click', toggleDarkMode);
+      syncDarkModeUI();
 
       // Ajusta o dia ativo automaticamente para acompanhar o dia de hoje no dispositivo
       const todayInfo = getDeviceTodayInfo();
@@ -3498,6 +4321,17 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         saveState();
         refreshAll();
         showToast(`+${addAc + addEr} questões somadas ao Dia ${dayNum}!`);
+      });
+
+      // YouTube Playlist Tab Filters
+      ['filter-yt-subject', 'filter-yt-week', 'filter-yt-search'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', () => {
+            renderYoutubePlaylistTab();
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+          });
+        }
       });
 
       // Edital Vertical Subject Filter
