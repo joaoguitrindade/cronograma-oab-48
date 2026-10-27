@@ -548,7 +548,7 @@
   <!-- Global KPI Strip -->
   <section class="bg-white border-b border-slate-200 shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center gap-3">
           <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
             <i data-lucide="check-circle-2" class="w-5 h-5"></i>
@@ -572,6 +572,17 @@
             <div class="w-full bg-slate-200 h-1.5 rounded-full mt-1 overflow-hidden">
               <div id="kpi-topics-bar" class="bg-indigo-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
             </div>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-orange-50/70 border border-orange-200/80 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center shrink-0">
+            <i data-lucide="clock-4" class="w-5 h-5"></i>
+          </div>
+          <div class="min-w-0">
+            <p class="text-[11px] font-medium text-orange-700 uppercase">Assuntos Atrasados</p>
+            <p class="text-lg font-bold text-orange-800" id="kpi-topics-delayed">0</p>
+            <p class="text-[11px] text-orange-600 truncate">Tópicos pendentes</p>
           </div>
         </div>
 
@@ -793,10 +804,14 @@
           <!-- Visão Rápida da Semana Selecionada -->
           <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 space-y-4">
             <div class="flex items-center justify-between">
-              <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
-                <i data-lucide="calendar-range" class="w-4 h-4 text-blue-600"></i>
-                <span id="sidebar-week-title">Visão da Semana 1</span>
-              </h3>
+              <div class="flex items-center gap-2">
+                <button type="button" id="btn-sidebar-prev-week" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition disabled:opacity-50"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                  <i data-lucide="calendar-range" class="w-4 h-4 text-blue-600"></i>
+                  <span id="sidebar-week-title">Semana 1</span>
+                </h3>
+                <button type="button" id="btn-sidebar-next-week" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition disabled:opacity-50"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+              </div>
               <span id="sidebar-week-progress" class="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">0/6 concluídos</span>
             </div>
             <div id="sidebar-week-days" class="space-y-2 max-h-[380px] overflow-y-auto custom-scrollbar pr-1">
@@ -3063,6 +3078,9 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       let topicsTotal = 0;
       let qAcertos = 0;
       let qErros = 0;
+      let delayedTopics = 0;
+      
+      const devInfo = getDeviceTodayInfo();
 
       const bySubject = {};
       SUBJECTS.forEach(s => {
@@ -3094,6 +3112,10 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
 
         topicsTotal += dayTopicsTotal;
         topicsDone += dayTopicsDone;
+
+        if (item.date < devInfo.todayISO && !st.completed) {
+           delayedTopics += (dayTopicsTotal - dayTopicsDone);
+        }
 
         qAcertos += st.acertos;
         qErros += st.erros;
@@ -3133,6 +3155,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         daysDone,
         topicsDone,
         topicsTotal,
+        delayedTopics,
         qTotal,
         qAcertos,
         qErros,
@@ -3145,6 +3168,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
     // =========================================================================
     // 5. RENDERIZAÇÃO DOS COMPONENTES
     // =========================================================================
+    let currentSidebarWeek = 1;
     let chartAccuracyInstance = null;
     let chartVolumeInstance = null;
 
@@ -3163,6 +3187,11 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       document.getElementById('kpi-q-acertos').textContent = metrics.qAcertos.toLocaleString('pt-BR');
       document.getElementById('kpi-q-erros').textContent = metrics.qErros.toLocaleString('pt-BR');
       document.getElementById('kpi-q-pct-sub').textContent = `Taxa: ${metrics.accuracyPct.toFixed(1)}%`;
+      
+      const elDelayed = document.getElementById('kpi-topics-delayed');
+      if (elDelayed) {
+        elDelayed.textContent = metrics.delayedTopics || 0;
+      }
 
       const headerAcc = document.getElementById('header-accuracy');
       const headerCut = document.getElementById('header-CutStatus');
@@ -3286,9 +3315,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
           markDayModified(item.day);
           const allStandardDone = st.completedTopics.every(Boolean);
           const allCustomDone = st.customTopics.every(c => c.done);
-          if (allStandardDone && allCustomDone) {
-            st.completed = true;
-          }
+          st.completed = (allStandardDone && allCustomDone);
           saveState();
           refreshAll();
         });
@@ -3345,20 +3372,29 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         accBadge.textContent = `${feitas} feitas • ${st.acertos} acertos (${pct.toFixed(0)}%)`;
       }
 
-      // Sidebar Week View
-      const weekItems = RAW_SCHEDULE.filter(r => r.week === item.week);
+      // Sidebar Week View Decoupled
+      currentSidebarWeek = item.week;
+      renderSidebarWeek(currentSidebarWeek, item.day);
+    }
+
+    function renderSidebarWeek(weekNumber, activeDayNum) {
+      const weekItems = RAW_SCHEDULE.filter(r => r.week === weekNumber);
+      if (weekItems.length === 0) return;
+
       const weekDoneCount = weekItems.filter(r => appState.days[r.day].completed).length;
-      document.getElementById('sidebar-week-title').textContent = `Dias da Semana ${item.week}`;
+      document.getElementById('sidebar-week-title').textContent = `Semana ${weekNumber}`;
       document.getElementById('sidebar-week-progress').textContent = `${weekDoneCount}/${weekItems.length} concluídos`;
 
       const sidebarList = document.getElementById('sidebar-week-days');
       sidebarList.innerHTML = '';
+      const deviceToday = getDeviceTodayInfo();
+
       weekItems.forEach(wItem => {
         const wSt = appState.days[wItem.day];
         const wSubj = SUBJECT_MAP[wItem.subjectId];
         const wDate = parseDateInfo(wItem.date);
         const wQ = wSt.acertos + wSt.erros;
-        const isCurrent = wItem.day === item.day;
+        const isCurrent = wItem.day === activeDayNum;
 
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -3386,6 +3422,11 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         });
         sidebarList.appendChild(btn);
       });
+      
+      document.getElementById('btn-sidebar-prev-week').disabled = weekNumber <= 1;
+      document.getElementById('btn-sidebar-next-week').disabled = weekNumber >= 12;
+      
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
     function populateFilterSelects() {
@@ -3539,79 +3580,90 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
             const done = st.completedTopics[idx];
             const tv = (item.youtube && item.youtube.topicVideos && item.youtube.topicVideos[idx]) ? item.youtube.topicVideos[idx] : null;
             return `
-              <li class="flex items-start justify-between gap-2 text-xs cursor-pointer py-1 border-b border-slate-100/70 last:border-b-0" data-card-topic="${item.day}:${idx}">
-                <div class="flex items-start gap-2 flex-1 min-w-0">
-                  <input type="checkbox" ${done ? 'checked' : ''} class="mt-0.5 rounded text-emerald-600 pointer-events-none shrink-0" />
+              <li class="flex items-start justify-between gap-3 text-sm cursor-pointer py-2 border-b border-slate-100/70 last:border-b-0 hover:bg-slate-50/50 rounded-lg px-2 -mx-2 transition-colors" data-card-topic="${item.day}:${idx}">
+                <div class="flex items-start gap-3 flex-1 min-w-0">
+                  <input type="checkbox" ${done ? 'checked' : ''} class="mt-1 rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4 transition-colors cursor-pointer pointer-events-none shrink-0" />
                   <div class="min-w-0">
-                    <span class="block ${done ? 'line-through text-slate-400' : 'text-slate-700'}">${t}</span>
-                    ${tv ? `<span class="block text-[10px] text-slate-500 truncate mt-0.5">▶ Aula do assunto: <strong>${tv.title}</strong> (${tv.channel} • ${tv.duration})</span>` : ''}
+                    <span class="block text-[clamp(0.75rem,1.2vw,0.85rem)] leading-relaxed ${done ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${t}</span>
+                    ${tv ? `<div class="flex items-center gap-1.5 mt-1.5"><i data-lucide="play-circle" class="w-3.5 h-3.5 text-red-500"></i><span class="text-[clamp(0.65rem,1vw,0.75rem)] text-slate-500 truncate">Aula: <strong>${tv.title}</strong> (${tv.channel})</span></div>` : ''}
                   </div>
                 </div>
-                ${tv ? `<a href="${tv.url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="px-1.5 py-0.5 rounded bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-[10px] font-bold shrink-0 transition" title="${tv.title} (${tv.duration})">▶ ${tv.duration}</a>` : ''}
+                ${tv ? `<a href="${tv.url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="px-2.5 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-[clamp(0.6rem,1vw,0.7rem)] font-bold shrink-0 transition flex items-center gap-1" title="${tv.title} (${tv.duration})"><i data-lucide="play" class="w-3 h-3 fill-current"></i><span>${tv.duration}</span></a>` : ''}
               </li>
             `;
           }).join('');
 
           card.innerHTML = `
-            <div class="space-y-3">
-              <div class="flex items-start justify-between gap-2">
-                <div>
-                  <div class="flex flex-wrap items-center gap-1.5">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-slate-900 text-white">DIA ${item.day}</span>
-                    <span class="text-xs font-bold text-slate-700">${dInfo.weekday}, ${dInfo.formatted}</span>
-                    ${item.date === getDeviceTodayInfo().todayISO ? '<span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-emerald-400 text-slate-950 uppercase shadow-2xs">HOJE</span>' : ''}
-                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${subj.badgeBg}">${subj.name}</span>
+            <div class="space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                <div class="flex-1 min-w-0">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-md text-[clamp(0.6rem,1vw,0.7rem)] font-extrabold bg-slate-900 text-white shadow-xs">DIA ${item.day}</span>
+                    <span class="text-[clamp(0.7rem,1.2vw,0.8rem)] font-bold text-slate-700">${dInfo.weekday}, ${dInfo.formatted}</span>
+                    ${item.date === getDeviceTodayInfo().todayISO ? '<span class="px-2.5 py-1 rounded-md text-[clamp(0.6rem,1vw,0.7rem)] font-extrabold bg-emerald-400 text-slate-950 uppercase shadow-xs">HOJE</span>' : ''}
+                    <span class="px-2.5 py-1 rounded-full text-[clamp(0.6rem,1vw,0.7rem)] font-bold border ${subj.badgeBg} truncate">${subj.name}</span>
                   </div>
-                  <h4 class="text-sm font-bold text-slate-900 mt-1.5">${item.title}</h4>
-                  <p class="text-[11px] text-slate-500 mt-0.5">${item.legalBasis}</p>
+                  <h4 class="text-[clamp(0.9rem,1.5vw,1.1rem)] font-extrabold text-slate-900 mt-2 leading-tight">${item.title}</h4>
+                  <p class="text-[clamp(0.7rem,1.2vw,0.8rem)] text-slate-500 mt-1 opacity-90">${item.legalBasis}</p>
+                  
                   ${item.youtube ? `
-                  <div class="mt-2 p-2 rounded-xl bg-red-50/70 border border-red-200/80 flex items-center justify-between gap-2">
-                    <div class="flex items-center gap-2 min-w-0">
-                      <span class="w-6 h-6 rounded-lg bg-red-600 text-white flex items-center justify-center shrink-0 text-[10px] font-bold">▶</span>
+                  <div class="mt-3 p-3 rounded-xl bg-red-50/70 border border-red-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors hover:bg-red-50">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <div class="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                        <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                      </div>
                       <div class="min-w-0">
-                        <p class="text-[11px] font-bold text-slate-900 truncate">${item.youtube.videoTitle}</p>
-                        <p class="text-[10px] text-slate-600 truncate">${item.youtube.channel} • ${item.youtube.duration}</p>
+                        <p class="text-[clamp(0.75rem,1.2vw,0.85rem)] font-bold text-slate-900 truncate">${item.youtube.videoTitle}</p>
+                        <p class="text-[clamp(0.65rem,1vw,0.75rem)] text-slate-600 truncate mt-0.5">${item.youtube.channel} • <span class="font-semibold">${item.youtube.duration}</span></p>
                       </div>
                     </div>
-                    <div class="flex items-center gap-1 shrink-0">
-                      <a href="${item.youtube.videoUrl}" target="_blank" rel="noopener noreferrer" class="px-2 py-1 rounded bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold transition" title="Assistir Aulão em Destaque (${item.youtube.duration})">Aulão (${item.youtube.duration})</a>
-                      <a href="${item.youtube.altVideoUrl || item.youtube.videoUrl}" target="_blank" rel="noopener noreferrer" class="px-1.5 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-semibold transition" title="2º Aulão: ${item.youtube.altVideoTitle || ''} (${item.youtube.altChannel || ''})">2º Aulão</a>
+                    <div class="flex items-center gap-2 shrink-0">
+                      <a href="${item.youtube.videoUrl}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[clamp(0.65rem,1vw,0.75rem)] font-bold transition shadow-xs flex items-center gap-1.5" title="Assistir Aulão em Destaque">
+                        <span>Aulão (${item.youtube.duration})</span>
+                      </a>
+                      <a href="${item.youtube.altVideoUrl || item.youtube.videoUrl}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-[clamp(0.65rem,1vw,0.75rem)] font-semibold transition flex items-center gap-1.5 shadow-xs" title="2º Aulão: ${item.youtube.altVideoTitle || ''} (${item.youtube.altChannel || ''})">
+                        <span>2º Aulão</span>
+                      </a>
                     </div>
                   </div>
                   ` : ''}
                 </div>
-                <button type="button" data-card-done="${item.day}" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold shrink-0 transition ${st.completed ? 'bg-emerald-600 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'}">
-                  ${st.completed ? '✓ Concluído' : 'Concluir Dia'}
+                
+                <button type="button" data-card-done="${item.day}" class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-[clamp(0.75rem,1.2vw,0.85rem)] font-bold shrink-0 transition flex items-center justify-center gap-2 shadow-xs ${st.completed ? 'bg-emerald-600 text-white hover:bg-emerald-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'}">
+                  ${st.completed ? '<i data-lucide="check-circle" class="w-4 h-4"></i><span>Concluído</span>' : '<i data-lucide="circle" class="w-4 h-4"></i><span>Concluir</span>'}
                 </button>
               </div>
 
-              <ul class="space-y-1 pl-0.5 border-t border-slate-100 pt-2">
+              <ul class="space-y-2 pl-0 border-t border-slate-100 pt-3">
                 ${topicsHtml}
               </ul>
             </div>
 
-            <div class="pt-3 border-t border-slate-100 bg-slate-50/80 -mx-4 -mb-4 p-3.5 rounded-b-2xl flex flex-wrap items-center justify-between gap-2">
-              <div class="flex items-center gap-2">
-                <div class="flex items-center gap-1">
-                  <span class="text-[10px] font-bold uppercase text-emerald-700">Acertos:</span>
-                  <input type="number" min="0" max="500" value="${st.acertos}" data-card-acertos="${item.day}" class="w-14 text-center text-xs font-bold rounded border border-emerald-300 bg-white py-1 text-emerald-800" />
+            <div class="pt-4 border-t border-slate-100 bg-slate-50/80 -mx-4 -mb-4 p-4 rounded-b-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex flex-wrap items-center gap-3">
+                <div class="flex items-center gap-2 bg-white px-2 py-1.5 rounded-lg border border-slate-200 shadow-xs">
+                  <span class="text-[clamp(0.65rem,1vw,0.75rem)] font-bold uppercase text-emerald-700 tracking-wider">Acertos</span>
+                  <input type="number" min="0" max="500" value="${st.acertos}" data-card-acertos="${item.day}" class="w-16 text-center text-[clamp(0.8rem,1.2vw,0.9rem)] font-bold rounded-md border border-emerald-300 bg-emerald-50/30 py-1 text-emerald-800 focus:ring-2 focus:ring-emerald-500 focus:outline-none" style="font-variant-numeric: tabular-nums;" />
                 </div>
-                <div class="flex items-center gap-1">
-                  <span class="text-[10px] font-bold uppercase text-rose-700">Erros:</span>
-                  <input type="number" min="0" max="500" value="${st.erros}" data-card-erros="${item.day}" class="w-14 text-center text-xs font-bold rounded border border-rose-300 bg-white py-1 text-rose-800" />
+                <div class="flex items-center gap-2 bg-white px-2 py-1.5 rounded-lg border border-slate-200 shadow-xs">
+                  <span class="text-[clamp(0.65rem,1vw,0.75rem)] font-bold uppercase text-rose-700 tracking-wider">Erros</span>
+                  <input type="number" min="0" max="500" value="${st.erros}" data-card-erros="${item.day}" class="w-16 text-center text-[clamp(0.8rem,1.2vw,0.9rem)] font-bold rounded-md border border-rose-300 bg-rose-50/30 py-1 text-rose-800 focus:ring-2 focus:ring-rose-500 focus:outline-none" style="font-variant-numeric: tabular-nums;" />
                 </div>
-                <span class="text-[11px] font-semibold text-slate-600 ml-1">
-                  Total: <strong>${feitas}</strong> ${pct !== null ? `<span class="${pct >= 50 ? 'text-emerald-700' : 'text-rose-700'}">(${pct}%)</span>` : ''}
-                </span>
+                <div class="flex items-center gap-1.5 bg-slate-100 px-3 py-2 rounded-lg border border-slate-200">
+                  <span class="text-[clamp(0.65rem,1vw,0.75rem)] font-bold text-slate-600 uppercase tracking-wider">Total</span>
+                  <strong class="text-[clamp(0.8rem,1.2vw,0.9rem)] text-slate-800" style="font-variant-numeric: tabular-nums;">${feitas}</strong>
+                  ${pct !== null ? `<span class="text-[clamp(0.7rem,1vw,0.8rem)] font-bold ${pct >= 50 ? 'text-emerald-600' : 'text-rose-600'} ml-1">(${pct}%)</span>` : ''}
+                </div>
               </div>
 
-              <div class="flex items-center gap-2">
-                <a href="${item.youtube ? item.youtube.videoUrl : '#'}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[11px] font-bold flex items-center gap-1 transition shadow-2xs" title="${item.youtube ? item.youtube.videoTitle + ' (' + item.youtube.channel + ')' : 'Assistir Videoaula no YouTube'}">
-                  <i data-lucide="play" class="w-3 h-3 fill-current"></i>
-                  <span>Videoaula YouTube</span>
+              <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                <a href="${item.youtube ? item.youtube.videoUrl : '#'}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-[clamp(0.7rem,1.1vw,0.8rem)] font-bold flex items-center gap-2 transition shadow-xs">
+                  <i data-lucide="youtube" class="w-4 h-4"></i>
+                  <span class="hidden sm:inline">YouTube</span>
                 </a>
-                <button type="button" data-card-open="${item.day}" class="text-[11px] font-bold text-blue-600 hover:text-blue-800">
-                  Abrir Dia →
+                <button type="button" data-card-open="${item.day}" class="px-3.5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[clamp(0.7rem,1.1vw,0.8rem)] font-bold transition flex items-center gap-1.5 shadow-xs">
+                  <span>Abrir Dia</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </button>
               </div>
             </div>
@@ -3666,6 +3718,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
 
         container.appendChild(weekSection);
       });
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
     function renderPerformanceTab(metrics) {
@@ -3965,7 +4018,7 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
             </div>
 
             <div class="space-y-1.5 pt-1">
-              <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Aulas Específicas por Assunto do Dia (≥ 10 min):</p>
+              <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Aulas Específicas por Assunto do Dia:</p>
               <div class="grid grid-cols-1 gap-1.5">
                 ${topicVideosHtml}
               </div>
@@ -4013,21 +4066,31 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
         }
       });
 
-      if (tabId === 'desempenho') {
-        const metrics = computeGlobalMetrics();
-        renderPerformanceTab(metrics);
-      }
+      const metrics = computeGlobalMetrics();
+      if (tabId === 'hoje') renderActiveDayPanel(metrics);
+      if (tabId === 'cronograma') renderFullScheduleTab();
+      if (tabId === 'desempenho') renderPerformanceTab(metrics);
+      if (tabId === 'edital') renderEditalVerticalTab();
+      if (tabId === 'simulados') renderSimuladosTab();
+      if (tabId === 'aulas') renderYoutubePlaylistTab();
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
     function refreshAll() {
       const metrics = computeGlobalMetrics();
       renderKPIs(metrics);
-      renderActiveDayPanel(metrics);
-      renderFullScheduleTab();
-      renderPerformanceTab(metrics);
-      renderEditalVerticalTab();
-      renderSimuladosTab();
-      renderYoutubePlaylistTab();
+      
+      const activeTabBtn = document.querySelector('.nav-tab-btn.bg-amber-500');
+      const activeTabId = activeTabBtn ? activeTabBtn.getAttribute('data-tab') : 'hoje';
+
+      if (activeTabId === 'hoje') renderActiveDayPanel(metrics);
+      if (activeTabId === 'cronograma') renderFullScheduleTab();
+      if (activeTabId === 'desempenho') renderPerformanceTab(metrics);
+      if (activeTabId === 'edital') renderEditalVerticalTab();
+      if (activeTabId === 'simulados') renderSimuladosTab();
+      if (activeTabId === 'aulas') renderYoutubePlaylistTab();
+
       if (typeof lucide !== 'undefined') {
         lucide.createIcons();
       }
@@ -4153,6 +4216,20 @@ create policy "Acesso Publico OAB" on oab_progress for all using (true) with che
       });
 
       // Prev / Next / Jump Day
+      document.getElementById('btn-sidebar-prev-week').addEventListener('click', () => {
+        if (currentSidebarWeek > 1) {
+          currentSidebarWeek--;
+          renderSidebarWeek(currentSidebarWeek, appState.activeDay);
+        }
+      });
+
+      document.getElementById('btn-sidebar-next-week').addEventListener('click', () => {
+        if (currentSidebarWeek < 12) {
+          currentSidebarWeek++;
+          renderSidebarWeek(currentSidebarWeek, appState.activeDay);
+        }
+      });
+
       document.getElementById('btn-prev-day').addEventListener('click', () => {
         if (appState.activeDay > 1) {
           appState.activeDay--;
